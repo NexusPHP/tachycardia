@@ -28,4 +28,25 @@
             <html outputDirectory="build/logs/html"/>
         </report>
     </coverage>
+
+    <extensions>
+        <extension class="Nexus\PHPUnit\Extension\Tachycardia">
+            <arguments>
+                <array>
+                    <element key="timeLimit">
+                        <double>1.00</double>
+                    </element>
+                    <element key="reportable">
+                        <integer>10</integer>
+                    </element>
+                    <element key="precision">
+                        <integer>4</integer>
+                    </element>
+                    <element key="tabulate">
+                        <boolean>false</boolean>
+                    </element>
+                </array>
+            </arguments>
+        </extension>
+    </extensions>
 </phpunit>
