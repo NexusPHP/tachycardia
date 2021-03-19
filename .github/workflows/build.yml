@@ -1,0 +1,108 @@
+name: build
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+    paths:
+      - src/**
+      - tests/**
+      - .github/workflows/build.yml
+      - composer.json
+  pull_request:
+    branches:
+      - develop
+      - master
+    paths:
+      - src/**
+      - tests/**
+      - .github/workflows/build.yml
+      - composer.json
+
+jobs:
+  main:
+    name: Build [PHP ${{ matrix.php-versions }}]
+    runs-on: ubuntu-20.04
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['7.3', '7.4', '8.0']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions}}
+          extensions: xdebug
+          coverage: xdebug
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Create composer cache directory
+        run: mkdir -p ${{ steps.composer-cache.outputs.dir }}
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.*') }}
+          restore-keys: |
+            composer-${{ runner.os }}-${{ matrix.php-version }}-
+            composer-${{ runner.os }}-
+            composer-
+
+      - name: Create PHPStan cache directory
+        run: mkdir -p build/phpstan
+
+      - name: Cache PHPStan cache directory
+        uses: actions/cache@v2
+        with:
+          path: build/phpstan
+          key: phpstan-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            phpstan-${{ runner.os }}-
+            phpstan-
+
+      - name: Setup Composer's GitHub OAuth access
+        run: composer config --global github-oauth.github.com ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Install dependencies
+        run: composer update --ansi --no-scripts --no-interaction
+
+      - name: Run PHP-CS-Fixer
+        run: vendor/bin/php-cs-fixer fix --ansi --config=.php_cs.dist --verbose --dry-run --using-cache=no
+
+      - name: Run PHPStan Static Analysis Check
+        run: vendor/bin/phpstan analyse --ansi
+
+      - name: Run NexusPHP Tachycardia Test Suite
+        run: vendor/bin/phpunit --colors=always
+
+      - name: Run Coveralls
+        run: |
+          composer global require --ansi php-coveralls/php-coveralls
+          php-coveralls --coverage_clover=build/logs/clover.xml -v
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: PHP ${{ matrix.php-version }}
+
+  coveralls-finish:
+    name: Coveralls Finished
+    needs: [main]
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Upload to Coveralls API
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
