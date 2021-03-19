@@ -1,0 +1,8 @@
+.vscode/
+build/
+vendor/
+composer.lock
+.php_cs
+*.neon
+*.cache
+phpunit.xml
