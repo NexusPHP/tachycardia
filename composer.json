@@ -1,0 +1,49 @@
+{
+    "name": "nexusphp/tachycardia",
+    "type": "library",
+    "description": "Detects slow running tests in your PHPUnit-driven test suites.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "John Paul E. Balandan, CPA",
+            "email": "paulbalandan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "nexusphp/cs-config": "^2.1",
+        "phpstan/phpstan": "^0.12.82",
+        "phpstan/phpstan-strict-rules": "^0.12.9"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Nexus\\Tachycardia\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nexus\\Tachycardia\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "support": {
+        "issues": "https://github.com/NexusPHP/tachycardia/issues",
+        "source": "https://github.com/NexusPHP/tachycardia.git",
+        "slack": "https://nexusphp.slack.com"
+    }
+}
