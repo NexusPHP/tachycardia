@@ -1,0 +1,17 @@
+includes:
+  - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+  tmpDir: build/phpstan
+  level: 8
+  paths:
+    - src
+    - tests
+  bootstrapFiles:
+    - vendor/autoload.php
+  parallel:
+    processTimeout: 300.0
+  checkInternalClassCaseSensitivity: true
+  checkTooWideReturnTypesInProtectedAndPublicMethods: true
+  checkUninitializedProperties: true
+  treatPhpDocTypesAsCertain: false
