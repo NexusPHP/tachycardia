@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Nexus\\Tachycardia\\": "src/"
+            "Nexus\\PHPUnit\\Extension\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Nexus\\Tachycardia\\Tests\\": "tests/"
+            "Nexus\\PHPUnit\\Extension\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
