@@ -122,6 +122,11 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
             $this->render();
         }
+
+        if (GitHubMonitor::runningInGithubActions()) {
+            $monitor = new GitHubMonitor($this);
+            $monitor->defibrillate();
+        }
     }
 
     public function hasSlowTests(): bool
@@ -133,6 +138,11 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     public function getSlowTests()
     {
         return $this->slowTests;
+    }
+
+    public function getPrecision(): int
+    {
+        return $this->precision;
     }
 
     /**
