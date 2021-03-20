@@ -53,7 +53,7 @@ final class GitHubMonitor
         foreach ($this->tachycardia->getSlowTests() as $test) {
             /** @phpstan-var class-string $class */
             [$class, $method] = explode('::', $test['label'], 2);
-            $method = preg_replace('/^(test(?:\S+))/', '$1', $method) ?? '';
+            $method = preg_replace('/^(test(?:\S+))(\s\S+)+/', '$1', $method) ?? '';
 
             try {
                 $class = new \ReflectionClass($class);
@@ -63,7 +63,7 @@ final class GitHubMonitor
             }
 
             $file = (string) $class->getFileName();
-            $file = strtr($file, (string) getcwd(), '');
+            $file = str_replace((string) getcwd(), '', $file);
             $line = (int) $method->getStartLine();
             $message = $this->recreateMessage($test);
 
@@ -92,7 +92,7 @@ final class GitHubMonitor
         }
 
         echo sprintf(
-            '::warning file=%s, line=%s, col=%s::%s',
+            '::warning file=%s, line=%s, col=%s::%s%0A',
             strtr($file, self::ESCAPED_PROPERTIES),
             strtr((string) $line, self::ESCAPED_PROPERTIES),
             strtr((string) $col, self::ESCAPED_PROPERTIES),
