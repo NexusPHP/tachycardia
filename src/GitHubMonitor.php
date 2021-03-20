@@ -98,6 +98,7 @@ final class GitHubMonitor
             strtr((string) $col, self::ESCAPED_PROPERTIES),
             $message
         );
+        echo "\n";
     }
 
     /**
