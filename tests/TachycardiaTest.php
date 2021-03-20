@@ -33,7 +33,7 @@ final class TachycardiaTest extends TestCase
 
         self::assertTrue($tachycardia->hasSlowTests());
         self::assertSame([['label' => __METHOD__, 'time' => 2.5, 'limit' => 1.0]], $tachycardia->getSlowTests());
-        self::assertStringContainsString('identified this slow test:', $contents);
+        self::assertStringContainsString('identified this sole slow test:', preg_replace('/\\033\[[^m]+m/', '', $contents) ?? '');
     }
 
     public function testDisabledRun(): void
@@ -67,7 +67,7 @@ final class TachycardiaTest extends TestCase
         $contents = (string) ob_get_clean();
 
         self::assertCount(2, $tachycardia->getSlowTests());
-        self::assertStringContainsString('...and 1 more test hidden from view.', $contents);
+        self::assertStringContainsString('...and 1 more test hidden from view.', preg_replace('/\\033\[[^m]+m/', '', $contents) ?? '');
     }
 
     public function testWithTabulate(): void

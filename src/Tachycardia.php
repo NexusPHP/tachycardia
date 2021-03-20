@@ -24,6 +24,9 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      * Whether this extension will monitor slow tests for
      * rendering later in console.
      *
+     * This can be controlled by the `TACHYCARDIA_MONITOR`
+     * environment variable.
+     *
      * @var bool
      */
     private $monitor = true;
@@ -31,6 +34,9 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     /**
      * Whether this extension will monitor slow tests
      * for inline annotations later in Github Actions.
+     *
+     * This can be controlled by the `TACHYCARDIA_MONITOR_GA`
+     * environment variable.
      *
      * @var bool
      */
@@ -145,11 +151,13 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
                 $this->render();
             }
 
+            // @codeCoverageIgnoreStart
             if ($this->monitorForGa && GitHubMonitor::runningInGithubActions()) {
                 $monitor = new GitHubMonitor($this);
                 echo "\n";
                 $monitor->defibrillate();
             }
+            // @codeCoverageIgnoreEnd
         }
     }
 
@@ -206,24 +214,24 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
     private function renderHeader(): void
     {
-        $slow = \count($this->slowTests);
+        $slow = $this->getReportable();
 
-        echo sprintf(
-            "\n\n%s identified %s slow %s:\n",
+        printf(
+            "\n\n%s identified %s %s:\n",
             $this->color(self::class, 'green'),
             1 === $slow ? 'this' : 'these',
-            1 === $slow ? 'test' : 'tests'
+            $this->color(sprintf('%s slow %s', 1 === $slow ? 'sole' : $slow, 1 === $slow ? 'test' : 'tests'), 'yellow')
         );
     }
 
     private function renderAsTable(): void
     {
-        $reportable = min($this->reportable, \count($this->slowTests));
         $slows = [];
         $max = ['label' => 9, 'time' => 13, 'limit' => 10];
 
-        for ($index = 0; $index < $reportable; ++$index) {
+        for ($index = 0; $index < $this->getReportable(); ++$index) {
             ['label' => $label, 'time' => $time, 'limit' => $limit] = $this->slowTests[$index];
+            $label = addslashes($label);
             $time = $this->formTime($time);
             $limit = $this->formTime($limit);
 
@@ -269,17 +277,15 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
     private function renderAsPlain(): void
     {
-        $reportable = min($this->reportable, \count($this->slowTests));
-
-        for ($index = 0; $index < $reportable; ++$index) {
+        for ($index = 0; $index < $this->getReportable(); ++$index) {
             ['label' => $label, 'time' => $time, 'limit' => $limit] = $this->slowTests[$index];
 
-            echo sprintf(
+            printf(
                 "%s  Took %s from %s limit to run %s\n",
-                $this->color("\xE2\x9C\x94", 'bright_green'),
+                $this->color("\xE2\x9A\xA0", 'yellow'),
                 $this->color(number_format($time, $this->precision) . 's', 'yellow'),
                 $this->color(number_format($limit, $this->precision) . 's', 'yellow'),
-                $this->color($label, 'green')
+                $this->color(addslashes($label), 'green')
             );
         }
     }
@@ -289,12 +295,18 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         $hiddenTests = max(\count($this->slowTests) - $this->reportable, 0);
 
         if ($hiddenTests > 0) {
-            echo sprintf(
-                "...and %s more %s hidden from view.\n",
-                $hiddenTests,
-                1 === $hiddenTests ? 'test' : 'tests'
-            );
+            printf("...and %s hidden from view.\n", $this->color(sprintf('%s more %s', $hiddenTests, 1 === $hiddenTests ? 'test' : 'tests'), 'yellow'));
         }
+    }
+
+    /**
+     * Gets the count of reportable slow tests.
+     *
+     * @return int
+     */
+    private function getReportable(): int
+    {
+        return min($this->reportable, \count($this->slowTests));
     }
 
     /**
@@ -327,9 +339,10 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     private function color(string $text, string $color): string
     {
         static $colors = [
-            'green'        => ['open' => 32, 'close' => 39],
-            'yellow'       => ['open' => 33, 'close' => 39],
-            'bright_green' => ['open' => 92, 'close' => 39],
+            'green'         => ['open' => 32, 'close' => 39],
+            'yellow'        => ['open' => 33, 'close' => 39],
+            'bright_green'  => ['open' => 92, 'close' => 39],
+            'bright_yellow' => ['open' => 93, 'close' => 39],
         ];
 
         return sprintf(
@@ -361,11 +374,11 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         $hour = '00';
 
         if ($seconds > 60) {
-            $minute = str_pad((string) (int) (($seconds % 3600) / 60), 2, '0', STR_PAD_LEFT);
+            $minute = str_pad((string) floor(($seconds % 3600) / 60), 2, '0', STR_PAD_LEFT);
         }
 
         if ($seconds > 3600) {
-            $hour = str_pad((string) (int) (($seconds % 86400) / 3600), 2, '0', STR_PAD_LEFT);
+            $hour = str_pad((string) floor(($seconds % 86400) / 3600), 2, '0', STR_PAD_LEFT);
         }
 
         return sprintf('%s:%s:%s', $hour, $minute, $second);

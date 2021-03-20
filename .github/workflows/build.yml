@@ -91,7 +91,6 @@ jobs:
         run: vendor/bin/phpunit --color=always
 
       - name: Run Coveralls
-        if: ${{ matrix.php-versions == '8.0' }}
         run: |
           composer global require --ansi php-coveralls/php-coveralls
           php-coveralls --coverage_clover=build/logs/clover.xml -v

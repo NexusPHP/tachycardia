@@ -48,6 +48,12 @@ final class GitHubMonitor
         return getenv('GITHUB_ACTIONS') !== false;
     }
 
+    /**
+     * Reports the slow tests as inline annotations in
+     * the Github Actions work environment.
+     *
+     * @return void
+     */
     public function defibrillate(): void
     {
         foreach ($this->tachycardia->getSlowTests() as $test) {
@@ -81,6 +87,8 @@ final class GitHubMonitor
      * @param int    $line
      * @param int    $col
      *
+     * @return void
+     *
      * @see https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-a-warning-message
      */
     public function warning(string $message, string $file = '', int $line = 1, int $col = 0): void
@@ -89,13 +97,13 @@ final class GitHubMonitor
 
         if ('' === $file) {
             // @codeCoverageIgnoreStart
-            echo sprintf('::warning::%s', $message);
+            printf('::warning::%s', $message);
 
             return;
             // @codeCoverageIgnoreEnd
         }
 
-        echo sprintf(
+        printf(
             "::warning file=%s, line=%s, col=%s::%s\n",
             strtr($file, self::ESCAPED_PROPERTIES),
             strtr((string) $line, self::ESCAPED_PROPERTIES),
@@ -105,8 +113,8 @@ final class GitHubMonitor
     }
 
     /**
-     * Recreates the message given by Tachycardia::renderPlain without
-     * the ANSI codes and check mark.
+     * Recreates the message given by Tachycardia::renderAsPlain() without
+     * the ANSI codes and warning sign.
      *
      * @param array<string, mixed> $testDetails
      */
@@ -119,7 +127,7 @@ final class GitHubMonitor
             'Took %s from %s limit to run %s',
             number_format($time, $precision) . 's',
             number_format($limit, $precision) . 's',
-            $label
+            addslashes($label)
         );
     }
 }
