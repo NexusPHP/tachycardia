@@ -96,13 +96,12 @@ final class GitHubMonitor
         }
 
         echo sprintf(
-            '::warning file=%s, line=%s, col=%s::%s',
+            "::warning file=%s, line=%s, col=%s::%s\n",
             strtr($file, self::ESCAPED_PROPERTIES),
             strtr((string) $line, self::ESCAPED_PROPERTIES),
             strtr((string) $col, self::ESCAPED_PROPERTIES),
             $message
         );
-        echo "\n";
     }
 
     /**
@@ -117,7 +116,7 @@ final class GitHubMonitor
         $precision = $this->tachycardia->getPrecision();
 
         return sprintf(
-            "Took %s from %s limit to run %s\n",
+            'Took %s from %s limit to run %s',
             number_format($time, $precision) . 's',
             number_format($limit, $precision) . 's',
             $label
