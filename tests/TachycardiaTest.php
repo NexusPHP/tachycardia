@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Extension\Tests;
 
+use Nexus\PHPUnit\Extension\GitHubMonitor;
 use Nexus\PHPUnit\Extension\Tachycardia;
 use PHPUnit\Framework\TestCase;
 
@@ -86,6 +87,29 @@ final class TachycardiaTest extends TestCase
         self::assertStringContainsString('Time Consumed', $contents);
         self::assertStringContainsString('Time Limit', $contents);
         self::assertStringContainsString('02:00:25.0000', $contents);
+    }
+
+    public function testWithGithubActionReporting(): void
+    {
+        if (! GitHubMonitor::runningInGithubActions()) {
+            self::markTestSkipped('This should be tested in Github Actions.');
+        }
+
+        $monitorGa = (string) getenv('TACHYCARDIA_MONITOR_GA');
+        putenv('TACHYCARDIA_MONITOR_GA=enabled');
+
+        $tachycardia = new Tachycardia();
+        $tachycardia->executeBeforeFirstTest();
+        $tachycardia->executeAfterSuccessfulTest(__METHOD__, 2.5);
+
+        ob_start();
+        $tachycardia->executeAfterLastTest();
+        $contents = (string) ob_get_clean();
+
+        self::assertTrue($tachycardia->hasSlowTests());
+        self::assertStringContainsString('::warning', $contents);
+
+        putenv('' === $monitorGa ? 'TACHYCARDIA_MONITOR_GA' : 'TACHYCARDIA_MONITOR_GA=enabled');
     }
 
     public function testFastTest(): void
