@@ -58,8 +58,10 @@ final class GitHubMonitor
             try {
                 $class = new \ReflectionClass($class);
                 $method = $class->getMethod($method);
+                // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
                 continue;
+                // @codeCoverageIgnoreEnd
             }
 
             $file = (string) $class->getFileName();
@@ -86,9 +88,11 @@ final class GitHubMonitor
         $message = strtr($message, self::ESCAPED_DATA);
 
         if ('' === $file) {
+            // @codeCoverageIgnoreStart
             echo sprintf('::warning::%s', $message);
 
             return;
+            // @codeCoverageIgnoreEnd
         }
 
         echo sprintf(
