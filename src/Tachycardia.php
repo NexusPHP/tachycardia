@@ -21,14 +21,25 @@ use PHPUnit\Util\Test as TestUtil;
 final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, BeforeFirstTestHook
 {
     /**
-     * Whether this extension will check for slow tests.
+     * Whether this extension will monitor slow tests for
+     * rendering later in console.
      *
      * @var bool
      */
     private $monitor = true;
 
     /**
-     * Default time limit in seconds.
+     * Whether this extension will monitor slow tests
+     * for inline annotations later in Github Actions.
+     *
+     * @var bool
+     */
+    private $monitorForGa = false;
+
+    /**
+     * Default time limit in seconds for each test method. This can be
+     * overridden by providing inline annotations to the doc blocks of
+     * the test methods you wish to override the time limit.
      *
      * @var float
      */
@@ -78,15 +89,25 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     public function __construct(array $options = [])
     {
         $this->monitor = getenv('TACHYCARDIA_MONITOR') !== 'disabled';
+        $this->monitorForGa = getenv('TACHYCARDIA_MONITOR_GA') === 'enabled';
         $this->timeLimit = $options['timeLimit'] ?? 1.00;
         $this->reportable = $options['reportable'] ?? 10;
         $this->precision = $options['precision'] ?? 4;
         $this->tabulate = $options['tabulate'] ?? false;
     }
 
+    /**
+     * Collects details of successful test runs and picks those
+     * running over the time limits.
+     *
+     * @param string $test Complete name of the test method
+     * @param float  $time PHPUnit time in seconds
+     *
+     * @return void
+     */
     public function executeAfterSuccessfulTest(string $test, float $time): void
     {
-        if (! $this->monitor) {
+        if (! $this->monitor && ! $this->monitorForGa) {
             return;
         }
 
@@ -100,7 +121,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
     public function executeBeforeFirstTest(): void
     {
-        if (! $this->monitor) {
+        if (! $this->monitor && ! $this->monitorForGa) {
             return;
         }
 
@@ -109,7 +130,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
     public function executeAfterLastTest(): void
     {
-        if (! $this->monitor) {
+        if (! $this->monitor && ! $this->monitorForGa) {
             return;
         }
 
@@ -120,27 +141,43 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
                 return $b['time'] <=> $a['time'];
             });
 
-            $this->render();
-            echo "\n";
+            if ($this->monitor) {
+                $this->render();
+            }
 
-            if (GitHubMonitor::runningInGithubActions()) {
+            if ($this->monitorForGa && GitHubMonitor::runningInGithubActions()) {
                 $monitor = new GitHubMonitor($this);
+                echo "\n";
                 $monitor->defibrillate();
             }
         }
     }
 
+    /**
+     * Whether the test suite run has slow tests recorded.
+     *
+     * @return bool
+     */
     public function hasSlowTests(): bool
     {
         return \count($this->slowTests) > 0;
     }
 
-    /** @return array<array<mixed>> */
+    /**
+     * Returns the associative array of details of slow tests.
+     *
+     * @return array<array<mixed>>
+     */
     public function getSlowTests()
     {
         return $this->slowTests;
     }
 
+    /**
+     * Retrieves the current precision for time presentation.
+     *
+     * @return int
+     */
     public function getPrecision(): int
     {
         return $this->precision;
@@ -151,6 +188,8 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      *
      * This can be either via plain rendering or using
      * console tables.
+     *
+     * @return void
      */
     public function render(): void
     {
@@ -165,10 +204,22 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         $this->renderFooter();
     }
 
+    private function renderHeader(): void
+    {
+        $slow = \count($this->slowTests);
+
+        echo sprintf(
+            "\n\n%s identified %s slow %s:\n",
+            $this->color(self::class, 'green'),
+            1 === $slow ? 'this' : 'these',
+            1 === $slow ? 'test' : 'tests'
+        );
+    }
+
     private function renderAsTable(): void
     {
         $reportable = min($this->reportable, \count($this->slowTests));
-        $slow = [];
+        $slows = [];
         $max = ['label' => 9, 'time' => 13, 'limit' => 10];
 
         for ($index = 0; $index < $reportable; ++$index) {
@@ -176,16 +227,17 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
             $time = $this->formTime($time);
             $limit = $this->formTime($limit);
 
+            // collect the max length for each column
             $max['label'] = max($max['label'], \strlen($label));
             $max['time'] = max($max['time'], \strlen($time));
             $max['limit'] = max($max['limit'], \strlen($limit));
 
-            $slow[] = ['label' => $label, 'time' => $time, 'limit' => $limit];
+            $slows[] = ['label' => $label, 'time' => $time, 'limit' => $limit];
         }
 
-        foreach ($slow as $i => $row) {
+        foreach ($slows as $i => $row) {
             foreach ($max as $key => $length) {
-                $slow[$i][$key] = $row[$key] . str_repeat(' ', $length - \strlen($row[$key]));
+                $slows[$i][$key] = $row[$key] . str_repeat(' ', $length - \strlen($row[$key]));
             }
         }
 
@@ -206,7 +258,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         );
         $table .= $body;
 
-        foreach ($slow as ['label' => $label, 'time' => $time, 'limit' => $limit]) {
+        foreach ($slows as ['label' => $label, 'time' => $time, 'limit' => $limit]) {
             $table .= sprintf("| %s | %s | %s |\n", $label, $time, $limit);
         }
 
@@ -232,18 +284,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         }
     }
 
-    private function renderHeader(): void
-    {
-        $slow = \count($this->slowTests);
-
-        echo sprintf(
-            "\n\n%s identified %s slow %s:\n",
-            $this->color(self::class, 'green'),
-            1 === $slow ? 'this' : 'these',
-            1 === $slow ? 'test' : 'tests'
-        );
-    }
-
     private function renderFooter(): void
     {
         $hiddenTests = max(\count($this->slowTests) - $this->reportable, 0);
@@ -260,7 +300,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     /**
      * @param string $test A long description format of the current test
      *
-     * @return string The test name without TestSuiteClassName:: and @dataprovider details
+     * @return string
      */
     private function getTestName(string $test): string
     {
@@ -302,7 +342,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
     /**
      * Takes a timestamp given in `$seconds` and returns a string
-     * in DD:HH:MM:SS form.
+     * in HH:MM:SS form.
      *
      * @param float $seconds
      *

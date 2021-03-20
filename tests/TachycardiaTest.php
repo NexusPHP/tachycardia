@@ -39,7 +39,9 @@ final class TachycardiaTest extends TestCase
     public function testDisabledRun(): void
     {
         $monitor = (string) getenv('TACHYCARDIA_MONITOR');
+        $monitorGa = (string) getenv('TACHYCARDIA_MONITOR_GA');
         putenv('TACHYCARDIA_MONITOR=disabled');
+        putenv('TACHYCARDIA_MONITOR_GA');
 
         $tachycardia = new Tachycardia();
         $tachycardia->executeBeforeFirstTest();
@@ -50,6 +52,7 @@ final class TachycardiaTest extends TestCase
         self::assertSame([], $tachycardia->getSlowTests());
 
         putenv('' === $monitor ? 'TACHYCARDIA_MONITOR' : 'TACHYCARDIA_MONITOR=enabled');
+        putenv('' === $monitorGa ? 'TACHYCARDIA_MONITOR_GA' : 'TACHYCARDIA_MONITOR_GA=enabled');
     }
 
     public function testWithHiddenRows(): void
