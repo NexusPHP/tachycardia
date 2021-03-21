@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: NexusPHP Community Forum
+  - url: https://nexusphp.slack.com
+  - about: Please raise your questions or support in using the library in the NexusPHP Slack channel.
