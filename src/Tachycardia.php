@@ -151,13 +151,11 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
                 $this->render();
             }
 
-            // @codeCoverageIgnoreStart
             if ($this->monitorForGa && GitHubMonitor::runningInGithubActions()) {
                 $monitor = new GitHubMonitor($this);
                 echo "\n";
                 $monitor->defibrillate();
             }
-            // @codeCoverageIgnoreEnd
         }
     }
 
@@ -168,7 +166,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      */
     public function hasSlowTests(): bool
     {
-        return \count($this->slowTests) > 0;
+        return [] !== $this->slowTests;
     }
 
     /**
@@ -176,7 +174,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      *
      * @return array<array<mixed>>
      */
-    public function getSlowTests()
+    public function getSlowTests(): array
     {
         return $this->slowTests;
     }
