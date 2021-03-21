@@ -346,6 +346,8 @@ for all supported matching patterns.
 Contributions are very much welcome. If you see an improvement or bug fix,
 open a [PR](https://github.com/NexusPHP/tachycardia/pulls) now!
 
+Read more on the [Contributing to NexusPHP Tachycardia](.github/CONTRIBUTING.md).
+
 ## Inspiration
 
 Tachycardia was inspired from [`johnkary/phpunit-speedtrap`](https://github.com/johnkary/phpunit-speedtrap),
