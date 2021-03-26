@@ -323,15 +323,48 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         return $test;
     }
 
-    private function parseTimeLimit(string $test): float
+    /**
+     * Gets the annotations for both class and method.
+     *
+     * @param string $test
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    private function getAnnotations(string $test): array
     {
         /** @phpstan-var class-string $class */
         [$class, $method] = explode('::', $this->getTestName($test), 2);
-        $annotations = TestUtil::parseTestMethodAnnotations($class, $method);
 
-        return isset($annotations['method']['timeLimit'][0]) && is_numeric($annotations['method']['timeLimit'][0])
-            ? (float) $annotations['method']['timeLimit'][0] // @codeCoverageIgnore
-            : $this->timeLimit;
+        return TestUtil::parseTestMethodAnnotations($class, $method);
+    }
+
+    /**
+     * Gets the time limit appropriate for the test method.
+     *
+     * Order of precedence:
+     * - method time limit
+     * - class time limit
+     * - default time limit
+     *
+     * @param string $test
+     *
+     * @return float
+     */
+    private function parseTimeLimit(string $test): float
+    {
+        $annotations = $this->getAnnotations($test);
+        $classHasTimeLimit = isset($annotations['class']['timeLimit'][0]) && is_numeric($annotations['class']['timeLimit'][0]);
+        $methodHasTimeLimit = isset($annotations['method']['timeLimit'][0]) && is_numeric($annotations['method']['timeLimit'][0]);
+
+        if ($methodHasTimeLimit) {
+            return (float) $annotations['method']['timeLimit'][0]; // @codeCoverageIgnore
+        }
+
+        if ($classHasTimeLimit) {
+            return (float) $annotations['class']['timeLimit'][0]; // @codeCoverageIgnore
+        }
+
+        return $this->timeLimit;
     }
 
     private function color(string $text, string $color): string
