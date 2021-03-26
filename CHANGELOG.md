@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Fixed correct line number rendering in Github Actions ([\#3](https://github.com/NexusPHP/tachycardia/pull/3))
 - Fixed initial release date ([\#4](https://github.com/NexusPHP/tachycardia/pull/4))
+- Added ability to supply class-level time limit annotations ([\#5](https://github.com/NexusPHP/tachycardia/pull/5))
 
 ## [v1.0.0](https://github.com/NexusPHP/tachycardia/releases/tag/v1.0.0) - 2021-03-21
 

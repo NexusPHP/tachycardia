@@ -241,6 +241,28 @@ public function testLongRunningCodeBeingTested(): void
 
 ```
 
+### Setting custom time limits per class
+
+If you are feeling lazy and want to set a time limit applicable for the whole class, you can do so by
+including a class-wide `@timeLimit` annotation. This works the same way as with method-level time limits.
+
+```php
+/**
+ * @timeLimit 3.0
+ */
+class FooTakesLongToTest
+{
+    public function testOne(): void {}
+    public function testTwo(): void {}
+}
+
+```
+
+Please be guided that if both method-level and class-level time limit annotations exist, then the method-level
+annotation will take precedence.
+
+The order of precedence is: `method-level annotation > class-level annotation > default time limit`
+
 ### Enable/disable profiling in Github Actions
 
 Profiling in development for the Github Actions is **disabled** by default because the console cannot
