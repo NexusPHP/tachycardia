@@ -4,6 +4,10 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased](https://github.com/NexusPHP/tachycardia/compare/HEAD...v1.0.0) - unreleased
+
+- Fixed correct line number rendering in Github Actions ([\#3](https://github.com/NexusPHP/tachyacardia/pull/3))
+
 ## [v1.0.0](https://github.com/NexusPHP/tachycardia/releases/tag/v1.0.0) - 2020-03-21
 
 Initial release.

@@ -104,10 +104,10 @@ final class GitHubMonitor
         }
 
         printf(
-            "::warning file=%s, line=%s, col=%s::%s\n",
+            "::warning file=%s,line=%d,col=%d::%s\n",
             strtr($file, self::ESCAPED_PROPERTIES),
-            strtr((string) $line, self::ESCAPED_PROPERTIES),
-            strtr((string) $col, self::ESCAPED_PROPERTIES),
+            $line,
+            $col,
             $message
         );
     }
