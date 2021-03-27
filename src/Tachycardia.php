@@ -120,7 +120,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         $label = $this->getTestName($test);
         $limit = $this->parseTimeLimit($test);
 
-        if ($time >= $limit) {
+        if (! $this->isProfilingDisabled($test) && $time >= $limit) {
             $this->slowTests[] = compact('label', 'time', 'limit');
         }
     }
@@ -365,6 +365,25 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         }
 
         return $this->timeLimit;
+    }
+
+    /**
+     * Whether a test case is disabled for profiling, i.e., to
+     * be skipped for analysis.
+     *
+     * Order of precedence
+     * - method @noTimeLimit
+     * - class @noTimeLimit
+     *
+     * @param string $test
+     *
+     * @return bool
+     */
+    private function isProfilingDisabled(string $test): bool
+    {
+        $annotations = $this->getAnnotations($test);
+
+        return isset($annotations['method']['noTimeLimit'][0]) || isset($annotations['class']['noTimeLimit'][0]);
     }
 
     private function color(string $text, string $color): string

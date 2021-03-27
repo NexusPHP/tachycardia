@@ -14,7 +14,7 @@ during pull requests.
 **NOTE:** Tachycardia will only detect the slow tests in your test suites but will offer no explanation
 as to why these identified are slow. You should use a dedicated profiler for these instead.
 
-```sh
+```console
 $ vendor/bin/phpunit
 PHPUnit 9.5.3 by Sebastian Bergmann and contributors.
 
@@ -195,6 +195,15 @@ Add the `env` element to your `phpunit.xml.dist` file disabling Tachycardia then
     TACHYCARDIA_MONITOR: disabled
 ```
 
+### Enable/disable profiling in Github Actions
+
+Profiling in development for the Github Actions is **disabled** by default because the console cannot
+interpret the special workflow commands used by Github Actions. Using the `TACHYCARDIA_MONITOR_GA`
+variable, you can enable it by exporting `TACHYCARDIA_MONITOR_GA=enabled`. To disable, just export
+`TACHYCARDIA_MONITOR_GA=disabled`.
+
+The steps here are similar to above procedures for setting `TACHYCARDIA_MONITOR` variable.
+
 #### 3. Disable profiling and enable only on demand
 
 ```xml
@@ -215,7 +224,7 @@ Add the `env` element to your `phpunit.xml.dist` file disabling Tachycardia then
 When running `vendor/bin/phpunit` either from the terminal or from Github Actions, just pass the variable
 like this:
 
-```sh
+```console
 $ TACHYCARDIA_MONITOR=enabled vendor/bin/phpunit
 ```
 
@@ -263,14 +272,36 @@ annotation will take precedence.
 
 The order of precedence is: `method-level annotation > class-level annotation > default time limit`
 
-### Enable/disable profiling in Github Actions
+### Disabling time limits per test or per class
 
-Profiling in development for the Github Actions is **disabled** by default because the console cannot
-interpret the special workflow commands used by Github Actions. Using the `TACHYCARDIA_MONITOR_GA`
-variable, you can enable it by exporting `TACHYCARDIA_MONITOR_GA=enabled`. To disable, just export
-`TACHYCARDIA_MONITOR_GA=disabled`.
+There may be instances where you do not want to include a particular test case or class from slow test
+profiling. One reason is that you do not want to be burdened first of the existing slow tests and just fix
+"for now" the emerging slow tests. Whatever reason that may be, you can disable the profiling by using
+the `@noTimeLimit` annotation. This can be placed either in the test case or in the test class.
 
-The steps here are similar to above procedures for setting `TACHYCARDIA_MONITOR` variable.
+```php
+// method-level disabling
+final class FooTest extends \PHPUnit\Framework\TestCase
+{
+    /**
+     * @noTimeLimit
+     */
+    public function testExtremelySlowTest(): void {}
+}
+
+// class-level disabling
+/**
+ * @noTimeLimit
+ */
+final class BarTest extends \PHPUnit\Framework\TestCase
+{
+    public function testSluggishTest(): void {}
+}
+```
+
+Method-level disabling takes precedence from class-level disabling. Moreover, if you have a `@noTimeLimit`
+applied to a test case, either through the method or the class, and a custom `@timeLimit` applied also to
+this test case, **THE `@noTimeLIMIT` ANNOTATION WILL TAKE PRECEDENCE**.
 
 ### Tabulating results instead of plain render
 
@@ -298,7 +329,7 @@ in the `phpunit.xml.dist` file.
 
 Running `vendor/bin/phpunit` will now yield the report similar to this:
 
-```sh
+```console
 $ vendor/bin/phpunit
 PHPUnit 9.5.3 by Sebastian Bergmann and contributors.
 
