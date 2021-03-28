@@ -195,15 +195,6 @@ Add the `env` element to your `phpunit.xml.dist` file disabling Tachycardia then
     TACHYCARDIA_MONITOR: disabled
 ```
 
-### Enable/disable profiling in Github Actions
-
-Profiling in development for the Github Actions is **disabled** by default because the console cannot
-interpret the special workflow commands used by Github Actions. Using the `TACHYCARDIA_MONITOR_GA`
-variable, you can enable it by exporting `TACHYCARDIA_MONITOR_GA=enabled`. To disable, just export
-`TACHYCARDIA_MONITOR_GA=disabled`.
-
-The steps here are similar to above procedures for setting `TACHYCARDIA_MONITOR` variable.
-
 #### 3. Disable profiling and enable only on demand
 
 ```xml
@@ -227,6 +218,15 @@ like this:
 ```console
 $ TACHYCARDIA_MONITOR=enabled vendor/bin/phpunit
 ```
+
+### Enable/disable profiling in Github Actions
+
+Profiling in development for the Github Actions is **disabled** by default because the console cannot
+interpret the special workflow commands used by Github Actions. Using the `TACHYCARDIA_MONITOR_GA`
+variable, you can enable it by exporting `TACHYCARDIA_MONITOR_GA=enabled`. To disable, just export
+`TACHYCARDIA_MONITOR_GA=disabled`.
+
+The steps here are similar to above procedures for setting `TACHYCARDIA_MONITOR` variable.
 
 ### Setting custom time limits per test
 
@@ -386,8 +386,8 @@ value to PHPUnit's `--filter` option.
 
 2. Paste it as the value to the `--filter` option:
 
-```
-vendor/bin/phpunit --filter 'Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testWithProvider with data set \"slow\"'
+```console
+$ vendor/bin/phpunit --filter 'Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testWithProvider with data set \"slow\"'
 ```
 
 Note that PHPUnit uses single quotes for the value of the `--filter` option. Read more on
