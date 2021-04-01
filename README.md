@@ -25,15 +25,15 @@ Configuration: /home/runner/work/tachycardia/tachycardia/phpunit.xml.dist
 ...................................                               35 / 35 (100%)
 
 Nexus\PHPUnit\Extension\Tachycardia identified these 14 slow tests:
-⚠  Took 7.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testWithProvider with data set \"slowest\"
-⚠  Took 6.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testWithProvider with data set \"slower\"
-⚠  Took 5.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testWithProvider with data set \"slow\"
-⚠  Took 4.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testSlowestTest
-⚠  Took 3.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testSlowerTest
+⚠  Took 7.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slowest\"
+⚠  Took 6.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slower\"
+⚠  Took 5.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slow\"
+⚠  Took 4.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testSlowestTest
+⚠  Took 3.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testSlowerTest
 ⚠  Took 2.5040s from 2.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\ClassAnnotationsTest::testSlowTestUsesClassTimeLimit
-⚠  Took 2.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testSlowTest
+⚠  Took 2.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testSlowTest
 ⚠  Took 1.5012s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\NoTimeLimitInMethodTest::testSlowTestNotDisabled
-⚠  Took 1.0004s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testCustomLowerLimit
+⚠  Took 1.0004s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testCustomLowerLimit
 ⚠  Took 0.9012s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #4
 ⚠  Took 0.8011s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #3
 ⚠  Took 0.7011s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #2

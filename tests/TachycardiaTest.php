@@ -15,6 +15,7 @@ namespace Nexus\PHPUnit\Extension\Tests;
 
 use Nexus\PHPUnit\Extension\Tachycardia;
 use Nexus\PHPUnit\Extension\Tests\Live\ClassAnnotationsTest;
+use Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest;
 use Nexus\PHPUnit\Extension\Util\GithubMonitor;
 use PHPUnit\Framework\TestCase;
 

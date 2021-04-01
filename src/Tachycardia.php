@@ -169,8 +169,8 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
                 $this->render();
             }
 
-            if ($this->monitorForGa && GitHubMonitor::runningInGithubActions()) {
-                $monitor = new GitHubMonitor($this);
+            if ($this->monitorForGa && GithubMonitor::runningInGithubActions()) {
+                $monitor = new GithubMonitor($this);
                 echo "\n";
                 $monitor->defibrillate();
             }
