@@ -4,6 +4,12 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.2.0](https://github.com/NexusPHP/tachycardia/commpare/v1.1.1...v1.2.0) - 2021-04-01
+
+- Added `Parser` and `TestCase` util classes ([24949f1](https://github.com/NexusPHP/tachycardia/commit/24949f1b9e916f9fe2a49dd10ac41a1c4b2f9d83), [4342500](https://github.com/NexusPHP/tachycardia/commit/43425004816f6799e8620649a2a62917c6f562f1))
+- Refactored `Tachycardia` and moved `GithubMonitor` as a util class ([ae2f920](https://github.com/NexusPHP/tachycardia/commit/ae2f92055c3b0070c55bf262d09d57ff3780f997))
+- Fixed custom time limits not respected in data providers ([\#7](https://github.com/NexusPHP/tachycardia/issues/7), [f9750f6](https://github.com/NexusPHP/tachycardia/commit/f9750f6fac13213649a72f90e58f2e28d9b1ac6d))
+
 ## [v1.1.1](https://github.com/NexusPHP/tachycardia/compare/v1.1.0...v1.1.1) - 2021-03-28
 
 - Fixed misplaced sections in README ([ec868d5](https://github.com/NexusPHP/tachycardia/commit/ec868d5d22e6dbc7a117cf1672acadbd3a524e94))
