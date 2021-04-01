@@ -11,37 +11,38 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension\Tests;
+namespace Nexus\PHPUnit\Extension\Tests\Live;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @timeLimit 2.0
  */
-final class NoTimeLimitInMethodTest extends TestCase
+final class ClassAnnotationsTest extends TestCase
 {
     /**
-     * This should be reported as slow.
+     * This should be reported as slow using the class time limit.
      *
      * @return void
      */
-    public function testSlowTestNotDisabled(): void
+    public function testSlowTestUsesClassTimeLimit(): void
     {
-        usleep(1500000);
+        usleep(2500000); // 2.5 seconds
         self::assertTrue(true);
     }
 
     /**
-     * This should not be reported as slow since
-     * this is explicitly disabled.
+     * This should not be reported as slow since this uses the method's time limit.
      *
-     * @noTimeLimit
+     * @timeLimit 3.0
      *
      * @return void
      */
-    public function testSlowTestDisabledForProfiling(): void
+    public function testSlowTestUsesMethodTimeLimit(): void
     {
-        usleep(1500000);
+        usleep(2500000); // 2.5 seconds
         self::assertTrue(true);
     }
 }
