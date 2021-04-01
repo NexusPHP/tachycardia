@@ -13,10 +13,11 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Extension;
 
+use Nexus\PHPUnit\Extension\Util\GithubMonitor;
+use Nexus\PHPUnit\Extension\Util\Parser;
 use PHPUnit\Runner\AfterLastTestHook;
 use PHPUnit\Runner\AfterSuccessfulTestHook;
 use PHPUnit\Runner\BeforeFirstTestHook;
-use PHPUnit\Util\Test as TestUtil;
 
 final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, BeforeFirstTestHook
 {
@@ -88,6 +89,20 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     private $suites = 0;
 
     /**
+     * Instance of Parser.
+     *
+     * @var \Nexus\PHPUnit\Extension\Util\Parser
+     */
+    private $parser;
+
+    /**
+     * The current test case being profiled wrapped as a TestCase object.
+     *
+     * @var \Nexus\PHPUnit\Extension\Util\TestCase
+     */
+    private $testCase;
+
+    /**
      * Constructor.
      *
      * @param array{'timeLimit'?:float, 'reportable'?:int, 'precision'?:int, 'tabulate'?:bool} $options
@@ -100,6 +115,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         $this->reportable = $options['reportable'] ?? 10;
         $this->precision = $options['precision'] ?? 4;
         $this->tabulate = $options['tabulate'] ?? false;
+        $this->parser = Parser::getInstance();
     }
 
     /**
@@ -117,10 +133,12 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
             return;
         }
 
-        $label = $this->getTestName($test);
-        $limit = $this->parseTimeLimit($test);
+        $this->testCase = $this->parser->parseTest($test);
 
-        if (! $this->isProfilingDisabled($test) && $time >= $limit) {
+        $label = $this->testCase->getTestName();
+        $limit = $this->parseTimeLimit();
+
+        if (! $this->isProfilingDisabled() && $time >= $limit) {
             $this->slowTests[] = compact('label', 'time', 'limit');
         }
     }
@@ -238,7 +256,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
             $max['time'] = max($max['time'], \strlen($time));
             $max['limit'] = max($max['limit'], \strlen($limit));
 
-            $slows[] = ['label' => $label, 'time' => $time, 'limit' => $limit];
+            $slows[] = compact('label', 'time', 'limit');
         }
 
         foreach ($slows as $i => $row) {
@@ -308,37 +326,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     }
 
     /**
-     * @param string $test A long description format of the current test
-     *
-     * @return string
-     */
-    private function getTestName(string $test): string
-    {
-        $matches = [];
-
-        if (preg_match('/^(?P<name>\S+::\S+)(?:(?P<dataname> with data set (?:#\d+|"[^"]+"))\s\()?/', $test, $matches) === 1) {
-            $test = $matches['name'] . ($matches['dataname'] ?? '');
-        }
-
-        return $test;
-    }
-
-    /**
-     * Gets the annotations for both class and method.
-     *
-     * @param string $test
-     *
-     * @return array<string, array<string, mixed>>
-     */
-    private function getAnnotations(string $test): array
-    {
-        /** @phpstan-var class-string $class */
-        [$class, $method] = explode('::', $this->getTestName($test), 2);
-
-        return TestUtil::parseTestMethodAnnotations($class, $method);
-    }
-
-    /**
      * Gets the time limit appropriate for the test method.
      *
      * Order of precedence:
@@ -346,22 +333,24 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      * - class time limit
      * - default time limit
      *
-     * @param string $test
-     *
      * @return float
      */
-    private function parseTimeLimit(string $test): float
+    private function parseTimeLimit(): float
     {
-        $annotations = $this->getAnnotations($test);
-        $classHasTimeLimit = isset($annotations['class']['timeLimit'][0]) && is_numeric($annotations['class']['timeLimit'][0]);
-        $methodHasTimeLimit = isset($annotations['method']['timeLimit'][0]) && is_numeric($annotations['method']['timeLimit'][0]);
+        if ($this->testCase->hasMethodAnnotation('timeLimit')) {
+            $timeLimit = $this->testCase->getMethodAnnotation('timeLimit')[0];
 
-        if ($methodHasTimeLimit) {
-            return (float) $annotations['method']['timeLimit'][0]; // @codeCoverageIgnore
+            if (is_numeric($timeLimit)) {
+                return (float) $timeLimit;
+            }
         }
 
-        if ($classHasTimeLimit) {
-            return (float) $annotations['class']['timeLimit'][0]; // @codeCoverageIgnore
+        if ($this->testCase->hasClassAnnotation('timeLimit')) {
+            $timeLimit = $this->testCase->getClassAnnotation('timeLimit')[0];
+
+            if (is_numeric($timeLimit)) {
+                return (float) $timeLimit;
+            }
         }
 
         return $this->timeLimit;
@@ -375,15 +364,11 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      * - method @noTimeLimit
      * - class @noTimeLimit
      *
-     * @param string $test
-     *
      * @return bool
      */
-    private function isProfilingDisabled(string $test): bool
+    private function isProfilingDisabled(): bool
     {
-        $annotations = $this->getAnnotations($test);
-
-        return isset($annotations['method']['noTimeLimit'][0]) || isset($annotations['class']['noTimeLimit'][0]);
+        return $this->testCase->hasMethodAnnotation('noTimeLimit') || $this->testCase->hasClassAnnotation('noTimeLimit');
     }
 
     private function color(string $text, string $color): string

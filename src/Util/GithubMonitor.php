@@ -11,9 +11,14 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension;
+namespace Nexus\PHPUnit\Extension\Util;
 
-final class GitHubMonitor
+use Nexus\PHPUnit\Extension\Tachycardia;
+
+/**
+ * @internal
+ */
+final class GithubMonitor
 {
     /** @see https://github.com/actions/toolkit/blob/5e5e1b7aacba68a53836a34db4a288c3c1c1585b/packages/core/src/command.ts#L80-L85 */
     private const ESCAPED_DATA = [

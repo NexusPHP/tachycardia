@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Extension\Tests;
 
-use Nexus\PHPUnit\Extension\GitHubMonitor;
 use Nexus\PHPUnit\Extension\Tachycardia;
+use Nexus\PHPUnit\Extension\Tests\Live\ClassAnnotationsTest;
+use Nexus\PHPUnit\Extension\Util\GithubMonitor;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -32,6 +33,7 @@ final class TachycardiaTest extends TestCase
         $tachycardia->executeAfterLastTest();
         $contents = (string) ob_get_clean();
 
+        self::assertIsInt($tachycardia->getPrecision());
         self::assertTrue($tachycardia->hasSlowTests());
         self::assertSame([['label' => __METHOD__, 'time' => 2.5, 'limit' => 1.0]], $tachycardia->getSlowTests());
         self::assertStringContainsString('identified this sole slow test:', preg_replace('/\\033\[[^m]+m/', '', $contents) ?? '');
@@ -91,7 +93,7 @@ final class TachycardiaTest extends TestCase
 
     public function testWithGithubActionReporting(): void
     {
-        if (! GitHubMonitor::runningInGithubActions()) {
+        if (! GithubMonitor::runningInGithubActions()) {
             self::markTestSkipped('This should be tested in Github Actions.');
         }
 
@@ -112,69 +114,34 @@ final class TachycardiaTest extends TestCase
         putenv('' === $monitorGa ? 'TACHYCARDIA_MONITOR_GA' : 'TACHYCARDIA_MONITOR_GA=enabled');
     }
 
-    public function testFastTest(): void
+    public function testFullRun(): void
     {
-        self::assertTrue(true);
-    }
+        $tachycardia = new Tachycardia();
+        $tachycardia->executeBeforeFirstTest();
+        $tachycardia->executeAfterSuccessfulTest(__CLASS__ . '::testInternals', 2.5);
+        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class . '::testCustomLowerLimit', 1.1);
+        $tachycardia->executeAfterSuccessfulTest(ClassAnnotationsTest::class . '::testSlowTestUsesClassTimeLimit', 2.5);
 
-    public function testSlowTest(): void
-    {
-        sleep(2);
-        self::assertTrue(true);
-    }
+        ob_start();
+        $tachycardia->executeAfterLastTest();
+        ob_end_clean();
 
-    public function testSlowerTest(): void
-    {
-        sleep(3);
-        self::assertTrue(true);
-    }
-
-    public function testSlowestTest(): void
-    {
-        sleep(4);
-        self::assertTrue(true);
-    }
-
-    /**
-     * @dataProvider provideTime
-     *
-     * @param int $time
-     */
-    public function testWithProvider(int $time): void
-    {
-        sleep($time);
-        self::assertTrue(true);
-    }
-
-    /** @return int[][] */
-    public function provideTime(): iterable
-    {
-        return [
-            'slow'    => [5],
-            'slower'  => [6],
-            'slowest' => [7],
-        ];
-    }
-
-    /**
-     * This should not be reported as slow.
-     *
-     * @timeLimit 3
-     */
-    public function testCustomHigherLimit(): void
-    {
-        sleep(2);
-        self::assertTrue(true);
-    }
-
-    /**
-     * This should be reported as slow.
-     *
-     * @timeLimit 0.5
-     */
-    public function testCustomLowerLimit(): void
-    {
-        sleep(1);
-        self::assertTrue(true);
+        self::assertSame([
+            [
+                'label' => __CLASS__ . '::testInternals',
+                'time'  => 2.5,
+                'limit' => 1.0,
+            ],
+            [
+                'label' => ClassAnnotationsTest::class . '::testSlowTestUsesClassTimeLimit',
+                'time'  => 2.5,
+                'limit' => 2.0,
+            ],
+            [
+                'label' => SlowTestsTest::class . '::testCustomLowerLimit',
+                'time'  => 1.1,
+                'limit' => 0.5,
+            ],
+        ], $tachycardia->getSlowTests());
     }
 }
