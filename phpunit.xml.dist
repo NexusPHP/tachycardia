@@ -37,7 +37,7 @@
                         <double>1.00</double>
                     </element>
                     <element key="reportable">
-                        <integer>10</integer>
+                        <integer>20</integer>
                     </element>
                     <element key="precision">
                         <integer>4</integer>
