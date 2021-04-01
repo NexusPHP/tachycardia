@@ -3,9 +3,10 @@
 [![PHP version](https://img.shields.io/packagist/php-v/nexusphp/tachycardia)](https://php.net)
 ![build](https://github.com/NexusPHP/tachycardia/actions/workflows/build.yml/badge.svg?branch=develop)
 [![Coverage Status](https://coveralls.io/repos/github/NexusPHP/tachycardia/badge.svg?branch=develop)](https://coveralls.io/github/NexusPHP/tachycardia?branch=develop)
-[![PHPStan Level](https://img.shields.io/badge/PHPStan%20Level-max-brightgreen)](phpstan.neon.dist)
+[![PHPStan](https://img.shields.io/badge/PHPStan-max%20level-brightgreen)](phpstan.neon.dist)
 [![Latest Stable Version](https://poser.pugx.org/nexusphp/tachycardia/v)](//packagist.org/packages/nexusphp/tachycardia)
 [![License](https://img.shields.io/github/license/nexusphp/tachycardia)](LICENSE)
+[![Total Downloads](https://poser.pugx.org/nexusphp/tachycardia/downloads)](//packagist.org/packages/nexusphp/tachycardia)
 
 **Tachycardia** is a PHPUnit extension that detects and reports slow running tests and prints them
 right in your console. It can also optionally inline annotate the specific tests in the files
@@ -16,38 +17,37 @@ as to why these identified are slow. You should use a dedicated profiler for the
 
 ```console
 $ vendor/bin/phpunit
-PHPUnit 9.5.3 by Sebastian Bergmann and contributors.
+PHPUnit 9.5.4 by Sebastian Bergmann and contributors.
 
 Runtime:       PHP 8.0.3 with Xdebug 3.0.3
-Configuration: /var/www/tachycardia/phpunit.xml.dist
+Configuration: /home/runner/work/tachycardia/tachycardia/phpunit.xml.dist
 
-....S.........                                                    14 / 14 (100%)
+...................................                               35 / 35 (100%)
 
-Nexus\PHPUnit\Extension\Tachycardia identified these 7 slow tests:
-⚠  Took 7.0181s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testWithProvider with data set \"slowest\"
-⚠  Took 6.0154s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testWithProvider with data set \"slower\"
-⚠  Took 5.0216s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testWithProvider with data set \"slow\"
-⚠  Took 4.0104s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testSlowestTest
-⚠  Took 3.0170s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testSlowerTest
-⚠  Took 2.0107s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testSlowTest
-⚠  Took 1.0150s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testCustomLowerLimit
+Nexus\PHPUnit\Extension\Tachycardia identified these 14 slow tests:
+⚠  Took 7.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testWithProvider with data set \"slowest\"
+⚠  Took 6.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testWithProvider with data set \"slower\"
+⚠  Took 5.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testWithProvider with data set \"slow\"
+⚠  Took 4.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testSlowestTest
+⚠  Took 3.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testSlowerTest
+⚠  Took 2.5040s from 2.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\ClassAnnotationsTest::testSlowTestUsesClassTimeLimit
+⚠  Took 2.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testSlowTest
+⚠  Took 1.5012s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\NoTimeLimitInMethodTest::testSlowTestNotDisabled
+⚠  Took 1.0004s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\SlowTestsTest::testCustomLowerLimit
+⚠  Took 0.9012s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #4
+⚠  Took 0.8011s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #3
+⚠  Took 0.7011s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #2
+⚠  Took 0.6012s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #1
+⚠  Took 0.5513s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #0
 
 
-Time: 00:31.109, Memory: 8.00 MB
+Time: 00:43.251, Memory: 16.00 MB
 
-There was 1 skipped test:
+OK (35 tests, 55 assertions)
 
-1) Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testWithGithubActionReporting
-This should be tested in Github Actions.
+Generating code coverage report in Clover XML format ... done [00:00.004]
 
-/var/www/tachycardia/tests/TachycardiaTest.php:95
-
-OK, but incomplete, skipped, or risky tests!
-Tests: 14, Assertions: 21, Skipped: 1.
-
-Generating code coverage report in Clover XML format ... done [00:00.065]
-
-Generating code coverage report in HTML format ... done [00:01.408]
+Generating code coverage report in HTML format ... done [00:00.038]
 ```
 
 ## Installation
@@ -62,7 +62,7 @@ running your project's test suite. You can install using [Composer](https://getc
 Tachycardia supports these parameters:
 
 - **timeLimit** - Time limit in seconds to be enforced for all tests. All tests exceeding
-    this amount will be considered as slow. ***Default: 1.00s***
+    this amount will be considered as slow. ***Default: 1.00***
 - **reportable** - Number of slow tests to be displayed in the console report. This is ignored
     on Github Actions report. ***Default: 10***
 - **precision** - Degree of precision of the decimals of the test's consumed time and allotted
