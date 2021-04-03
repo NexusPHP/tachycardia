@@ -21,9 +21,6 @@ final class TimeState
     /** @var array<string, array<string, float>> */
     private $timeStates = [];
 
-    /** @var Parser */
-    private $parser;
-
     /**
      * Constructor.
      *
@@ -37,12 +34,16 @@ final class TimeState
             if (! \is_array($timeStates)) {
                 $timeStates = [];
             }
-
-            unset($GLOBALS['__TACHYCARDIA_TIME_STATES']);
         }
 
-        $this->timeStates = $timeStates;
-        $this->parser = Parser::getInstance();
+        $this->timeStates = &$timeStates;
+    }
+
+    public function __destruct()
+    {
+        if (isset($GLOBALS['__TACHYCARDIA_TIME_STATES'])) {
+            unset($GLOBALS['__TACHYCARDIA_TIME_STATES']);
+        }
     }
 
     /**
@@ -67,7 +68,7 @@ final class TimeState
      */
     public function find(string $test, ?float $actual = null)
     {
-        $testName = $this->parser->parseTest($test)->getTestName();
+        $testName = Parser::getInstance()->parseTest($test)->getTestName();
         $testName = md5($testName);
 
         if (null !== $actual) {
