@@ -72,9 +72,9 @@ final class TestCase
         return $this->name;
     }
 
-    public function getTestName(): string
+    public function getTestName(bool $withDataname = true): string
     {
-        return sprintf('%s::%s', $this->getClass(), $this->getName(true));
+        return sprintf('%s::%s', $this->getClass(), $this->getName($withDataname));
     }
 
     /** @return array<string, mixed> */

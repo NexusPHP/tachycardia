@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Nexus\PHPUnit\Extension\Tests\Util;
 
 use Nexus\PHPUnit\Extension\Tests\Live\NoTimeLimitInMethodTest;
+use Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest;
 use Nexus\PHPUnit\Extension\Util\TestCase as UtilTestCase;
 use PHPUnit\Framework\TestCase;
 
@@ -49,5 +50,13 @@ final class TestCaseTest extends TestCase
         self::assertTrue($testcase->hasMethodAnnotation('noTimeLimit'));
         self::assertFalse($testcase->hasMethodAnnotation('timeLimit'));
         self::assertSame(['void'], $testcase->getMethodAnnotation('return'));
+    }
+
+    public function testGetTestNameWithDataName(): void
+    {
+        $testcase = new UtilTestCase(SlowTestsTest::class, 'testWithProvider', ' with data set "slow"');
+
+        self::assertSame('Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest::testWithProvider', $testcase->getTestName(false));
+        self::assertSame('Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest::testWithProvider with data set "slow"', $testcase->getTestName(true));
     }
 }
