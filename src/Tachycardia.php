@@ -15,6 +15,7 @@ namespace Nexus\PHPUnit\Extension;
 
 use Nexus\PHPUnit\Extension\Util\GithubMonitor;
 use Nexus\PHPUnit\Extension\Util\Parser;
+use Nexus\PHPUnit\Extension\Util\TimeState;
 use PHPUnit\Runner\AfterLastTestHook;
 use PHPUnit\Runner\AfterSuccessfulTestHook;
 use PHPUnit\Runner\BeforeFirstTestHook;
@@ -81,19 +82,19 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     private $slowTests = [];
 
     /**
+     * Instance of TimeState.
+     *
+     * @var \Nexus\PHPUnit\Extension\Util\TimeState
+     */
+    private $timeState;
+
+    /**
      * Internal count of test suites run. Returning to 0 means the tests
      * finished running.
      *
      * @var int
      */
     private $suites = 0;
-
-    /**
-     * Instance of Parser.
-     *
-     * @var \Nexus\PHPUnit\Extension\Util\Parser
-     */
-    private $parser;
 
     /**
      * The current test case being profiled wrapped as a TestCase object.
@@ -105,7 +106,15 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     /**
      * Constructor.
      *
-     * @param array{'timeLimit'?:float, 'reportable'?:int, 'precision'?:int, 'tabulate'?:bool} $options
+     * @param array<string, mixed> $options
+     *
+     * @phpstan-param array{
+     *     'timeLimit'?:float,
+     *     'reportable'?:int,
+     *     'precision'?:int,
+     *     'tabulate'?:bool,
+     *     'collectBare'?:bool,
+     * } $options
      */
     public function __construct(array $options = [])
     {
@@ -115,7 +124,10 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         $this->reportable = $options['reportable'] ?? 10;
         $this->precision = $options['precision'] ?? 4;
         $this->tabulate = $options['tabulate'] ?? false;
-        $this->parser = Parser::getInstance();
+
+        if ($options['collectBare'] ?? false) {
+            $this->timeState = new TimeState();
+        }
     }
 
     /**
@@ -133,7 +145,12 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
             return;
         }
 
-        $this->testCase = $this->parser->parseTest($test);
+        $this->testCase = Parser::getInstance()->parseTest($test);
+
+        if (isset($this->timeState)) {
+            /** @var float $time */
+            $time = $this->timeState->find($test, $time);
+        }
 
         $label = $this->testCase->getTestName();
         $limit = $this->parseTimeLimit();
