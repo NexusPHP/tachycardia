@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": "^7.3 || ^8.0",
+        "phpunit/php-timer": "^5.0",
         "phpunit/phpunit": "^9.5"
     },
     "require-dev": {
