@@ -28,15 +28,17 @@ final class TimeState
      */
     public function __construct(array $timeStates = [])
     {
-        if ([] === $timeStates && isset($GLOBALS['__TACHYCARDIA_TIME_STATES'])) {
-            $timeStates = $GLOBALS['__TACHYCARDIA_TIME_STATES'];
-
-            if (! \is_array($timeStates)) {
-                $timeStates = [];
+        if ([] === $timeStates) {
+            if (! isset($GLOBALS['__TACHYCARDIA_TIME_STATES'])) {
+                $GLOBALS['__TACHYCARDIA_TIME_STATES'] = [];
             }
+
+            $this->timeStates = &$GLOBALS['__TACHYCARDIA_TIME_STATES'];
+
+            return;
         }
 
-        $this->timeStates = &$timeStates;
+        $this->timeStates = $timeStates;
     }
 
     public function __destruct()
@@ -58,8 +60,9 @@ final class TimeState
 
     /**
      * Finds the bare time for the test, with default to `$actual` if not set.
-     * If `$test` is not set, null is returned. If `$actual` is null, returns the
-     * array of times for the test, which includes the actual and bare times.
+     * If `$test` is not set, `$actual` is returned, which can be null or float.
+     * If `$actual` is null, returns the array of times for the test, which
+     * includes the actual and bare times.
      *
      * @param string     $test
      * @param null|float $actual
@@ -79,7 +82,11 @@ final class TimeState
 
         $result = $this->timeStates[$testName] ?? null;
 
-        if (null === $result || null === $actual) {
+        if (null === $result) {
+            return $actual;
+        }
+
+        if (null === $actual) {
             return $result;
         }
 
