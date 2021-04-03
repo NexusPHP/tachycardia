@@ -18,6 +18,13 @@ use Nexus\PHPUnit\Extension\Util\TimeState;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * This test manipulates the global time states array but on other
+ * tests we are depending on the pristine version. Since `TimeState`
+ * holds a reference to the global array, this test should not be
+ * altering it, so we run this in a separate PHP process.
+ *
+ * @runTestsInSeparateProcesses
+ *
  * @internal
  */
 final class TimeStateTest extends TestCase
@@ -37,12 +44,17 @@ final class TimeStateTest extends TestCase
     /** @var array<string, array<string, float>> */
     private $states;
 
+    /** @var array<string, array<string, float>> */
+    private $oldStates;
+
     protected function setUp(): void
     {
         $this->test1 = sprintf('%s::%s', SlowTestsTest::class, 'testFastTest');
         $this->test2 = sprintf('%s::%s', SlowTestsTest::class, 'testWithProvider with data set "slow"');
         $this->test3 = sprintf('%s::%s', SlowTestsTest::class, 'testWithProvider with data set "slower"');
         $this->test4 = sprintf('%s::%s', SlowTestsTest::class, 'testWithProvider with data set "slowest"');
+
+        $this->oldStates = $GLOBALS['__TACHYCARDIA_TIME_STATES'];
 
         $this->states = $GLOBALS['__TACHYCARDIA_TIME_STATES'] = [
             md5($this->test1) => ['bare' => 0.5],
@@ -53,9 +65,7 @@ final class TimeStateTest extends TestCase
 
     protected function tearDown(): void
     {
-        if (isset($GLOBALS['__TACHYCARDIA_TIME_STATES'])) {
-            unset($GLOBALS['__TACHYCARDIA_TIME_STATES']);
-        }
+        $GLOBALS['__TACHYCARDIA_TIME_STATES'] = $this->oldStates;
     }
 
     public function testTimeStateAcceptsNonEmptyArrayAsIs(): void
@@ -71,13 +81,6 @@ final class TimeStateTest extends TestCase
     {
         $timeState = new TimeState();
         self::assertSame($this->states, $timeState->retrieve());
-    }
-
-    public function testNonEmptyGlobalsDefaultsToArray(): void
-    {
-        $GLOBALS['__TACHYCARDIA_TIME_STATES'] = false;
-        $timeState = new TimeState();
-        self::assertSame([], $timeState->retrieve());
     }
 
     public function testFindUnknownTest(): void
