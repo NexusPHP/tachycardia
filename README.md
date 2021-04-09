@@ -69,6 +69,9 @@ Tachycardia supports these parameters:
     time limit. ***Default: 4***
 - **tabulate** - Boolean flag whether the console report should be displayed in a tabular format
     or just displayed as plain. ***Default: false***
+- **collectBare** - Boolean flag whether collected times should be free of the hook
+    methods' times. Turning this on requires using the `Expeditable` trait or extending
+    the `ExpeditableTestCase` class. ***Default: false***
 
 To use the extension with its default configuration options, you can simply add the following
 into your `phpunit.xml.dist` or `phpunit.xml` file.
@@ -131,6 +134,9 @@ If you wish to customize one or more of the available options, you can just chan
                         <integer>4</integer>
                     </element>
                     <element key="tabulate">
+                        <boolean>false</boolean>
+                    </element>
+                    <element key="collectBare">
                         <boolean>false</boolean>
                     </element>
                 </array>
@@ -393,6 +399,68 @@ $ vendor/bin/phpunit --filter 'Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest
 Note that PHPUnit uses single quotes for the value of the `--filter` option. Read more on
 the [`--filter` option documentation](https://phpunit.readthedocs.io/en/9.5/textui.html?highlight=filter)
 for all supported matching patterns.
+
+### Limiting slow test profiling to the actual test case
+
+By default, PHPUnit benchmarks the execution of test cases starting from the pre-hook methods
+(`setUpBeforeClass`, `setUp`, other `@before` methods), then the test case, and finally the post-hook
+methods (`tearDown`, `tearDownAfterClass`, other `@after` methods). PHPUnit does this for each test.
+
+In the interest of our desire to identify slow tests, we should be aware that there are instances
+that these hook methods are used for initialization and cleanup of variables used in the tests (e.g.,
+establishing a connection to the database, hydrating needed objects, etc.). Depending on these factors,
+the load time to first test execution can be substantially long, adding bloat to the reported times
+to a simple test.
+
+Tachycardia offers a solution for those who want to isolate their tests from variable latency. This is
+a two-step solution that requires using either the `Expeditable` trait or extending
+the `ExpeditableTestCase` abstract class and then turning on the `$collectBare` option.
+
+1. Turn on the `$collectBare` option in your phpunit.xml.dist file by setting it to `true`.
+```xml
+<!-- phpunit.xml.dist -->
+<phpunit bootstrap="vendor/autoload.php">
+    <!-- Other configurations -->
+
+    <extensions>
+        <extension class="Nexus\PHPUnit\Extension\Tachycardia">
+            <arguments>
+                <array>
+                    ...
+                    <element key="collectBare">
+                        <boolean>true</boolean>
+                    </element>
+                </array>
+            </arguments>
+        </extension>
+    </extensions>
+</phpunit>
+```
+
+2. Either use the trait or extending the abstract class.
+```php
+// using the trait
+use Nexus\PHPUnit\Extension\Expeditable;
+use PHPUnit\Framework\TestCase;
+
+final class FooTest extends TestCase
+{
+    use Expeditable;
+
+    // ..
+}
+
+/* ------------------------------------------------- */
+
+// using the abstract class
+use Nexus\PHPUnit\Extension\ExpeditableTestCase;
+
+final class FooTest extends ExpeditableTestCase
+{
+    // ..
+}
+
+```
 
 ## Contributing
 
