@@ -54,7 +54,7 @@ final class TimeStateTest extends TestCase
         $this->test3 = sprintf('%s::%s', SlowTestsTest::class, 'testWithProvider with data set "slower"');
         $this->test4 = sprintf('%s::%s', SlowTestsTest::class, 'testWithProvider with data set "slowest"');
 
-        $this->oldStates = $GLOBALS['__TACHYCARDIA_TIME_STATES'];
+        $this->oldStates = $GLOBALS['__TACHYCARDIA_TIME_STATES'] ?? [];
 
         $this->states = $GLOBALS['__TACHYCARDIA_TIME_STATES'] = [
             md5($this->test1) => ['bare' => 0.5],
