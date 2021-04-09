@@ -29,9 +29,7 @@ final class TimeState
     public function __construct(array $timeStates = [])
     {
         if ([] === $timeStates) {
-            if (! isset($GLOBALS['__TACHYCARDIA_TIME_STATES'])) {
-                $GLOBALS['__TACHYCARDIA_TIME_STATES'] = [];
-            }
+            $GLOBALS['__TACHYCARDIA_TIME_STATES'] = $GLOBALS['__TACHYCARDIA_TIME_STATES'] ?? [];
 
             $this->timeStates = &$GLOBALS['__TACHYCARDIA_TIME_STATES'];
 
