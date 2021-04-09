@@ -64,7 +64,7 @@ final class TachycardiaTest extends TestCase
         $tachycardia = new Tachycardia(['reportable' => 1]);
         $tachycardia->executeBeforeFirstTest();
         $tachycardia->executeAfterSuccessfulTest(__METHOD__, 2.5);
-        $tachycardia->executeAfterSuccessfulTest(__CLASS__ . '::testSlowTest', 2);
+        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class . '::testSlowTest', 2);
 
         ob_start();
         $tachycardia->executeAfterLastTest();
@@ -76,10 +76,10 @@ final class TachycardiaTest extends TestCase
 
     public function testWithTabulate(): void
     {
-        $tachycardia = new Tachycardia(['tabulate' => true]);
+        $tachycardia = new Tachycardia(['tabulate' => true, 'collectBare' => true]);
         $tachycardia->executeBeforeFirstTest();
         $tachycardia->executeAfterSuccessfulTest(__METHOD__, 2.5);
-        $tachycardia->executeAfterSuccessfulTest(__CLASS__ . '::testSlowestTest', 7225);
+        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class . '::testSlowestTest', 7225);
 
         ob_start();
         $tachycardia->executeAfterLastTest();
