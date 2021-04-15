@@ -4,6 +4,13 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.3.0](https://github.com/NexusPHP/tachycardia/compare/v1.2.0...v1.3.0) - 2021-04-15
+
+- Documentation has now moved to the `docs/` folder ([cf88213](https://github.com/NexusPHP/tachycardia/commit/cf88213630b0f825e6d6e24764284d72699169f0))
+- It is now possible to limit execution times to the time of the actual tests excluding hooks ([\#8](https://github.com/NexusPHP/tachycardia/issues/8))
+- Made data name optional on `TestCase::getTestName` ([82a8957](https://github.com/NexusPHP/tachycardia/commit/82a8957068f0aa7d3250c6b6f7ce13d10a73af03))
+- Fixed PSR4 names of several classes ([2212423](https://github.com/NexusPHP/tachycardia/commit/221242342e1644fecd6a596ba57f77097fe52c22))
+
 ## [v1.2.0](https://github.com/NexusPHP/tachycardia/commpare/v1.1.1...v1.2.0) - 2021-04-01
 
 - Added `Parser` and `TestCase` util classes ([24949f1](https://github.com/NexusPHP/tachycardia/commit/24949f1b9e916f9fe2a49dd10ac41a1c4b2f9d83), [4342500](https://github.com/NexusPHP/tachycardia/commit/43425004816f6799e8620649a2a62917c6f562f1))
