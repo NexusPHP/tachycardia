@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Updated `friendsofphp/php-cs-fixer` to v3.0.0 Constitution
 - Bump `nexusphp/cs-config` to ^3.0
+- Github Actions annotations are enabled for all PHP versions in testing
 
 ## [v1.3.0](https://github.com/NexusPHP/tachycardia/compare/v1.2.0...v1.3.0) - 2021-04-15
 
