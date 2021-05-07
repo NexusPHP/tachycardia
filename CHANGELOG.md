@@ -4,6 +4,11 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.3.1](https://github.com/NexusPHP/tachycardia/compare/v1.3.0...v1.3.1) - 2021-05-07
+
+- Updated `friendsofphp/php-cs-fixer` to v3.0.0 Constitution
+- Bump `nexusphp/cs-config` to ^3.0
+
 ## [v1.3.0](https://github.com/NexusPHP/tachycardia/compare/v1.2.0...v1.3.0) - 2021-04-15
 
 - Documentation has now moved to the `docs/` folder ([cf88213](https://github.com/NexusPHP/tachycardia/commit/cf88213630b0f825e6d6e24764284d72699169f0))
