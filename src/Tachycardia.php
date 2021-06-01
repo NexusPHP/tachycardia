@@ -419,18 +419,18 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         $second = number_format($second, $this->precision);
 
         if (preg_match('/^(\d+)(\.\d+)?/', $second, $matches) === 1) {
-            $second = str_pad($matches[1], 2, '0', \STR_PAD_LEFT) . ($matches[2] ?? '');
+            $second = str_pad($matches[1], 2, '0', STR_PAD_LEFT) . ($matches[2] ?? '');
         }
 
         $minute = '00';
         $hour = '00';
 
         if ($seconds > 60) {
-            $minute = str_pad((string) floor(($seconds % 3600) / 60), 2, '0', \STR_PAD_LEFT);
+            $minute = str_pad((string) floor(($seconds % 3600) / 60), 2, '0', STR_PAD_LEFT);
         }
 
         if ($seconds > 3600) {
-            $hour = str_pad((string) floor(($seconds % 86400) / 3600), 2, '0', \STR_PAD_LEFT);
+            $hour = str_pad((string) floor(($seconds % 86400) / 3600), 2, '0', STR_PAD_LEFT);
         }
 
         return sprintf('%s:%s:%s', $hour, $minute, $second);
