@@ -29,22 +29,34 @@ use PHPUnit\Framework\TestCase;
  */
 final class TimeStateTest extends TestCase
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $test1;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $test2;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $test3;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $test4;
 
-    /** @var array<string, array<string, float>> */
+    /**
+     * @var array<string, array<string, float>>
+     */
     private $states;
 
-    /** @var array<string, array<string, float>> */
+    /**
+     * @var array<string, array<string, float>>
+     */
     private $oldStates;
 
     protected function setUp(): void

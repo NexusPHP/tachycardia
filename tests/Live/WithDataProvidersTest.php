@@ -37,7 +37,9 @@ final class WithDataProvidersTest extends TestCase
         self::assertTrue(true);
     }
 
-    /** @return iterable<float[]> */
+    /**
+     * @return iterable<float[]>
+     */
     public function timeProvider(): iterable
     {
         foreach ([0.55, 0.60, 0.70, 0.80, 0.90] as $float) {

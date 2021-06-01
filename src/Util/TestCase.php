@@ -29,10 +29,14 @@ final class TestCase
      */
     private $class;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $name;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $dataname;
 
     /**
@@ -77,7 +81,9 @@ final class TestCase
         return sprintf('%s::%s', $this->getClass(), $this->getName($withDataname));
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * @return array<string, mixed>
+     */
     public function getAnnotations(): array
     {
         if ([] === $this->annotations) {

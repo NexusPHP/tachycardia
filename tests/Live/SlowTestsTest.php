@@ -55,7 +55,9 @@ final class SlowTestsTest extends TestCase
         self::assertTrue(true);
     }
 
-    /** @return int[][] */
+    /**
+     * @return int[][]
+     */
     public function provideTime(): iterable
     {
         return [

@@ -45,7 +45,9 @@ final class ParserTest extends TestCase
         self::assertInstanceOf(UtilTestCase::class, $parser->parseTest($input));
     }
 
-    /** @return iterable<array<string>> */
+    /**
+     * @return iterable<array<string>>
+     */
     public function nameProvider(): iterable
     {
         return [

@@ -18,7 +18,9 @@ namespace Nexus\PHPUnit\Extension\Util;
  */
 final class TimeState
 {
-    /** @var array<string, array<string, float>> */
+    /**
+     * @var array<string, array<string, float>>
+     */
     private $timeStates = [];
 
     /**

@@ -20,10 +20,14 @@ final class Parser
 {
     public const REGEX_TEST_CASE_NAME = '/^(?:(?P<class>[A-Z][A-Za-z0-9_\\\\]+)::(?P<name>\S+))(?:(?P<dataname> with data set (?:#\d+|"[^"]+"))\s\()?/u';
 
-    /** @var Parser */
+    /**
+     * @var Parser
+     */
     private static $instance;
 
-    /** @codeCoverageIgnore */
+    /**
+     * @codeCoverageIgnore
+     */
     private function __construct()
     {
     }
