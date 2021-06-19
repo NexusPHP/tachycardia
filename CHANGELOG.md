@@ -4,6 +4,13 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.3.4](https://github.com/NexusPHP/tachycardia/compare/v1.3.3...v1.3.4) - 2021-06-19
+
+- Change parent namespace to "Nexus"
+- Drop `phpstan/phpstan-strict-rules` but retain some strict features
+- Force `@covers` annotations in phpunit and php-cs-fixer configs
+- Update code styles from `nexusphp/cs-config` v3.2.0
+
 ## [v1.3.3](https://github.com/NexusPHP/tachycardia/compare/v1.3.2...v1.3.3) - 2021-06-01
 
 - Updated code style reversal for `native_constant_invocation`
