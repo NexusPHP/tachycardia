@@ -1,6 +1,3 @@
-includes:
-  - vendor/phpstan/phpstan-strict-rules/rules.neon
-
 parameters:
   tmpDir: build/phpstan
   level: 8
@@ -11,7 +8,17 @@ parameters:
     - vendor/autoload.php
   parallel:
     processTimeout: 300.0
+  polluteScopeWithLoopInitialAssignments: false
+  polluteScopeWithAlwaysIterableForeach: false
+  checkAlwaysTrueCheckTypeFunctionCall: true
+  checkAlwaysTrueInstanceof: true
+  checkAlwaysTrueStrictComparison: true
+  checkExplicitMixedMissingReturn: true
+  checkFunctionNameCase: true
   checkInternalClassCaseSensitivity: true
+  checkMissingClosureNativeReturnTypehintRule: true
+  reportMaybesInMethodSignatures: true
+  reportStaticMethodSignatures: true
   checkTooWideReturnTypesInProtectedAndPublicMethods: true
   checkUninitializedProperties: true
   treatPhpDocTypesAsCertain: false
