@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * This file is part of NexusPHP Tachycardia.
+ * This file is part of Nexus Tachycardia.
  *
  * (c) 2021 John Paul E. Balandan, CPA <paulbalandan@gmail.com>
  *
@@ -29,7 +29,7 @@ $options = [
 ];
 
 return Factory::create(new Nexus73(), $overrides, $options)->forLibrary(
-    'NexusPHP Tachycardia',
+    'Nexus Tachycardia',
     'John Paul E. Balandan, CPA',
     'paulbalandan@gmail.com',
     2021,

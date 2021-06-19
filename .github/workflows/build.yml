@@ -85,7 +85,7 @@ jobs:
       - name: Run PHPStan Static Analysis Check
         run: vendor/bin/phpstan analyse --ansi
 
-      - name: Run NexusPHP Tachycardia Test Suite
+      - name: Run Nexus Tachycardia Test Suite
         run: vendor/bin/phpunit --color=always
         env:
           TACHYCARDIA_MONITOR_GA: enabled

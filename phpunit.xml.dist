@@ -12,7 +12,7 @@
          failOnWarning="true"
          verbose="true">
     <testsuites>
-        <testsuite name="NexusPHP Tachycardia Test Suite">
+        <testsuite name="Nexus Tachycardia Test Suite">
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>

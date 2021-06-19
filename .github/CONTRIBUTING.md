@@ -1,10 +1,10 @@
-# Contributing to NexusPHP Tachycardia
+# Contributing to Nexus Tachycardia
 
-NexusPHP Tachycardia is an open source project. We welcome all forms of contributions.
+Nexus Tachycardia is an open source project. We welcome all forms of contributions.
 
 ## Code of Conduct
 
-To help make NexusPHP Tachycardia open and inclusive for all, we ask that you read and follow the [Code of Conduct](.github/CODE_OF_CONDUCT.md).
+To help make Nexus Tachycardia open and inclusive for all, we ask that you read and follow the [Code of Conduct](.github/CODE_OF_CONDUCT.md).
 
 ## Reporting a Bug
 

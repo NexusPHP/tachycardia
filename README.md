@@ -1,4 +1,4 @@
-# NexusPHP Tachycardia
+# Nexus Tachycardia
 
 [![PHP version](https://img.shields.io/packagist/php-v/nexusphp/tachycardia)](https://php.net)
 ![build](https://github.com/NexusPHP/tachycardia/actions/workflows/build.yml/badge.svg?branch=develop)
@@ -164,7 +164,7 @@ If you wish to customize one or more of the available options, you can just chan
 Contributions are very much welcome. If you see an improvement or bug fix,
 open a [PR](https://github.com/NexusPHP/tachycardia/pulls) now!
 
-Read more on the [Contributing to NexusPHP Tachycardia](.github/CONTRIBUTING.md).
+Read more on the [Contributing to Nexus Tachycardia](.github/CONTRIBUTING.md).
 
 ## Inspiration
 
