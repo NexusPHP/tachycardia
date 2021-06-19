@@ -7,6 +7,7 @@
          executionOrder="depends,defects"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
+         forceCoversAnnotation="true"
          failOnRisky="true"
          failOnWarning="true"
          verbose="true">
