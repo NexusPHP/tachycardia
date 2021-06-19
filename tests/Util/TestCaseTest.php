@@ -20,6 +20,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @covers \Nexus\PHPUnit\Extension\Util\TestCase
  */
 final class TestCaseTest extends TestCase
 {
@@ -36,11 +38,11 @@ final class TestCaseTest extends TestCase
     {
         $testcase = new UtilTestCase(NoTimeLimitInMethodTest::class, 'testSlowTestDisabledForProfiling');
         $annotations = [
-            'method' => [
-                'noTimeLimit' => [''],
-                'return'      => ['void'],
+            'method' => ['noTimeLimit' => ['']],
+            'class' => [
+                'internal' => [''],
+                'coversNothing' => [''],
             ],
-            'class' => ['internal' => ['']],
         ];
 
         self::assertSame($annotations, $testcase->getAnnotations());
@@ -49,7 +51,7 @@ final class TestCaseTest extends TestCase
         self::assertSame([''], $testcase->getClassAnnotation('internal'));
         self::assertTrue($testcase->hasMethodAnnotation('noTimeLimit'));
         self::assertFalse($testcase->hasMethodAnnotation('timeLimit'));
-        self::assertSame(['void'], $testcase->getMethodAnnotation('return'));
+        self::assertSame([''], $testcase->getMethodAnnotation('noTimeLimit'));
     }
 
     public function testGetTestNameWithDataName(): void

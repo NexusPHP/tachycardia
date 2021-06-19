@@ -64,9 +64,6 @@ final class TimeState
      * If `$actual` is null, returns the array of times for the test, which
      * includes the actual and bare times.
      *
-     * @param string     $test
-     * @param null|float $actual
-     *
      * @return null|array<string, float>|float
      */
     public function find(string $test, ?float $actual = null)

@@ -21,6 +21,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @covers \Nexus\PHPUnit\Extension\Tachycardia
  */
 final class TachycardiaTest extends TestCase
 {
@@ -92,6 +94,9 @@ final class TachycardiaTest extends TestCase
         self::assertStringContainsString('02:00:25.0000', $contents);
     }
 
+    /**
+     * @covers \Nexus\PHPUnit\Extension\Util\GithubMonitor
+     */
     public function testWithGithubActionReporting(): void
     {
         if (! GithubMonitor::runningInGithubActions()) {
@@ -130,17 +135,17 @@ final class TachycardiaTest extends TestCase
         self::assertSame([
             [
                 'label' => __CLASS__ . '::testInternals',
-                'time'  => 2.5,
+                'time' => 2.5,
                 'limit' => 1.0,
             ],
             [
                 'label' => ClassAnnotationsTest::class . '::testSlowTestUsesClassTimeLimit',
-                'time'  => 2.5,
+                'time' => 2.5,
                 'limit' => 2.0,
             ],
             [
                 'label' => SlowTestsTest::class . '::testCustomLowerLimit',
-                'time'  => 1.1,
+                'time' => 1.1,
                 'limit' => 0.5,
             ],
         ], $tachycardia->getSlowTests());

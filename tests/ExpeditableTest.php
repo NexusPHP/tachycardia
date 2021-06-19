@@ -21,6 +21,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @covers \Nexus\PHPUnit\Extension\Expeditable
  */
 final class ExpeditableTest extends TestCase
 {
@@ -43,8 +45,6 @@ final class ExpeditableTest extends TestCase
 
     /**
      * @depends testFastTest
-     *
-     * @return void
      */
     public function testTraitEliminatesHookTimes(): void
     {
@@ -53,7 +53,7 @@ final class ExpeditableTest extends TestCase
         self::assertTrue(isset($GLOBALS['__TACHYCARDIA_TIME_STATES'][$testName]['bare']));
         self::assertThat(
             $GLOBALS['__TACHYCARDIA_TIME_STATES'][$testName]['bare'],
-            LogicalAnd::fromConstraints(new IsType('float'), new LessThan(1.0))
+            LogicalAnd::fromConstraints(new IsType('float'), new LessThan(1.0)),
         );
     }
 }

@@ -19,6 +19,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @covers \Nexus\PHPUnit\Extension\Util\Parser
  */
 final class ParserTest extends TestCase
 {
@@ -34,10 +36,6 @@ final class ParserTest extends TestCase
 
     /**
      * @dataProvider nameProvider
-     *
-     * @param string $input
-     *
-     * @return void
      */
     public function testParsingYieldsTestCaseObject(string $input): void
     {

@@ -17,16 +17,13 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ * @coversNothing
  */
 final class WithDataProvidersTest extends TestCase
 {
     /**
      * Assert that these slow tests will be printed in the console report
      * as they have a custom time limit provided here.
-     *
-     * @param int $time
-     *
-     * @return void
      *
      * @dataProvider timeProvider
      * @timeLimit 0.50

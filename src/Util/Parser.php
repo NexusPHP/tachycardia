@@ -42,11 +42,6 @@ final class Parser
         return self::$instance;
     }
 
-    /**
-     * @param string $test
-     *
-     * @return TestCase
-     */
     public function parseTest(string $test): TestCase
     {
         $matches = [];

@@ -19,6 +19,7 @@ use PHPUnit\Util\Test as TestUtil;
  * An object representation of the TestCase class-string.
  *
  * @internal
+ * @coversNothing
  */
 final class TestCase
 {
@@ -49,10 +50,6 @@ final class TestCase
     private $annotations = [];
 
     /**
-     * @param string $class
-     * @param string $name
-     * @param string $dataname
-     *
      * @phpstan-param class-string $class
      */
     public function __construct(string $class, string $name, string $dataname = '')
@@ -99,8 +96,6 @@ final class TestCase
     }
 
     /**
-     * @param string $key
-     *
      * @throws \InvalidArgumentException
      *
      * @return array<int, string>
@@ -120,8 +115,6 @@ final class TestCase
     }
 
     /**
-     * @param string $key
-     *
      * @throws \InvalidArgumentException
      *
      * @return array<int, string>

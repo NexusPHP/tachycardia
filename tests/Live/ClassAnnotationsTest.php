@@ -19,13 +19,12 @@ use PHPUnit\Framework\TestCase;
  * @internal
  *
  * @timeLimit 2.0
+ * @coversNothing
  */
 final class ClassAnnotationsTest extends TestCase
 {
     /**
      * This should be reported as slow using the class time limit.
-     *
-     * @return void
      */
     public function testSlowTestUsesClassTimeLimit(): void
     {
@@ -37,8 +36,6 @@ final class ClassAnnotationsTest extends TestCase
      * This should not be reported as slow since this uses the method's time limit.
      *
      * @timeLimit 3.0
-     *
-     * @return void
      */
     public function testSlowTestUsesMethodTimeLimit(): void
     {

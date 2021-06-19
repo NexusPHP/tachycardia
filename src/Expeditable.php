@@ -51,10 +51,6 @@ trait Expeditable
     /**
      * Stores the "slim" execution time of the test case into
      * the global `$__TACHYCARDIA_TIME_STATES` array.
-     *
-     * @param float $time
-     *
-     * @return void
      */
     private function store(float $time): void
     {

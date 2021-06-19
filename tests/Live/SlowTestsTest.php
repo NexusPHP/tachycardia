@@ -46,8 +46,6 @@ final class SlowTestsTest extends TestCase
 
     /**
      * @dataProvider provideTime
-     *
-     * @param int $time
      */
     public function testWithProvider(int $time): void
     {
@@ -61,8 +59,8 @@ final class SlowTestsTest extends TestCase
     public function provideTime(): iterable
     {
         return [
-            'slow'    => [5],
-            'slower'  => [6],
+            'slow' => [5],
+            'slower' => [6],
             'slowest' => [7],
         ];
     }

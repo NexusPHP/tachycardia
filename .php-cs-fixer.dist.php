@@ -24,7 +24,7 @@ $finder = Finder::create()
 
 $overrides = [];
 $options = [
-    'finder'    => $finder,
+    'finder' => $finder,
     'cacheFile' => 'build/.php-cs-fixer.cache',
 ];
 
@@ -32,5 +32,5 @@ return Factory::create(new Nexus73(), $overrides, $options)->forLibrary(
     'NexusPHP Tachycardia',
     'John Paul E. Balandan, CPA',
     'paulbalandan@gmail.com',
-    2021
+    2021,
 );

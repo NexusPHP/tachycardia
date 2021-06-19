@@ -26,6 +26,8 @@ use PHPUnit\Framework\TestCase;
  * @runTestsInSeparateProcesses
  *
  * @internal
+ *
+ * @covers \Nexus\PHPUnit\Extension\Util\TimeState
  */
 final class TimeStateTest extends TestCase
 {

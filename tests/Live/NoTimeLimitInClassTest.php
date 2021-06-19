@@ -19,14 +19,13 @@ use PHPUnit\Framework\TestCase;
  * @noTimeLimit
  *
  * @internal
+ * @coversNothing
  */
 final class NoTimeLimitInClassTest extends TestCase
 {
     /**
      * This should not be reported as slow since
      * this is explicitly disabled.
-     *
-     * @return void
      */
     public function testSlowTestDisabledForProfiling(): void
     {

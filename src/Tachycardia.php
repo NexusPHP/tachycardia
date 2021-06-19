@@ -136,8 +136,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      *
      * @param string $test Complete name of the test method
      * @param float  $time PHPUnit time in seconds
-     *
-     * @return void
      */
     public function executeAfterSuccessfulTest(string $test, float $time): void
     {
@@ -196,8 +194,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
     /**
      * Whether the test suite run has slow tests recorded.
-     *
-     * @return bool
      */
     public function hasSlowTests(): bool
     {
@@ -216,8 +212,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
     /**
      * Retrieves the current precision for time presentation.
-     *
-     * @return int
      */
     public function getPrecision(): int
     {
@@ -229,8 +223,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      *
      * This can be either via plain rendering or using
      * console tables.
-     *
-     * @return void
      */
     public function render(): void
     {
@@ -253,7 +245,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
             "\n\n%s identified %s %s:\n",
             $this->color(self::class, 'green'),
             1 === $slow ? 'this' : 'these',
-            $this->color(sprintf('%s slow %s', 1 === $slow ? 'sole' : $slow, 1 === $slow ? 'test' : 'tests'), 'yellow')
+            $this->color(sprintf('%s slow %s', 1 === $slow ? 'sole' : $slow, 1 === $slow ? 'test' : 'tests'), 'yellow'),
         );
     }
 
@@ -295,7 +287,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
             "| %s | %s | %s |\n",
             $this->color('Test Case', 'green') . str_repeat(' ', $max['label'] - 9),
             $this->color('Time Consumed', 'green') . str_repeat(' ', $max['time'] - 13),
-            $this->color('Time Limit', 'green') . str_repeat(' ', $max['limit'] - 10)
+            $this->color('Time Limit', 'green') . str_repeat(' ', $max['limit'] - 10),
         );
         $table .= $body;
 
@@ -318,7 +310,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
                 $this->color("\xE2\x9A\xA0", 'yellow'),
                 $this->color(number_format($time, $this->precision) . 's', 'yellow'),
                 $this->color(number_format($limit, $this->precision) . 's', 'yellow'),
-                $this->color(addslashes($label), 'green')
+                $this->color(addslashes($label), 'green'),
             );
         }
     }
@@ -334,8 +326,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
     /**
      * Gets the count of reportable slow tests.
-     *
-     * @return int
      */
     private function getReportable(): int
     {
@@ -349,8 +339,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      * - method time limit
      * - class time limit
      * - default time limit
-     *
-     * @return float
      */
     private function parseTimeLimit(): float
     {
@@ -380,8 +368,6 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      * Order of precedence
      * - method @noTimeLimit
      * - class @noTimeLimit
-     *
-     * @return bool
      */
     private function isProfilingDisabled(): bool
     {
@@ -391,9 +377,9 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     private function color(string $text, string $color): string
     {
         static $colors = [
-            'green'         => ['open' => 32, 'close' => 39],
-            'yellow'        => ['open' => 33, 'close' => 39],
-            'bright_green'  => ['open' => 92, 'close' => 39],
+            'green' => ['open' => 32, 'close' => 39],
+            'yellow' => ['open' => 33, 'close' => 39],
+            'bright_green' => ['open' => 92, 'close' => 39],
             'bright_yellow' => ['open' => 93, 'close' => 39],
         ];
 
@@ -401,17 +387,13 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
             "\033[%sm%s\033[%sm",
             $colors[$color]['open'],
             $text,
-            $colors[$color]['close']
+            $colors[$color]['close'],
         );
     }
 
     /**
      * Takes a timestamp given in `$seconds` and returns a string
      * in HH:MM:SS form.
-     *
-     * @param float $seconds
-     *
-     * @return string
      */
     private function formTime(float $seconds): string
     {

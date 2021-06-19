@@ -17,13 +17,13 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
+ * @coversNothing
  */
 final class NoTimeLimitInMethodTest extends TestCase
 {
     /**
      * This should be reported as slow.
-     *
-     * @return void
      */
     public function testSlowTestNotDisabled(): void
     {
@@ -36,8 +36,6 @@ final class NoTimeLimitInMethodTest extends TestCase
      * this is explicitly disabled.
      *
      * @noTimeLimit
-     *
-     * @return void
      */
     public function testSlowTestDisabledForProfiling(): void
     {

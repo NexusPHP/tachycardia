@@ -26,7 +26,7 @@ final class GithubMonitor
      * @see https://github.com/actions/toolkit/blob/5e5e1b7aacba68a53836a34db4a288c3c1c1585b/packages/core/src/command.ts#L80-L85
      */
     private const ESCAPED_DATA = [
-        '%'  => '%25',
+        '%' => '%25',
         "\r" => '%0D',
         "\n" => '%0A',
     ];
@@ -37,11 +37,11 @@ final class GithubMonitor
      * @see https://github.com/actions/toolkit/blob/5e5e1b7aacba68a53836a34db4a288c3c1c1585b/packages/core/src/command.ts#L87-L94
      */
     private const ESCAPED_PROPERTIES = [
-        '%'  => '%25',
+        '%' => '%25',
         "\r" => '%0D',
         "\n" => '%0A',
-        ':'  => '%3A',
-        ','  => '%2C',
+        ':' => '%3A',
+        ',' => '%2C',
     ];
 
     /**
@@ -64,8 +64,6 @@ final class GithubMonitor
     /**
      * Reports the slow tests as inline annotations in
      * the Github Actions work environment.
-     *
-     * @return void
      */
     public function defibrillate(): void
     {
@@ -95,13 +93,6 @@ final class GithubMonitor
     /**
      * Output a warning using the Github annotations format.
      *
-     * @param string $message
-     * @param string $file
-     * @param int    $line
-     * @param int    $col
-     *
-     * @return void
-     *
      * @see https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-a-warning-message
      */
     public function warning(string $message, string $file = '', int $line = 1, int $col = 0): void
@@ -121,7 +112,7 @@ final class GithubMonitor
             strtr($file, self::ESCAPED_PROPERTIES),
             $line,
             $col,
-            $message
+            $message,
         );
     }
 
@@ -140,7 +131,7 @@ final class GithubMonitor
             'Took %s from %s limit to run %s',
             number_format($time, $precision) . 's',
             number_format($limit, $precision) . 's',
-            addslashes($label)
+            addslashes($label),
         );
     }
 }
