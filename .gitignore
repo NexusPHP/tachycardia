@@ -2,7 +2,7 @@
 build/
 vendor/
 composer.lock
-.php_cs
+.php-cs-fixer.php
 *.neon
 *.cache
 phpunit.xml
