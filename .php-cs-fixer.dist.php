@@ -12,6 +12,8 @@ declare(strict_types=1);
  */
 
 use Nexus\CsConfig\Factory;
+use Nexus\CsConfig\Fixer;
+use Nexus\CsConfig\FixerGenerator;
 use Nexus\CsConfig\Ruleset\Nexus73;
 use PhpCsFixer\Finder;
 
@@ -26,6 +28,11 @@ $overrides = [];
 $options = [
     'finder' => $finder,
     'cacheFile' => 'build/.php-cs-fixer.cache',
+    'customFixers' => FixerGenerator::create('vendor/nexusphp/cs-config/src/Fixer', 'Nexus\\CsConfig\\Fixer'),
+    'customRules' => [
+        Fixer\Comment\NoCodeSeparatorCommentFixer::name() => true,
+        Fixer\Comment\SpaceAfterCommentStartFixer::name() => true,
+    ],
 ];
 
 return Factory::create(new Nexus73(), $overrides, $options)->forLibrary(
