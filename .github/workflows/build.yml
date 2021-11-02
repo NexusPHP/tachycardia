@@ -4,21 +4,13 @@ on:
   schedule:
     - cron: '0 0 * * *'
   push:
-    branches:
-      - develop
-      - master
     paths:
-      - src/**
-      - tests/**
+      - '**.php'
       - .github/workflows/build.yml
       - composer.json
   pull_request:
-    branches:
-      - develop
-      - master
     paths:
-      - src/**
-      - tests/**
+      - '**.php'
       - .github/workflows/build.yml
       - composer.json
 
@@ -26,7 +18,6 @@ jobs:
   main:
     name: Build [PHP ${{ matrix.php-versions }}]
     runs-on: ubuntu-20.04
-    if: "!contains(github.event.head_commit.message, '[ci skip]')"
 
     strategy:
       fail-fast: false

@@ -125,7 +125,7 @@ final class GithubMonitor
      */
     private function recreateMessage(array $testDetails): string
     {
-        // @phpstan-var array{'label':string, 'time':float, 'limit':float} $testDetails
+        /** @phpstan-var array{label:string, time:float, limit:float} $testDetails */
         ['label' => $label, 'time' => $time, 'limit' => $limit] = $testDetails;
         $precision = $this->tachycardia->getPrecision();
 
