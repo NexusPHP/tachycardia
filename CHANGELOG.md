@@ -4,6 +4,13 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.3.5](https://github.com/NexusPHP/tachycardia/compare/v1.3.4...v1.3.5) - 2021-11-02
+
+- Update build workflow
+- Use custom fixers
+- Update to phpstan 1.0
+- Change branch alias
+
 ## [v1.3.4](https://github.com/NexusPHP/tachycardia/compare/v1.3.3...v1.3.4) - 2021-06-19
 
 - Change parent namespace to "Nexus"
