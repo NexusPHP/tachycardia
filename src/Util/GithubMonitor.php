@@ -67,6 +67,7 @@ final class GithubMonitor
      */
     public function defibrillate(): void
     {
+        /** @phpstan-var array{'label':string, 'time':float, 'limit':float} $test */
         foreach ($this->tachycardia->getSlowTests() as $test) {
             /** @phpstan-var class-string $class */
             [$class, $method] = explode('::', $test['label'], 2);
@@ -124,6 +125,7 @@ final class GithubMonitor
      */
     private function recreateMessage(array $testDetails): string
     {
+        // @phpstan-var array{'label':string, 'time':float, 'limit':float} $testDetails
         ['label' => $label, 'time' => $time, 'limit' => $limit] = $testDetails;
         $precision = $this->tachycardia->getPrecision();
 

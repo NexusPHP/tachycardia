@@ -2,4 +2,5 @@
 
 .gitattributes export-ignore
 .github/ export-ignore
+stubs/ export-ignore
 tests/ export-ignore

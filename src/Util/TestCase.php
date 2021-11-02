@@ -79,7 +79,7 @@ final class TestCase
     }
 
     /**
-     * @return array<string, mixed>
+     * @phpstan-return array{'method': null|array<string, array<int, string>>, 'class':array<string, array<int, string>>}
      */
     public function getAnnotations(): array
     {
@@ -87,7 +87,7 @@ final class TestCase
             $this->annotations = TestUtil::parseTestMethodAnnotations($this->class, $this->name);
         }
 
-        return $this->annotations;
+        return $this->annotations; // @phpstan-ignore-line
     }
 
     public function hasClassAnnotation(string $key): bool
@@ -125,14 +125,13 @@ final class TestCase
             throw new \InvalidArgumentException(sprintf('Key "%s" not found in the method annotations.', $key)); // @codeCoverageIgnore
         }
 
+        // @phpstan-ignore-next-line
         return $this->getAnnotations()['method'][$key];
     }
 
     private function hasAnnotation(string $type, string $key): bool
     {
-        if (! \in_array($type, ['method', 'class'], true)) {
-            return false; // @codeCoverageIgnore
-        }
+        \assert(\in_array($type, ['method', 'class'], true));
 
         return isset($this->getAnnotations()[$type][$key]);
     }

@@ -84,7 +84,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
     /**
      * Instance of TimeState.
      *
-     * @var \Nexus\PHPUnit\Extension\Util\TimeState
+     * @var null|\Nexus\PHPUnit\Extension\Util\TimeState
      */
     private $timeState;
 

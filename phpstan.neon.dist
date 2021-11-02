@@ -1,11 +1,13 @@
 parameters:
   tmpDir: build/phpstan
-  level: 8
+  level: 9
   paths:
     - src
     - tests
   bootstrapFiles:
     - vendor/autoload.php
+  stubFiles:
+    - stubs/phpunit.stub
   parallel:
     processTimeout: 300.0
   polluteScopeWithLoopInitialAssignments: false
@@ -16,7 +18,6 @@ parameters:
   checkExplicitMixedMissingReturn: true
   checkFunctionNameCase: true
   checkInternalClassCaseSensitivity: true
-  checkMissingClosureNativeReturnTypehintRule: true
   reportMaybesInMethodSignatures: true
   reportStaticMethodSignatures: true
   checkTooWideReturnTypesInProtectedAndPublicMethods: true

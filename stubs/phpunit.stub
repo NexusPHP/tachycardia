@@ -1,0 +1,11 @@
+<?php
+
+namespace PHPUnit\Util;
+
+final class Test
+{
+    /**
+     * @return array{'method': null|array<string, array<int, string>>, 'class':array<string, array<int, string>>}
+     */
+    public static function parseTestMethodAnnotations(string $className, ?string $methodName = ''): array {}
+}
