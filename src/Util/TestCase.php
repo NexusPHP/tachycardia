@@ -24,21 +24,12 @@ use PHPUnit\Util\Test as TestUtil;
 final class TestCase
 {
     /**
-     * @var string
-     *
      * @phpstan-var class-string
      */
-    private $class;
+    private string $class;
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $dataname;
+    private string $name;
+    private string $dataname;
 
     /**
      * The annotations array provided by \PHPUnit\Util\Test::parseMethodAnnotations.
@@ -47,7 +38,7 @@ final class TestCase
      *
      * @phpstan-var array{'method'?: null|array<string, array<int, string>>, 'class'?:array<string, array<int, string>>}
      */
-    private $annotations = [];
+    private array $annotations = [];
 
     /**
      * @phpstan-param class-string $class

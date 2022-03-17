@@ -21,17 +21,15 @@ final class TimeState
     /**
      * @var array<string, array<string, float>>
      */
-    private $timeStates = [];
+    private array $timeStates = [];
 
     /**
-     * Constructor.
-     *
      * @param array<string, array<string, float>> $timeStates
      */
     public function __construct(array $timeStates = [])
     {
         if ([] === $timeStates) {
-            $GLOBALS['__TACHYCARDIA_TIME_STATES'] = $GLOBALS['__TACHYCARDIA_TIME_STATES'] ?? [];
+            $GLOBALS['__TACHYCARDIA_TIME_STATES'] ??= [];
 
             $this->timeStates = &$GLOBALS['__TACHYCARDIA_TIME_STATES'];
 

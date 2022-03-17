@@ -31,35 +31,20 @@ use PHPUnit\Framework\TestCase;
  */
 final class TimeStateTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $test1;
-
-    /**
-     * @var string
-     */
-    private $test2;
-
-    /**
-     * @var string
-     */
-    private $test3;
-
-    /**
-     * @var string
-     */
-    private $test4;
+    private string $test1;
+    private string $test2;
+    private string $test3;
+    private string $test4;
 
     /**
      * @var array<string, array<string, float>>
      */
-    private $states;
+    private array $states;
 
     /**
      * @var array<string, array<string, float>>
      */
-    private $oldStates;
+    private array $oldStates;
 
     protected function setUp(): void
     {

@@ -15,6 +15,7 @@ namespace Nexus\PHPUnit\Extension;
 
 use Nexus\PHPUnit\Extension\Util\GithubMonitor;
 use Nexus\PHPUnit\Extension\Util\Parser;
+use Nexus\PHPUnit\Extension\Util\TestCase;
 use Nexus\PHPUnit\Extension\Util\TimeState;
 use PHPUnit\Runner\AfterLastTestHook;
 use PHPUnit\Runner\AfterSuccessfulTestHook;
@@ -28,10 +29,8 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      *
      * This can be controlled by the `TACHYCARDIA_MONITOR`
      * environment variable.
-     *
-     * @var bool
      */
-    private $monitor = true;
+    private bool $monitor = true;
 
     /**
      * Whether this extension will monitor slow tests
@@ -39,73 +38,55 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
      *
      * This can be controlled by the `TACHYCARDIA_MONITOR_GA`
      * environment variable.
-     *
-     * @var bool
      */
-    private $monitorForGa = false;
+    private bool $monitorForGa = false;
 
     /**
      * Default time limit in seconds for each test method. This can be
      * overridden by providing inline annotations to the doc blocks of
      * the test methods you wish to override the time limit.
-     *
-     * @var float
      */
-    private $timeLimit = 1.00;
+    private float $timeLimit = 1.00;
 
     /**
      * Number of reportable slow tests in console output.
-     *
-     * @var int
      */
-    private $reportable = 10;
+    private int $reportable = 10;
 
     /**
      * Degree of precision in the decimals of reported times.
-     *
-     * @var int
      */
-    private $precision = 4;
+    private int $precision = 4;
 
     /**
      * Whether to tabulate the results instead of printing plainly.
-     *
-     * @var bool
      */
-    private $tabulate = false;
+    private bool $tabulate = false;
 
     /**
      * Collection of tests which are slow.
      *
      * @var array<array{'label':string, 'time':float, 'limit':float}>
      */
-    private $slowTests = [];
+    private array $slowTests = [];
 
     /**
      * Instance of TimeState.
-     *
-     * @var null|\Nexus\PHPUnit\Extension\Util\TimeState
      */
-    private $timeState;
+    private ?TimeState $timeState = null;
 
     /**
      * Internal count of test suites run. Returning to 0 means the tests
      * finished running.
-     *
-     * @var int
      */
-    private $suites = 0;
+    private int $suites = 0;
 
     /**
      * The current test case being profiled wrapped as a TestCase object.
-     *
-     * @var \Nexus\PHPUnit\Extension\Util\TestCase
      */
-    private $testCase;
+    private TestCase $testCase;
 
     /**
-     * Constructor.
-     *
      * @param array<string, mixed> $options
      *
      * @phpstan-param array{
@@ -176,9 +157,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         --$this->suites;
 
         if (0 === $this->suites && $this->hasSlowTests()) {
-            usort($this->slowTests, static function ($a, $b): int {
-                return $b['time'] <=> $a['time'];
-            });
+            usort($this->slowTests, static fn ($a, $b): int => $b['time'] <=> $a['time']);
 
             if ($this->monitor) {
                 $this->render();

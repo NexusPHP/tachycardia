@@ -45,11 +45,9 @@ final class GithubMonitor
     ];
 
     /**
-     * Instance of Tachycardia;.
-     *
-     * @var Tachycardia
+     * Instance of Tachycardia.
      */
-    private $tachycardia;
+    private Tachycardia $tachycardia;
 
     public function __construct(Tachycardia $tachycardia)
     {

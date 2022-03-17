@@ -1,3 +1,6 @@
+includes:
+  - phpstan-baseline.neon.dist
+
 parameters:
   tmpDir: build/phpstan
   level: 9
