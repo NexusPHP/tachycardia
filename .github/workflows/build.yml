@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.3', '7.4', '8.0']
+        php-versions: ['7.4', '8.0', '8.1']
 
     steps:
       - name: Checkout
@@ -40,7 +40,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Create composer cache directory
-        run: mkdir -p ${{ steps.composer-cache.outputs.dir }}
+        run: mkdir --parents ${{ steps.composer-cache.outputs.dir }}
 
       - name: Cache composer dependencies
         uses: actions/cache@v2
@@ -52,8 +52,8 @@ jobs:
             composer-${{ runner.os }}-
             composer-
 
-      - name: Create PHPStan cache directory
-        run: mkdir -p build/phpstan
+      - name: Create cache directory
+        run: mkdir --parents build
 
       - name: Cache PHPStan cache directory
         uses: actions/cache@v2
@@ -65,13 +65,13 @@ jobs:
             phpstan-
 
       - name: Setup Composer's GitHub OAuth access
-        run: composer config --global github-oauth.github.com ${{ secrets.ACCESS_TOKEN }}
+        run: composer config --global github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
-        run: composer update --ansi --no-scripts --no-interaction
+        run: composer update --ansi
 
       - name: Run PHP-CS-Fixer
-        run: vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run --using-cache=no
+        run: vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run --using-cache=no --diff
 
       - name: Run PHPStan Static Analysis Check
         run: vendor/bin/phpstan analyse --ansi
