@@ -31,7 +31,6 @@ $options = [
     'customFixers' => FixerGenerator::create('vendor/nexusphp/cs-config/src/Fixer', 'Nexus\\CsConfig\\Fixer'),
     'customRules' => [
         Fixer\Comment\NoCodeSeparatorCommentFixer::name() => true,
-        Fixer\Comment\SpaceAfterCommentStartFixer::name() => true,
     ],
 ];
 
