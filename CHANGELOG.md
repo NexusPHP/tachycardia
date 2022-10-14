@@ -4,6 +4,14 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.4.0](https://github.com/NexusPHP/tachycardia/compare/v1.3.5...v1.4.0) - 2022-10-14
+
+- Fix formatting
+- Remove deprecated fixer
+- Update action workflows
+- Update CS and SCA
+- Bump min PHP version to 7.4
+
 ## [v1.3.5](https://github.com/NexusPHP/tachycardia/compare/v1.3.4...v1.3.5) - 2021-11-02
 
 - Update build workflow
