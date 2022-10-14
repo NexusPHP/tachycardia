@@ -66,7 +66,7 @@ final class TachycardiaTest extends TestCase
         $tachycardia = new Tachycardia(['reportable' => 1]);
         $tachycardia->executeBeforeFirstTest();
         $tachycardia->executeAfterSuccessfulTest(__METHOD__, 2.5);
-        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class . '::testSlowTest', 2);
+        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class.'::testSlowTest', 2);
 
         ob_start();
         $tachycardia->executeAfterLastTest();
@@ -81,7 +81,7 @@ final class TachycardiaTest extends TestCase
         $tachycardia = new Tachycardia(['tabulate' => true, 'collectBare' => true]);
         $tachycardia->executeBeforeFirstTest();
         $tachycardia->executeAfterSuccessfulTest(__METHOD__, 2.5);
-        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class . '::testSlowestTest', 7225);
+        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class.'::testSlowestTest', 7225);
 
         ob_start();
         $tachycardia->executeAfterLastTest();
@@ -124,9 +124,9 @@ final class TachycardiaTest extends TestCase
     {
         $tachycardia = new Tachycardia();
         $tachycardia->executeBeforeFirstTest();
-        $tachycardia->executeAfterSuccessfulTest(__CLASS__ . '::testInternals', 2.5);
-        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class . '::testCustomLowerLimit', 1.1);
-        $tachycardia->executeAfterSuccessfulTest(ClassAnnotationsTest::class . '::testSlowTestUsesClassTimeLimit', 2.5);
+        $tachycardia->executeAfterSuccessfulTest(__CLASS__.'::testInternals', 2.5);
+        $tachycardia->executeAfterSuccessfulTest(SlowTestsTest::class.'::testCustomLowerLimit', 1.1);
+        $tachycardia->executeAfterSuccessfulTest(ClassAnnotationsTest::class.'::testSlowTestUsesClassTimeLimit', 2.5);
 
         ob_start();
         $tachycardia->executeAfterLastTest();
@@ -134,17 +134,17 @@ final class TachycardiaTest extends TestCase
 
         self::assertSame([
             [
-                'label' => __CLASS__ . '::testInternals',
+                'label' => __CLASS__.'::testInternals',
                 'time' => 2.5,
                 'limit' => 1.0,
             ],
             [
-                'label' => ClassAnnotationsTest::class . '::testSlowTestUsesClassTimeLimit',
+                'label' => ClassAnnotationsTest::class.'::testSlowTestUsesClassTimeLimit',
                 'time' => 2.5,
                 'limit' => 2.0,
             ],
             [
-                'label' => SlowTestsTest::class . '::testCustomLowerLimit',
+                'label' => SlowTestsTest::class.'::testCustomLowerLimit',
                 'time' => 1.1,
                 'limit' => 0.5,
             ],

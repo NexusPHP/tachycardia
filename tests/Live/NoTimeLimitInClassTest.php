@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
  * @noTimeLimit
  *
  * @internal
+ *
  * @coversNothing
  */
 final class NoTimeLimitInClassTest extends TestCase

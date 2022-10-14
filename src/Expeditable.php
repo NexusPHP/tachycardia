@@ -27,13 +27,13 @@ trait Expeditable
     /**
      * Overridden to run the test and assert its executed time state.
      *
+     * @return mixed
+     *
      * @throws \SebastianBergmann\ObjectEnumerator\InvalidArgumentException
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
      * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \Throwable
-     *
-     * @return mixed
      */
     protected function runTest()
     {

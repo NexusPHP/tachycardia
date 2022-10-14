@@ -129,8 +129,8 @@ final class GithubMonitor
 
         return sprintf(
             'Took %s from %s limit to run %s',
-            number_format($time, $precision) . 's',
-            number_format($limit, $precision) . 's',
+            number_format($time, $precision).'s',
+            number_format($limit, $precision).'s',
             addslashes($label),
         );
     }

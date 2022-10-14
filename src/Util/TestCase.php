@@ -19,6 +19,7 @@ use PHPUnit\Util\Test as TestUtil;
  * An object representation of the TestCase class-string.
  *
  * @internal
+ *
  * @coversNothing
  */
 final class TestCase
@@ -58,7 +59,7 @@ final class TestCase
     public function getName(bool $withDataname = false): string
     {
         if ($withDataname) {
-            return $this->name . $this->dataname;
+            return $this->name.$this->dataname;
         }
 
         return $this->name;
@@ -87,9 +88,9 @@ final class TestCase
     }
 
     /**
-     * @throws \InvalidArgumentException
-     *
      * @return array<int, string>
+     *
+     * @throws \InvalidArgumentException
      */
     public function getClassAnnotation(string $key): array
     {
@@ -106,9 +107,9 @@ final class TestCase
     }
 
     /**
-     * @throws \InvalidArgumentException
-     *
      * @return array<int, string>
+     *
+     * @throws \InvalidArgumentException
      */
     public function getMethodAnnotation(string $key): array
     {

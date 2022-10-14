@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 final class SlowTestsTest extends TestCase

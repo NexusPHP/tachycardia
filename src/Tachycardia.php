@@ -249,14 +249,14 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
         foreach ($slows as $i => $row) {
             foreach ($max as $key => $length) {
-                $slows[$i][$key] = $row[$key] . str_repeat(' ', $length - \strlen($row[$key]));
+                $slows[$i][$key] = $row[$key].str_repeat(' ', $length - \strlen($row[$key]));
             }
         }
 
         $table = '+';
 
         foreach ($max as $length) {
-            $table .= str_repeat('-', $length + 2) . '+';
+            $table .= str_repeat('-', $length + 2).'+';
         }
 
         $table .= "\n";
@@ -264,9 +264,9 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
 
         $table .= sprintf(
             "| %s | %s | %s |\n",
-            $this->color('Test Case', 'green') . str_repeat(' ', $max['label'] - 9),
-            $this->color('Time Consumed', 'green') . str_repeat(' ', $max['time'] - 13),
-            $this->color('Time Limit', 'green') . str_repeat(' ', $max['limit'] - 10),
+            $this->color('Test Case', 'green').str_repeat(' ', $max['label'] - 9),
+            $this->color('Time Consumed', 'green').str_repeat(' ', $max['time'] - 13),
+            $this->color('Time Limit', 'green').str_repeat(' ', $max['limit'] - 10),
         );
         $table .= $body;
 
@@ -287,8 +287,8 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
             printf(
                 "%s  Took %s from %s limit to run %s\n",
                 $this->color("\xE2\x9A\xA0", 'yellow'),
-                $this->color(number_format($time, $this->precision) . 's', 'yellow'),
-                $this->color(number_format($limit, $this->precision) . 's', 'yellow'),
+                $this->color(number_format($time, $this->precision).'s', 'yellow'),
+                $this->color(number_format($limit, $this->precision).'s', 'yellow'),
                 $this->color(addslashes($label), 'green'),
             );
         }
@@ -380,7 +380,7 @@ final class Tachycardia implements AfterLastTestHook, AfterSuccessfulTestHook, B
         $second = number_format($second, $this->precision);
 
         if (preg_match('/^(\d+)(\.\d+)?/', $second, $matches) === 1) {
-            $second = str_pad($matches[1], 2, '0', STR_PAD_LEFT) . ($matches[2] ?? '');
+            $second = str_pad($matches[1], 2, '0', STR_PAD_LEFT).($matches[2] ?? '');
         }
 
         $minute = '00';

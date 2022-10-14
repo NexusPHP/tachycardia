@@ -93,9 +93,9 @@ final class TimeStateTest extends TestCase
 
         self::assertSame(0.5, $timeState->find($this->test1, 1.0));
         self::assertIsArray($timeState->find($this->test1));
-        self::assertSame(5.0, $timeState->find($this->test2 . ' (', 1.0));
-        self::assertIsArray($timeState->find($this->test2 . ' ('));
-        self::assertSame(1.0, $timeState->find($this->test3 . ' (', 1.0));
-        self::assertSame(['actual' => 1.0], $timeState->find($this->test3 . ' ('));
+        self::assertSame(5.0, $timeState->find($this->test2.' (', 1.0));
+        self::assertIsArray($timeState->find($this->test2.' ('));
+        self::assertSame(1.0, $timeState->find($this->test3.' (', 1.0));
+        self::assertSame(['actual' => 1.0], $timeState->find($this->test3.' ('));
     }
 }

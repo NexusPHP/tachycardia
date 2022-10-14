@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
  * @internal
  *
  * @timeLimit 2.0
+ *
  * @coversNothing
  */
 final class ClassAnnotationsTest extends TestCase

@@ -17,6 +17,7 @@ use Nexus\PHPUnit\Extension\ExpeditableTestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 final class ExpeditedTimeTest extends ExpeditableTestCase

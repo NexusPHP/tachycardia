@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 final class WithDataProvidersTest extends TestCase
@@ -26,6 +27,7 @@ final class WithDataProvidersTest extends TestCase
      * as they have a custom time limit provided here.
      *
      * @dataProvider timeProvider
+     *
      * @timeLimit 0.50
      */
     public function testSlowProvidedTestRespectsTimeLimit(int $time): void
