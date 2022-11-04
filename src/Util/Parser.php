@@ -45,6 +45,7 @@ final class Parser
 
         preg_match(self::REGEX_TEST_CASE_NAME, $test, $matches);
 
+        /** @phpstan-var array{class: class-string, name: string, dataname?: string} $matches */
         return new TestCase($matches['class'], $matches['name'], $matches['dataname'] ?? '');
     }
 }
