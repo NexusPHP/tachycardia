@@ -53,7 +53,7 @@ jobs:
         run: mkdir --parents build
 
       - name: Cache PHPStan cache directory
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: build/phpstan
           key: phpstan-${{ runner.os }}-${{ github.sha }}
