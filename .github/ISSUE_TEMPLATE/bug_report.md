@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[BUG]"
+title: "[Bug]"
 labels: sort/bug
 assignees: ''
 
@@ -12,13 +12,13 @@ assignees: ''
 * Tachycardia version: ###
 
 **Description:**
-A concise description of what happened.
+<!-- A concise description of what happened. -->
 
 **Steps to Reproduce:**
-Detailed steps on how this bug can be replicated.
+<!-- Detailed steps on how this bug can be replicated. -->
 
 **Expected Output:**
-What do you expect to happen instead of this filed bug?
+<!-- What do you expect to happen instead of this filed bug? -->
 
 **Other Context:**
-Include other information that may be useful to understand the issue.
+<!-- Include other information that may be useful to understand the issue. -->
