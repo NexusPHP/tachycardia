@@ -14,7 +14,7 @@ declare(strict_types=1);
 use Nexus\CsConfig\Factory;
 use Nexus\CsConfig\Fixer;
 use Nexus\CsConfig\FixerGenerator;
-use Nexus\CsConfig\Ruleset\Nexus80;
+use Nexus\CsConfig\Ruleset\Nexus81;
 use PhpCsFixer\Finder;
 
 $finder = Finder::create()
@@ -34,7 +34,7 @@ $options = [
     ],
 ];
 
-return Factory::create(new Nexus80(), $overrides, $options)->forLibrary(
+return Factory::create(new Nexus81(), $overrides, $options)->forLibrary(
     'Nexus Tachycardia',
     'John Paul E. Balandan, CPA',
     'paulbalandan@gmail.com',

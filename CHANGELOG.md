@@ -4,6 +4,16 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.0.0](https://github.com/NexusPHP/tachycardia/compare/v1.4.0...v2.0.0) - TBA
+
+### Added
+
+### Changed
+
+### Removed
+
+- Support for PHP 7.4 and 8.0 are removed
+
 ## [v1.4.0](https://github.com/NexusPHP/tachycardia/compare/v1.3.5...v1.4.0) - 2022-10-14
 
 - Fix formatting
