@@ -19,7 +19,7 @@ Add the `env` element to your `phpunit.xml.dist` file disabling Tachycardia then
     </php>
 
     <extensions>
-        <extension class="Nexus\PHPUnit\Extension\Tachycardia" />
+        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia" />
     </extensions>
 </phpunit>
 ```
@@ -40,7 +40,7 @@ Add the `env` element to your `phpunit.xml.dist` file disabling Tachycardia then
     <!-- Other configurations -->
 
     <extensions>
-        <extension class="Nexus\PHPUnit\Extension\Tachycardia" />
+        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia" />
     </extensions>
 </phpunit>
 ```
@@ -65,7 +65,7 @@ Add the `env` element to your `phpunit.xml.dist` file disabling Tachycardia then
     </php>
 
     <extensions>
-        <extension class="Nexus\PHPUnit\Extension\Tachycardia" />
+        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia" />
     </extensions>
 </phpunit>
 ```

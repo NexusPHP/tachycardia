@@ -11,7 +11,7 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension;
+namespace Nexus\PHPUnit\Tachycardia;
 
 use PHPUnit\Framework\TestCase;
 

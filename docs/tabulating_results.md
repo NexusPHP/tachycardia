@@ -8,7 +8,7 @@ in the `phpunit.xml.dist` file.
 <phpunit bootstrap="vendor/autoload.php">
 ...
     <extensions>
-        <extension class="Nexus\PHPUnit\Extension\Tachycardia">
+        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia">
             <arguments>
                 <array>
                     ...
@@ -33,7 +33,7 @@ Configuration: /var/www/tachycardia/phpunit.xml.dist
 
 ....S.........                                                    14 / 14 (100%)
 
-Nexus\PHPUnit\Extension\Tachycardia identified these 7 slow tests:
+Nexus\PHPUnit\Tachycardia\Tachycardia identified these 7 slow tests:
 +-----------------------------------------------------------------------------------------------+---------------+---------------+
 | Test Case                                                                                     | Time Consumed | Time Limit    |
 +-----------------------------------------------------------------------------------------------+---------------+---------------+
@@ -51,7 +51,7 @@ Time: 00:31.574, Memory: 8.00 MB
 
 There was 1 skipped test:
 
-1) Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testWithGithubActionReporting
+1) Nexus\PHPUnit\Tachycardia\Tests\TachycardiaTest::testWithGithubActionReporting
 This should be tested in Github Actions.
 
 /var/www/tachycardia/tests/TachycardiaTest.php:95

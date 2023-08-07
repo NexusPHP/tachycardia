@@ -11,9 +11,9 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension\Tests;
+namespace Nexus\PHPUnit\Tachycardia\Tests;
 
-use Nexus\PHPUnit\Extension\Expeditable;
+use Nexus\PHPUnit\Tachycardia\Expeditable;
 use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\Constraint\LessThan;
 use PHPUnit\Framework\Constraint\LogicalAnd;
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @covers \Nexus\PHPUnit\Extension\Expeditable
+ * @covers \Nexus\PHPUnit\Tachycardia\Expeditable
  */
 final class ExpeditableTest extends TestCase
 {
@@ -48,7 +48,7 @@ final class ExpeditableTest extends TestCase
      */
     public function testTraitEliminatesHookTimes(): void
     {
-        $testName = md5('Nexus\PHPUnit\Extension\Tests\ExpeditableTest::testFastTest');
+        $testName = md5('Nexus\PHPUnit\Tachycardia\Tests\ExpeditableTest::testFastTest');
         self::assertTrue(isset($GLOBALS['__TACHYCARDIA_TIME_STATES'][$testName]));
         self::assertTrue(isset($GLOBALS['__TACHYCARDIA_TIME_STATES'][$testName]['bare']));
         self::assertThat(

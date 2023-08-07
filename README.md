@@ -24,7 +24,7 @@ Configuration: /home/runner/work/tachycardia/tachycardia/phpunit.xml.dist
 
 ...................................                               35 / 35 (100%)
 
-Nexus\PHPUnit\Extension\Tachycardia identified these 14 slow tests:
+Nexus\PHPUnit\Tachycardia\Tachycardia identified these 14 slow tests:
 ⚠  Took 7.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slowest\"
 ⚠  Took 6.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slower\"
 ⚠  Took 5.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slow\"
@@ -93,7 +93,7 @@ into your `phpunit.xml.dist` or `phpunit.xml` file.
     <!-- Your other phpunit configurations here -->
 
     <extensions>
-        <extension class="Nexus\PHPUnit\Extension\Tachycardia" />
+        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia" />
     </extensions>
 </phpunit>
 ```
@@ -121,7 +121,7 @@ If you wish to customize one or more of the available options, you can just chan
     <!-- Your other phpunit configurations here -->
 
     <extensions>
-        <extension class="Nexus\PHPUnit\Extension\Tachycardia">
+        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia">
             <arguments>
                 <array>
                     <element key="timeLimit">

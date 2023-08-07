@@ -11,16 +11,16 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension\Tests\Util;
+namespace Nexus\PHPUnit\Tachycardia\Tests\Util;
 
-use Nexus\PHPUnit\Extension\Util\Parser;
-use Nexus\PHPUnit\Extension\Util\TestCase as UtilTestCase;
+use Nexus\PHPUnit\Tachycardia\Util\Parser;
+use Nexus\PHPUnit\Tachycardia\Util\TestCase as UtilTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
- * @covers \Nexus\PHPUnit\Extension\Util\Parser
+ * @covers \Nexus\PHPUnit\Tachycardia\Util\Parser
  */
 final class ParserTest extends TestCase
 {

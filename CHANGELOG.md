@@ -10,9 +10,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 
+- Namespace is changed to `Nexus\PHPUnit\Tachycardia`
+
 ### Removed
 
-- Support for PHP 7.4 and 8.0 are removed
+- Support for PHP 7.4 and 8.0 is removed
 
 ## [v1.4.0](https://github.com/NexusPHP/tachycardia/compare/v1.3.5...v1.4.0) - 2022-10-14
 
@@ -80,5 +82,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Initial release.
 
 Core classes:
-- `Nexus\PHPUnit\Extension\GitHubMonitor` - Accessory class to print warnings in Github Actions.
-- `Nexus\PHPUnit\Extension\Tachycardia` - The actual PHPUnit extension.
+- `Nexus\PHPUnit\Tachycardia\GitHubMonitor` - Accessory class to print warnings in Github Actions.
+- `Nexus\PHPUnit\Tachycardia\Tachycardia` - The actual PHPUnit extension.

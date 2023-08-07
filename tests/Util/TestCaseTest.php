@@ -11,17 +11,17 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension\Tests\Util;
+namespace Nexus\PHPUnit\Tachycardia\Tests\Util;
 
-use Nexus\PHPUnit\Extension\Tests\Live\NoTimeLimitInMethodTest;
-use Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest;
-use Nexus\PHPUnit\Extension\Util\TestCase as UtilTestCase;
+use Nexus\PHPUnit\Tachycardia\Tests\Live\NoTimeLimitInMethodTest;
+use Nexus\PHPUnit\Tachycardia\Tests\Live\SlowTestsTest;
+use Nexus\PHPUnit\Tachycardia\Util\TestCase as UtilTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
- * @covers \Nexus\PHPUnit\Extension\Util\TestCase
+ * @covers \Nexus\PHPUnit\Tachycardia\Util\TestCase
  */
 final class TestCaseTest extends TestCase
 {
@@ -31,7 +31,7 @@ final class TestCaseTest extends TestCase
 
         self::assertSame(NoTimeLimitInMethodTest::class, $testcase->getClass());
         self::assertSame('testSlowTestDisabledForProfiling', $testcase->getName());
-        self::assertSame('Nexus\PHPUnit\Extension\Tests\Live\NoTimeLimitInMethodTest::testSlowTestDisabledForProfiling', $testcase->getTestName());
+        self::assertSame('Nexus\PHPUnit\Tachycardia\Tests\Live\NoTimeLimitInMethodTest::testSlowTestDisabledForProfiling', $testcase->getTestName());
     }
 
     public function testGetAnnotations(): void
@@ -58,7 +58,7 @@ final class TestCaseTest extends TestCase
     {
         $testcase = new UtilTestCase(SlowTestsTest::class, 'testWithProvider', ' with data set "slow"');
 
-        self::assertSame('Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest::testWithProvider', $testcase->getTestName(false));
-        self::assertSame('Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest::testWithProvider with data set "slow"', $testcase->getTestName(true));
+        self::assertSame('Nexus\PHPUnit\Tachycardia\Tests\Live\SlowTestsTest::testWithProvider', $testcase->getTestName(false));
+        self::assertSame('Nexus\PHPUnit\Tachycardia\Tests\Live\SlowTestsTest::testWithProvider with data set "slow"', $testcase->getTestName(true));
     }
 }

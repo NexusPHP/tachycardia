@@ -11,9 +11,9 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension\Util;
+namespace Nexus\PHPUnit\Tachycardia\Util;
 
-use Nexus\PHPUnit\Extension\Tachycardia;
+use Nexus\PHPUnit\Tachycardia\Tachycardia;
 
 /**
  * @internal

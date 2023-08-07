@@ -11,9 +11,9 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension\Tests\Live;
+namespace Nexus\PHPUnit\Tachycardia\Tests\Live;
 
-use Nexus\PHPUnit\Extension\ExpeditableTestCase;
+use Nexus\PHPUnit\Tachycardia\ExpeditableTestCase;
 
 /**
  * @internal

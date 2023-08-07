@@ -22,7 +22,7 @@ the `ExpeditableTestCase` abstract class and then turning on the `$collectBare` 
     <!-- Other configurations -->
 
     <extensions>
-        <extension class="Nexus\PHPUnit\Extension\Tachycardia">
+        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia">
             <arguments>
                 <array>
                     ...
@@ -39,7 +39,7 @@ the `ExpeditableTestCase` abstract class and then turning on the `$collectBare` 
 2. Either use the trait or extending the abstract class.
 ```php
 // using the trait
-use Nexus\PHPUnit\Extension\Expeditable;
+use Nexus\PHPUnit\Tachycardia\Expeditable;
 use PHPUnit\Framework\TestCase;
 
 final class FooTest extends TestCase
@@ -52,7 +52,7 @@ final class FooTest extends TestCase
 /* ------------------------------------------------- */
 
 // using the abstract class
-use Nexus\PHPUnit\Extension\ExpeditableTestCase;
+use Nexus\PHPUnit\Tachycardia\ExpeditableTestCase;
 
 final class FooTest extends ExpeditableTestCase
 {

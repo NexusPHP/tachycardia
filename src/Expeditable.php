@@ -11,9 +11,9 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension;
+namespace Nexus\PHPUnit\Tachycardia;
 
-use Nexus\PHPUnit\Extension\Util\Parser;
+use Nexus\PHPUnit\Tachycardia\Util\Parser;
 use PHPUnit\Util\Test as TestUtil;
 use SebastianBergmann\Timer\Timer;
 

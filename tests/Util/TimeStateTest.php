@@ -11,10 +11,10 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension\Tests\Util;
+namespace Nexus\PHPUnit\Tachycardia\Tests\Util;
 
-use Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest;
-use Nexus\PHPUnit\Extension\Util\TimeState;
+use Nexus\PHPUnit\Tachycardia\Tests\Live\SlowTestsTest;
+use Nexus\PHPUnit\Tachycardia\Util\TimeState;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @internal
  *
- * @covers \Nexus\PHPUnit\Extension\Util\TimeState
+ * @covers \Nexus\PHPUnit\Tachycardia\Util\TimeState
  */
 final class TimeStateTest extends TestCase
 {

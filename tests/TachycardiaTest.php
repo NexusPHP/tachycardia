@@ -11,18 +11,18 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Extension\Tests;
+namespace Nexus\PHPUnit\Tachycardia\Tests;
 
-use Nexus\PHPUnit\Extension\Tachycardia;
-use Nexus\PHPUnit\Extension\Tests\Live\ClassAnnotationsTest;
-use Nexus\PHPUnit\Extension\Tests\Live\SlowTestsTest;
-use Nexus\PHPUnit\Extension\Util\GithubMonitor;
+use Nexus\PHPUnit\Tachycardia\Tachycardia;
+use Nexus\PHPUnit\Tachycardia\Tests\Live\ClassAnnotationsTest;
+use Nexus\PHPUnit\Tachycardia\Tests\Live\SlowTestsTest;
+use Nexus\PHPUnit\Tachycardia\Util\GithubMonitor;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
- * @covers \Nexus\PHPUnit\Extension\Tachycardia
+ * @covers \Nexus\PHPUnit\Tachycardia\Tachycardia
  */
 final class TachycardiaTest extends TestCase
 {
@@ -95,7 +95,7 @@ final class TachycardiaTest extends TestCase
     }
 
     /**
-     * @covers \Nexus\PHPUnit\Extension\Util\GithubMonitor
+     * @covers \Nexus\PHPUnit\Tachycardia\Util\GithubMonitor
      */
     public function testWithGithubActionReporting(): void
     {
