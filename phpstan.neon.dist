@@ -1,5 +1,5 @@
 includes:
-  - phpstan-baseline.neon.dist
+  - vendor/phpstan/phpstan/conf/bleedingEdge.neon
 
 parameters:
   tmpDir: build/phpstan
@@ -9,20 +9,10 @@ parameters:
     - tests
   bootstrapFiles:
     - vendor/autoload.php
-  stubFiles:
-    - stubs/phpunit.stub
-  parallel:
-    processTimeout: 300.0
-  polluteScopeWithLoopInitialAssignments: false
-  polluteScopeWithAlwaysIterableForeach: false
-  checkAlwaysTrueCheckTypeFunctionCall: true
-  checkAlwaysTrueInstanceof: true
-  checkAlwaysTrueStrictComparison: true
-  checkExplicitMixedMissingReturn: true
-  checkFunctionNameCase: true
-  checkInternalClassCaseSensitivity: true
-  reportMaybesInMethodSignatures: true
-  reportStaticMethodSignatures: true
   checkTooWideReturnTypesInProtectedAndPublicMethods: true
   checkUninitializedProperties: true
+  checkImplicitMixed: true
+  checkBenevolentUnionTypes: true
+  checkMissingCallableSignature: true
+  reportAlwaysTrueInLastCondition: true
   treatPhpDocTypesAsCertain: false
