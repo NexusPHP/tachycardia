@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Removed
 
 - Support for PHP 7.4 and 8.0 is removed
+- The `Expeditable` trait and `ExpeditableTestCase` are both removed
 
 ## [v1.4.0](https://github.com/NexusPHP/tachycardia/compare/v1.3.5...v1.4.0) - 2022-10-14
 
