@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - The `Expeditable` trait and `ExpeditableTestCase` are both removed
 - The `Parser` class is removed
 - The `TestCase` class is removed
+- The `TimeState` class is removed
 
 ## [v1.4.0](https://github.com/NexusPHP/tachycardia/compare/v1.3.5...v1.4.0) - 2022-10-14
 
