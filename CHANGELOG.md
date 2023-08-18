@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 
+- Added `Stopwatch` class
+
 ### Changed
 
 - Namespace is changed to `Nexus\PHPUnit\Tachycardia`
