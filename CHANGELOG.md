@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - The `Expeditable` trait and `ExpeditableTestCase` are both removed
 - The `GithubMonitor` class is removed
 - The `Parser` class is removed
+- The `Tachycardia` class is removed
 - The `TestCase` class is removed
 - The `TimeState` class is removed
 
