@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Added `DurationFormatter` class
 - Added parameter value objects: `Limit`, `Precision`, `ReportCount`
+- Added `SlowTest` object and its collection
 - Added `Stopwatch` class
 
 ### Changed
