@@ -31,6 +31,9 @@ final class DurationFormatterTest extends TestCase
         self::assertSame($expectedFormat, (new DurationFormatter())->format($duration, $precision));
     }
 
+    /**
+     * @return iterable<string, array{0: Duration, 1: int, 2: string}>
+     */
     public static function provideFormattingOfDurationCases(): iterable
     {
         $duration = Duration::fromSecondsAndNanoseconds(1, 120_578_645);
@@ -63,6 +66,9 @@ final class DurationFormatterTest extends TestCase
         (new DurationFormatter())->format(Duration::fromSecondsAndNanoseconds(1, 1_000_000), $precision);
     }
 
+    /**
+     * @return iterable<string, array<int, int>>
+     */
     public static function provideInvalidPrecisionThrowsExceptionCases(): iterable
     {
         yield '0' => [0];
