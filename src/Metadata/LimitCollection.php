@@ -55,7 +55,7 @@ final class LimitCollection implements \Countable, \IteratorAggregate
         return \count($this->limits);
     }
 
-    public function empty(): bool
+    public function isEmpty(): bool
     {
         return [] === $this->limits;
     }
