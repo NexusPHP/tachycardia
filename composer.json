@@ -35,10 +35,6 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/end-to-end",
-            "tests/fixtures"
-        ],
         "psr-4": {
             "Nexus\\PHPUnit\\Tachycardia\\Tests\\": "tests/unit"
         }
