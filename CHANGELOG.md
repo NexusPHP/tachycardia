@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added `Limit` metadata objects
 - Added `SlowTest` object and its collection
 - Added `Stopwatch` class
+- Added metadata parsers
 
 ### Changed
 

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Tachycardia\Tests\Parameter;
 
+use Nexus\PHPUnit\Tachycardia\Attribute\TimeLimit;
 use Nexus\PHPUnit\Tachycardia\Parameter\ReportCount;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -21,9 +22,11 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
+#[TimeLimit(1.50)]
 #[CoversClass(ReportCount::class)]
 final class ReportCountTest extends TestCase
 {
+    #[TimeLimit(0.75)]
     public function testReportCountReturnsReportCountInt(): void
     {
         self::assertSame(30, ReportCount::from(30)->count());

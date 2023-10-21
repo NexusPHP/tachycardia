@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Tachycardia\Tests;
 
+use Nexus\PHPUnit\Tachycardia\Attribute\NoTimeLimit;
 use Nexus\PHPUnit\Tachycardia\DurationFormatter;
 use PHPUnit\Event\Telemetry\Duration;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -22,9 +23,11 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
+#[NoTimeLimit]
 #[CoversClass(DurationFormatter::class)]
 final class DurationFormatterTest extends TestCase
 {
+    #[NoTimeLimit]
     #[DataProvider('provideFormattingOfDurationCases')]
     public function testFormattingOfDuration(Duration $duration, int $precision, string $expectedFormat): void
     {

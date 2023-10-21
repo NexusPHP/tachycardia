@@ -121,7 +121,7 @@ final class SlowTestCollectionTest extends TestCase
         $collection->push($slowTest1);
 
         foreach ($collection as $index => $slowTest) {
-            self::assertIsInt($index);
+            self::assertSame(0, $index);
             self::assertSame($slowTest1, $slowTest);
         }
     }

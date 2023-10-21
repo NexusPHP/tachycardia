@@ -19,11 +19,16 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * @noTimeLimit
+ *
  * @internal
  */
 #[CoversClass(Precision::class)]
 final class PrecisionTest extends TestCase
 {
+    /**
+     * @noTimeLimit
+     */
     public function testPrecisionReturnsThePrecisionNumber(): void
     {
         self::assertSame(5, Precision::fromInt(5)->asInt());

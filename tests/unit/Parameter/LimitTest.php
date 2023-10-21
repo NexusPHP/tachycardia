@@ -19,11 +19,16 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * @timeLimit 2.0
+ *
  * @internal
  */
 #[CoversClass(Limit::class)]
 final class LimitTest extends TestCase
 {
+    /**
+     * @timeLimit 2.5
+     */
     public function testLimitParameterReturnsTheSecondsAsDuration(): void
     {
         $seconds = 2.50;
