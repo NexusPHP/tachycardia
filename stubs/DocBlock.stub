@@ -1,0 +1,11 @@
+<?php
+
+namespace PHPUnit\Metadata\Annotation\Parser;
+
+final class DocBlock
+{
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public function symbolAnnotations(): array {}
+}

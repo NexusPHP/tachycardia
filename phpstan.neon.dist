@@ -9,6 +9,8 @@ parameters:
     - tests
   bootstrapFiles:
     - vendor/autoload.php
+  stubFiles:
+    - stubs/DocBlock.stub
   checkTooWideReturnTypesInProtectedAndPublicMethods: true
   checkUninitializedProperties: true
   checkImplicitMixed: true
