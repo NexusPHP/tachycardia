@@ -78,7 +78,7 @@ final class LimitCollection implements \Countable, \IteratorAggregate
         return array_reduce(
             $this->limits,
             static function (?Limit $initial, Limit $limit): Limit {
-                if ($initial === null) {
+                if (null === $initial) {
                     return $limit;
                 }
 
@@ -88,7 +88,7 @@ final class LimitCollection implements \Countable, \IteratorAggregate
 
                 return $initial;
             },
-            null
+            null,
         ) ?? new TimeLimitForMethod($limitParameter->duration()->asFloat());
     }
 }
