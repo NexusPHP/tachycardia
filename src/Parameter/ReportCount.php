@@ -21,7 +21,7 @@ namespace Nexus\PHPUnit\Tachycardia\Parameter;
 final class ReportCount
 {
     /**
-     * @phpstan-param int<1, max> $count
+     * @param int<1, max> $count
      */
     private function __construct(
         private readonly int $count,

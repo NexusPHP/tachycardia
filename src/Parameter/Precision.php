@@ -21,7 +21,7 @@ namespace Nexus\PHPUnit\Tachycardia\Parameter;
 final class Precision
 {
     /**
-     * @phpstan-param int<1, max> $precision
+     * @param int<1, max> $precision
      */
     private function __construct(
         private readonly int $precision,
@@ -42,7 +42,7 @@ final class Precision
     }
 
     /**
-     * @phpstan-return int<1, max>
+     * @return int<1, max>
      */
     public function asInt(): int
     {
