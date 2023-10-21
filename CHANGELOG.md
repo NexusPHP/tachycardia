@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added `SlowTest` object and its collection
 - Added `Stopwatch` class
 - Added metadata parsers
+- Added `Color` util class
 
 ### Changed
 
