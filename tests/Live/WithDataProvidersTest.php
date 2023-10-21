@@ -26,7 +26,7 @@ final class WithDataProvidersTest extends TestCase
      * Assert that these slow tests will be printed in the console report
      * as they have a custom time limit provided here.
      *
-     * @dataProvider timeProvider
+     * @dataProvider provideSlowProvidedTestRespectsTimeLimitCases
      *
      * @timeLimit 0.50
      */
@@ -39,7 +39,7 @@ final class WithDataProvidersTest extends TestCase
     /**
      * @return iterable<float[]>
      */
-    public function timeProvider(): iterable
+    public static function provideSlowProvidedTestRespectsTimeLimitCases(): iterable
     {
         foreach ([0.55, 0.60, 0.70, 0.80, 0.90] as $float) {
             yield [(int) ($float * 1000000)];

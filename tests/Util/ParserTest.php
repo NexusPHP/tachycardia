@@ -35,7 +35,7 @@ final class ParserTest extends TestCase
     }
 
     /**
-     * @dataProvider nameProvider
+     * @dataProvider provideParsingYieldsTestCaseObjectCases
      */
     public function testParsingYieldsTestCaseObject(string $input): void
     {
@@ -46,16 +46,20 @@ final class ParserTest extends TestCase
     /**
      * @return iterable<array<string>>
      */
-    public function nameProvider(): iterable
+    public static function provideParsingYieldsTestCaseObjectCases(): iterable
     {
-        return [
-            ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testWithProvider with data set "slowest"'],
-            ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testWithProvider with data set "slower"'],
-            ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testWithProvider with data set "slow"'],
-            ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testSlowestTest'],
-            ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testSlowerTest'],
-            ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testSlowTest'],
-            ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testCustomLowerLimit'],
-        ];
+        yield ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testWithProvider with data set "slowest"'];
+
+        yield ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testWithProvider with data set "slower"'];
+
+        yield ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testWithProvider with data set "slow"'];
+
+        yield ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testSlowestTest'];
+
+        yield ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testSlowerTest'];
+
+        yield ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testSlowTest'];
+
+        yield ['Nexus\PHPUnit\Extension\Tests\TachycardiaTest::testCustomLowerLimit'];
     }
 }

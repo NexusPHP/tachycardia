@@ -22,7 +22,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.4', '8.0', '8.1']
+        php-versions:
+          - '8.0'
+          - '8.1'
 
     steps:
       - name: Checkout
@@ -43,9 +45,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.COMPOSER_CACHE_FILES_DIR }}
-          key: composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.*') }}
+          key: composer-${{ runner.os }}-${{ matrix.php-versions }}-${{ hashFiles('**/composer.*') }}
           restore-keys: |
-            composer-${{ runner.os }}-${{ matrix.php-version }}-
+            composer-${{ runner.os }}-${{ matrix.php-versions }}-
             composer-${{ runner.os }}-
             composer-
 
@@ -85,7 +87,7 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_PARALLEL: true
-          COVERALLS_FLAG_NAME: PHP ${{ matrix.php-version }}
+          COVERALLS_FLAG_NAME: PHP ${{ matrix.php-versions }}
 
   coveralls-finish:
     name: Coveralls Finished

@@ -36,7 +36,6 @@ final class TestCase
      * The annotations array provided by \PHPUnit\Util\Test::parseMethodAnnotations.
      *
      * @var array<string, mixed>
-     *
      * @phpstan-var array{'method'?: null|array<string, array<int, string>>, 'class'?:array<string, array<int, string>>}
      */
     private array $annotations = [];
