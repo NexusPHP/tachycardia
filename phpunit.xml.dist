@@ -12,8 +12,11 @@
          requireCoverageMetadata="true"
 >
   <testsuites>
-    <testsuite name="Nexus Tachycardia Test Suite">
-      <directory suffix="Test.php">tests</directory>
+    <testsuite name="unit">
+      <directory suffix="Test.php">tests/unit</directory>
+    </testsuite>
+    <testsuite name="end-to-end">
+      <directory suffix=".phpt">tests/end-to-end</directory>
     </testsuite>
   </testsuites>
 
