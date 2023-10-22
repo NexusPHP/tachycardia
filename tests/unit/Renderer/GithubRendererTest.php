@@ -33,7 +33,7 @@ final class GithubRendererTest extends TestCase
     {
         $renderer = new GithubRenderer(Precision::fromInt(4));
 
-        self::assertSame($_ENV['GITHUB_ACTIONS'] ?? false, $renderer->runningInCi());
+        self::assertSame(getenv('GITHUB_ACTIONS') !== false, $renderer->runningInCi());
     }
 
     public function testRendererWorksProperly(): void
