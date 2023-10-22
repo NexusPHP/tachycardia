@@ -7,7 +7,8 @@
          beStrictAboutOutputDuringTests="true"
          failOnRisky="true"
          failOnWarning="true"
-         cacheDirectory=".phpunit.cache"
+         cacheDirectory="build/phpunit/cache"
+         columns="max"
          requireCoverageMetadata="true"
 >
   <testsuites>
@@ -20,6 +21,9 @@
     <include>
       <directory suffix=".php">src</directory>
     </include>
+    <exclude>
+      <directory suffix=".php">src/Attribute</directory>
+    </exclude>
   </source>
 
   <coverage ignoreDeprecatedCodeUnits="true">
@@ -28,4 +32,8 @@
       <html outputDirectory="build/logs/html"/>
     </report>
   </coverage>
+
+  <extensions>
+    <bootstrap class="Nexus\PHPUnit\Tachycardia\TachycardiaExtension" />
+  </extensions>
 </phpunit>

@@ -15,6 +15,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added `Stopwatch` class
 - Added metadata parsers
 - Added `Color` util class
+- Added subscribers
+- Added renderers
+- Added `Nexus\PHPUnit\Tachycardia\TachycardiaExtension`
 
 ### Changed
 
