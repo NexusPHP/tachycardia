@@ -88,7 +88,7 @@ final class SlowTestCollectionTest extends TestCase
         self::assertSame($slowTest1, $collection->pop());
     }
 
-    public function testCollectionAsArratSortsSlowTestsFromHighestToLowest(): void
+    public function testCollectionAsArraySortsSlowTestsFromHighestToLowest(): void
     {
         $collection = new SlowTestCollection();
         $slowTest1 = $this->createMockSlowTest();
