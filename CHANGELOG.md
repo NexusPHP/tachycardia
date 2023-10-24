@@ -22,6 +22,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 
 - Namespace is changed to `Nexus\PHPUnit\Tachycardia`
+- Updated the documentation
+
+## Fixed
+
+- Fixed runners to `ubuntu-latest`
 
 ### Removed
 
@@ -33,7 +38,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - The `TestCase` class is removed
 - The `TimeState` class is removed
 
-## [1.5.0](https://github.com/NexusPHP/tachycardia/compare/v1.4.0...v1.5.0) - 2022-10-24
+## [v1.5.0](https://github.com/NexusPHP/tachycardia/compare/v1.4.0...v1.5.0) - 2022-10-24
 
 - Bump actions/checkout from 3 to 4 (#13)
 - Test PHP 8.2
