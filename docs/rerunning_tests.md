@@ -20,5 +20,5 @@ $ vendor/bin/phpunit --filter 'Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest
 ```
 
 Note that PHPUnit uses single quotes for the value of the `--filter` option. Read more on
-the [`--filter` option documentation](https://phpunit.readthedocs.io/en/9.5/textui.html?highlight=filter)
+the [`--filter` option documentation](https://phpunit.readthedocs.io/en/10.4/textui.html)
 for all supported matching patterns.

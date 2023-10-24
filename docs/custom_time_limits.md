@@ -74,3 +74,30 @@ final class BarTest extends \PHPUnit\Framework\TestCase
 Method-level disabling takes precedence from class-level disabling. Moreover, if you have a `@noTimeLimit`
 applied to a test case, either through the method or the class, and a custom `@timeLimit` applied also to
 this test case, **THE `@noTimeLIMIT` ANNOTATION WILL TAKE PRECEDENCE**.
+
+## Using Attributes instead
+
+Instead of annotating via `@timeLimit` and `@noTimeLimit`, you can instead use PHP attributes.
+Use `Nexus\PHPUnit\Tachycardia\Attribute\TimeLimit` as replacement for `@timeLimit` while use
+`Nexus\PHPUnit\Tachycardia\Attribute\NoTimeLimit` as replacement for `@noTimeLimit`.
+
+```php
+
+use Nexus\PHPUnit\Tachycardia\Attribute\NoTimeLimit;
+use Nexus\PHPUnit\Tachycardia\Attribute\TimeLimit;
+
+#[NoTimeLimit]
+final class BarTest extends \PHPUnit\Framework\TestCase
+{
+    public function testSluggishTest(): void {}
+}
+
+#[TimeLimit(3.0)]
+class FooTakesLongToTest
+{
+    public function testOne(): void {}
+
+    #[TimeLimit(2.0)]
+    public function testTwo(): void {}
+}
+```

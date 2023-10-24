@@ -1,6 +1,6 @@
 # Tabulating results instead of plain render
 
-If you want to have the console report displayed in tables, you can set the `tabulate` option to true
+If you want to have the console report displayed in tables, you can set the `format` option to `table`
 in the `phpunit.xml.dist` file.
 
 ```xml
@@ -8,16 +8,10 @@ in the `phpunit.xml.dist` file.
 <phpunit bootstrap="vendor/autoload.php">
 ...
     <extensions>
-        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia">
-            <arguments>
-                <array>
-                    ...
-                    <element key="tabulate">
-                        <boolean>true</boolean>
-                    </element>
-                </array>
-            </arguments>
-        </extension>
+        <bootstrap class="Nexus\PHPUnit\Tachycardia\TachycardiaExtension">
+            ...
+            <parameter name="format" value="table" />
+        </bootstrap>
     </extensions>
 </phpunit>
 ```
@@ -28,38 +22,26 @@ Running `vendor/bin/phpunit` will now yield the report similar to this:
 $ vendor/bin/phpunit
 PHPUnit 9.5.3 by Sebastian Bergmann and contributors.
 
-Runtime:       PHP 8.0.3 with Xdebug 3.0.3
+Runtime:       PHP 8.2.10 with Xdebug 3.2.2
 Configuration: /var/www/tachycardia/phpunit.xml.dist
+Random Seed:   1698146158
 
-....S.........                                                    14 / 14 (100%)
+................................................................. 65 / 96 ( 67%)
+...............................                                   96 / 96 (100%)
 
-Nexus\PHPUnit\Tachycardia\Tachycardia identified these 7 slow tests:
-+-----------------------------------------------------------------------------------------------+---------------+---------------+
-| Test Case                                                                                     | Time Consumed | Time Limit    |
-+-----------------------------------------------------------------------------------------------+---------------+---------------+
-| Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testWithProvider with data set \"slowest\" | 00:00:07.0053 | 00:00:01.0000 |
-| Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testWithProvider with data set \"slower\"  | 00:00:06.0110 | 00:00:01.0000 |
-| Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testWithProvider with data set \"slow\"    | 00:00:05.0114 | 00:00:01.0000 |
-| Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testSlowestTest                            | 00:00:04.0176 | 00:00:01.0000 |
-| Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testSlowerTest                             | 00:00:03.0104 | 00:00:01.0000 |
-| Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testSlowTest                               | 00:00:02.0107 | 00:00:01.0000 |
-| Nexus\\PHPUnit\\Extension\\Tests\\TachycardiaTest::testCustomLowerLimit                       | 00:00:01.0186 | 00:00:00.5000 |
-+-----------------------------------------------------------------------------------------------+---------------+---------------+
+Nexus\PHPUnit\Tachycardia\TachycardiaExtension identified this sole slow test:
++---------------------------------------------------------------------------------------------+---------------+---------------+
+| Test Case                                                                                   | Time Consumed | Time Limit    |
++---------------------------------------------------------------------------------------------+---------------+---------------+
+| Nexus\\PHPUnit\\Tachycardia\\Tests\\Renderer\\GithubRendererTest::testRendererWorksProperly | 00:00:07.0053 | 00:00:01.0000 |
++---------------------------------------------------------------------------------------------+---------------+---------------+
 
 
-Time: 00:31.574, Memory: 8.00 MB
+Time: 00:48.715, Memory: 14.00 MB
 
-There was 1 skipped test:
+OK (96 tests, 265 assertions)
 
-1) Nexus\PHPUnit\Tachycardia\Tests\TachycardiaTest::testWithGithubActionReporting
-This should be tested in Github Actions.
+Generating code coverage report in Clover XML format ... done [00:00.391]
 
-/var/www/tachycardia/tests/TachycardiaTest.php:95
-
-OK, but incomplete, skipped, or risky tests!
-Tests: 14, Assertions: 21, Skipped: 1.
-
-Generating code coverage report in Clover XML format ... done [00:00.526]
-
-Generating code coverage report in HTML format ... done [00:10.317]
+Generating code coverage report in HTML format ... done [00:01.930]
 ```

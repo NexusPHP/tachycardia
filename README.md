@@ -17,37 +17,26 @@ as to why these identified are slow. You should use a dedicated profiler for the
 
 ```console
 $ vendor/bin/phpunit
-PHPUnit 9.5.4 by Sebastian Bergmann and contributors.
+PHPUnit 10.4.1 by Sebastian Bergmann and contributors.
 
-Runtime:       PHP 8.0.3 with Xdebug 3.0.3
+Runtime:       PHP 8.2.10 with Xdebug 3.2.2
 Configuration: /home/runner/work/tachycardia/tachycardia/phpunit.xml.dist
+Random Seed:   1698146158
 
-...................................                               35 / 35 (100%)
+................................................................. 65 / 96 ( 67%)
+...............................                                   96 / 96 (100%)
 
-Nexus\PHPUnit\Tachycardia\Tachycardia identified these 14 slow tests:
-⚠  Took 7.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slowest\"
-⚠  Took 6.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slower\"
-⚠  Took 5.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testWithProvider with data set \"slow\"
-⚠  Took 4.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testSlowestTest
-⚠  Took 3.0004s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testSlowerTest
-⚠  Took 2.5040s from 2.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\ClassAnnotationsTest::testSlowTestUsesClassTimeLimit
-⚠  Took 2.0003s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testSlowTest
-⚠  Took 1.5012s from 1.0000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\NoTimeLimitInMethodTest::testSlowTestNotDisabled
-⚠  Took 1.0004s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\SlowTestsTest::testCustomLowerLimit
-⚠  Took 0.9012s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #4
-⚠  Took 0.8011s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #3
-⚠  Took 0.7011s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #2
-⚠  Took 0.6012s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #1
-⚠  Took 0.5513s from 0.5000s limit to run Nexus\\PHPUnit\\Extension\\Tests\\Live\\WithDataProvidersTest::testSlowProvidedTestRespectsTimeLimit with data set #0
+Nexus\PHPUnit\Tachycardia\TachycardiaExtension identified this sole slow test:
+⚠  Took 1.3374s from 1.0000s limit to run Nexus\\PHPUnit\\Tachycardia\\Tests\\Renderer\\GithubRendererTest::testRendererWorksProperly
 
 
-Time: 00:43.251, Memory: 16.00 MB
+Time: 00:48.715, Memory: 14.00 MB
 
-OK (35 tests, 55 assertions)
+OK (96 tests, 265 assertions)
 
-Generating code coverage report in Clover XML format ... done [00:00.004]
+Generating code coverage report in Clover XML format ... done [00:00.391]
 
-Generating code coverage report in HTML format ... done [00:00.038]
+Generating code coverage report in HTML format ... done [00:01.930]
 ```
 
 ## Installation
@@ -61,17 +50,16 @@ running your project's test suite. You can install using [Composer](https://getc
 
 Tachycardia supports these parameters:
 
-- **timeLimit** - Time limit in seconds to be enforced for all tests. All tests exceeding
+- **time-limit** - Time limit in seconds to be enforced for all tests. All tests exceeding
     this amount will be considered as slow. ***Default: 1.00***
-- **reportable** - Number of slow tests to be displayed in the console report. This is ignored
+- **report-count** - Number of slow tests to be displayed in the console report. This is ignored
     on Github Actions report. ***Default: 10***
 - **precision** - Degree of precision of the decimals of the test's consumed time and allotted
     time limit. ***Default: 4***
-- **tabulate** - Boolean flag whether the console report should be displayed in a tabular format
-    or just displayed as plain. ***Default: false***
-- **collectBare** - Boolean flag whether collected times should be free of the hook
-    methods' times. Turning this on requires using the `Expeditable` trait or extending
-    the `ExpeditableTestCase` class. ***Default: false***
+- **format** - The format of the renderer for the console. Could be any of:
+    - **list** - Displays the report in list format
+    - **table** - Displays the report in tabular format
+    - **github** - Displays the report in Github Actions format. This format is enabled by default when running in Github Actions.
 
 To use the extension with its default configuration options, you can simply add the following
 into your `phpunit.xml.dist` or `phpunit.xml` file.
@@ -83,17 +71,15 @@ into your `phpunit.xml.dist` or `phpunit.xml` file.
          bootstrap="vendor/autoload.php"
          cacheResultFile="build/.phpunit.cache/test-results"
          colors="true"
-         executionOrder="depends,defects"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          failOnRisky="true"
-         failOnWarning="true"
-         verbose="true">
+         failOnWarning="true">
 
     <!-- Your other phpunit configurations here -->
 
     <extensions>
-        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia" />
+        <bootstrap class="Nexus\PHPUnit\Tachycardia\TachycardiaExtension" />
     </extensions>
 </phpunit>
 ```
@@ -111,37 +97,20 @@ If you wish to customize one or more of the available options, you can just chan
          bootstrap="vendor/autoload.php"
          cacheResultFile="build/.phpunit.cache/test-results"
          colors="true"
-         executionOrder="depends,defects"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          failOnRisky="true"
-         failOnWarning="true"
-         verbose="true">
+         failOnWarning="true">
 
     <!-- Your other phpunit configurations here -->
 
     <extensions>
-        <extension class="Nexus\PHPUnit\Tachycardia\Tachycardia">
-            <arguments>
-                <array>
-                    <element key="timeLimit">
-                        <double>1.00</double>
-                    </element>
-                    <element key="reportable">
-                        <integer>10</integer>
-                    </element>
-                    <element key="precision">
-                        <integer>4</integer>
-                    </element>
-                    <element key="tabulate">
-                        <boolean>false</boolean>
-                    </element>
-                    <element key="collectBare">
-                        <boolean>false</boolean>
-                    </element>
-                </array>
-            </arguments>
-        </extension>
+        <bootstrap class="Nexus\PHPUnit\Tachycardia\TachycardiaExtension">
+            <parameter name="time-limit" value="2.00" />
+            <parameter name="report-count" value="30" />
+            <parameter name="precision" value="2" />
+            <parameter name="format" value="table" />
+        </bootstrap>
     </extensions>
 </phpunit>
 ```
@@ -155,9 +124,13 @@ If you wish to customize one or more of the available options, you can just chan
     - [Setting custom time limits per test](docs/custom_time_limits.md#setting-custom-time-limits-per-test)
     - [Setting custom time limits per class](docs/custom_time_limits.md#setting-custom-time-limits-per-class)
     - [Disabling time limits per test or per class](docs/custom_time_limits.md#disabling-time-limits-per-test-or-per-class)
+    - [Using Attributes instead](docs/custom_time_limits.md#using-attributes-instead)
 - [Tabulating results instead of plain render](docs/tabulating_results.md)
 - [Rerunning slow tests to see if these are fast now](docs/rerunning_tests.md)
-- [Limiting slow test profiling to the actual test case](docs/limiting_test_times.md)
+
+## Upgrading
+
+Upgrading from v1.x to v2.x? See the [UPGRADING](docs/UPGRADING.md) Guide.
 
 ## Contributing
 
