@@ -14,13 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        uses: crazy-max/ghaction-github-release@v2
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Nexus Tachycardia ${{ github.ref }}
+          token: ${{ secrets.RELEASE_TOKEN }}
+          name: Nexus Tachycardia ${{ github.ref }}
           draft: true
           prerelease: false
-          body: |
-            Please refer to the [CHANGELOG](CHANGELOG.md) for the detailed list of changes.
