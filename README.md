@@ -1,8 +1,8 @@
 # Nexus Tachycardia
 
 [![PHP version](https://img.shields.io/packagist/php-v/nexusphp/tachycardia)](https://php.net)
-![build](https://github.com/NexusPHP/tachycardia/actions/workflows/build.yml/badge.svg?branch=develop)
-[![Coverage Status](https://coveralls.io/repos/github/NexusPHP/tachycardia/badge.svg?branch=develop)](https://coveralls.io/github/NexusPHP/tachycardia?branch=develop)
+![build](https://github.com/NexusPHP/tachycardia/actions/workflows/build.yml/badge.svg?branch=2.x)
+[![Coverage Status](https://coveralls.io/repos/github/NexusPHP/tachycardia/badge.svg?branch=2.x)](https://coveralls.io/github/NexusPHP/tachycardia?branch=2.x)
 [![PHPStan](https://img.shields.io/badge/PHPStan-max%20level-brightgreen)](phpstan.neon.dist)
 [![Latest Stable Version](https://poser.pugx.org/nexusphp/tachycardia/v)](//packagist.org/packages/nexusphp/tachycardia)
 [![License](https://img.shields.io/github/license/nexusphp/tachycardia)](LICENSE)
