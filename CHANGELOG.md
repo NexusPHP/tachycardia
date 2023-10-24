@@ -33,6 +33,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - The `TestCase` class is removed
 - The `TimeState` class is removed
 
+## [1.5.0](https://github.com/NexusPHP/tachycardia/compare/v1.4.0...v1.5.0) - 2022-10-24
+
+- Bump actions/checkout from 3 to 4 (#13)
+- Test PHP 8.2
+- Bump to PHP 8.0
+- Update issue templates
+- Bump actions/cache from 2 to 3 (#10)
+- Bump phpstan v1.9.0
+- Use dependabot for updates
+
 ## [v1.4.0](https://github.com/NexusPHP/tachycardia/compare/v1.3.5...v1.4.0) - 2022-10-14
 
 - Fix formatting
