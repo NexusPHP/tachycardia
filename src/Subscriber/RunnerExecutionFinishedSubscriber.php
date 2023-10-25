@@ -30,7 +30,7 @@ final class RunnerExecutionFinishedSubscriber implements ExecutionFinishedSubscr
 
     public function notify(ExecutionFinished $event): void
     {
-        $render = $this->renderer->render($this->collection);
+        $render = $this->renderer->render($this->collection, $event->telemetryInfo());
 
         echo $render;
     }

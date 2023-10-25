@@ -36,8 +36,10 @@ Nexus\PHPUnit\Tachycardia\TachycardiaExtension identified this sole slow test:
 | Nexus\\PHPUnit\\Tachycardia\\Tests\\Renderer\\GithubRendererTest::testRendererWorksProperly | 00:00:07.0053 | 00:00:01.0000 |
 +---------------------------------------------------------------------------------------------+---------------+---------------+
 
+Slow tests' time: 1.71s (2.54% of 67.20s)
 
-Time: 00:48.715, Memory: 14.00 MB
+
+Time: 00:58.737, Memory: 16.00 MB
 
 OK (96 tests, 265 assertions)
 

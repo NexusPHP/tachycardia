@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Nexus\PHPUnit\Tachycardia\Renderer;
 
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
+use PHPUnit\Event\Telemetry\Info;
 
 final class RendererQueue implements Renderer
 {
@@ -24,16 +25,16 @@ final class RendererQueue implements Renderer
         private bool $monitorForGa,
     ) {}
 
-    public function render(SlowTestCollection $collection): string
+    public function render(SlowTestCollection $collection, ?Info $telemetryInfo = null): string
     {
         $buffer = '';
 
         if ($this->monitor) {
-            $buffer = $this->configuredRender->render($collection);
+            $buffer = $this->configuredRender->render($collection, $telemetryInfo);
         }
 
         if ($this->monitorForGa && $this->ciRenderer->runningInCi()) {
-            $buffer .= $this->ciRenderer->render($collection);
+            $buffer .= $this->ciRenderer->render($collection, $telemetryInfo);
         }
 
         return $buffer;

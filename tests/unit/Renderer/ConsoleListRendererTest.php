@@ -38,8 +38,9 @@ final class ConsoleListRendererTest extends AbstractConsoleRendererTestCase
                 \xE2\x9A\xA0  Took 5.00s from 1.00s limit to run Foo::bar
                 ...and 1 more test hidden from view.
 
+                Slow tests: Time: 00:00:06.000 (75.00%)
                 TXT,
-            $this->renderer()->render($this->createSlowTestCollection()),
+            $this->renderer()->render($this->createSlowTestCollection(), $this->createTelemetryInfo()),
         );
     }
 

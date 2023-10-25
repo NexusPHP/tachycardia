@@ -18,6 +18,11 @@ use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
 use PHPUnit\Event\Code\Test;
 use PHPUnit\Event\Telemetry\Duration;
+use PHPUnit\Event\Telemetry\Info;
+use PHPUnit\Event\Telemetry\Php81GarbageCollectorStatusProvider;
+use PHPUnit\Event\Telemetry\System;
+use PHPUnit\Event\Telemetry\SystemMemoryMeter;
+use PHPUnit\Event\Telemetry\SystemStopWatch;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +35,7 @@ abstract class AbstractConsoleRendererTestCase extends TestCase
         $collection->pop();
 
         self::assertCount(0, $collection);
-        self::assertSame('', $this->renderer()->render($collection));
+        self::assertSame('', $this->renderer()->render($collection, $this->createTelemetryInfo()));
     }
 
     abstract protected function renderer(): AbstractConsoleRenderer;
@@ -54,5 +59,22 @@ abstract class AbstractConsoleRendererTestCase extends TestCase
         $limit = Duration::fromSecondsAndNanoseconds(1, 0);
 
         return new SlowTest($test, $testTime, $limit);
+    }
+
+    protected function createTelemetryInfo(): Info
+    {
+        $snapshot = (new System(
+            new SystemStopWatch(),
+            new SystemMemoryMeter(),
+            new Php81GarbageCollectorStatusProvider(),
+        ))->snapshot();
+
+        return new Info(
+            $snapshot,
+            Duration::fromSecondsAndNanoseconds(8, 0),
+            $snapshot->memoryUsage(),
+            Duration::fromSecondsAndNanoseconds(6, 0),
+            $snapshot->memoryUsage()->diff($snapshot->memoryUsage()),
+        );
     }
 }

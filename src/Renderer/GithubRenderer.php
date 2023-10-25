@@ -17,6 +17,7 @@ use Nexus\PHPUnit\Tachycardia\Parameter\Precision;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
 use PHPUnit\Event\Code\TestMethod;
+use PHPUnit\Event\Telemetry\Info;
 
 final class GithubRenderer implements CiRenderer
 {
@@ -53,7 +54,7 @@ final class GithubRenderer implements CiRenderer
         return getenv('GITHUB_ACTIONS') !== false;
     }
 
-    public function render(SlowTestCollection $collection): string
+    public function render(SlowTestCollection $collection, ?Info $telemetryInfo = null): string
     {
         $buffer = '';
 

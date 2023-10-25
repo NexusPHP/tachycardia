@@ -42,8 +42,9 @@ final class ConsoleTableRendererTest extends AbstractConsoleRendererTestCase
                 +-----------+---------------+-------------+
                 ...and 1 more test hidden from view.
 
+                Slow tests: Time: 00:00:06.000 (75.00%)
                 TXT,
-            $this->renderer()->render($this->createSlowTestCollection()),
+            $this->renderer()->render($this->createSlowTestCollection(), $this->createTelemetryInfo()),
         );
     }
 

@@ -27,6 +27,7 @@ Random Seed:   %s
 Nexus\PHPUnit\Tachycardia\TachycardiaExtension identified this sole slow test:
 ⚠  Took %s from %s limit to run Nexus\\PHPUnit\\Tachycardia\\Tests\\EndToEnd\\NoTimeLimit\\AnnotationsTest::testSlowTestUsesClassTimeLimit
 
+Slow tests: Time: %s (%f%%)
 
 Time: %s, Memory: %s MB
 
