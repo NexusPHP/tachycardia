@@ -14,11 +14,15 @@ declare(strict_types=1);
 namespace Nexus\PHPUnit\Tachycardia\Renderer;
 
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
+use PHPUnit\Event\Telemetry\Info;
 
+/**
+ * @internal
+ */
 interface Renderer
 {
     /**
      * Renders the report.
      */
-    public function render(SlowTestCollection $collection): string;
+    public function render(SlowTestCollection $collection, ?Info $telemetryInfo = null): string;
 }
