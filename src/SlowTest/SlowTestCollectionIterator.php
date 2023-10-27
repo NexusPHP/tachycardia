@@ -21,7 +21,7 @@ namespace Nexus\PHPUnit\Tachycardia\SlowTest;
 final class SlowTestCollectionIterator implements \Iterator
 {
     /**
-     * @var array<int, SlowTest>
+     * @var list<SlowTest>
      */
     private readonly array $slowTests;
 

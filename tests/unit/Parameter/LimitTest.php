@@ -46,7 +46,7 @@ final class LimitTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array<int, float>>
+     * @return iterable<string, list<float>>
      */
     public static function provideLimitParameterThrowsExceptionForInvalidSecondsCases(): iterable
     {

@@ -25,7 +25,7 @@ use Nexus\PHPUnit\Tachycardia\Parameter\Limit as LimitParameter;
 final class LimitCollection implements \Countable, \IteratorAggregate
 {
     /**
-     * @var array<int, Limit>
+     * @var list<Limit>
      */
     private readonly array $limits;
 
@@ -35,7 +35,7 @@ final class LimitCollection implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param array<int, Limit> $limits
+     * @param list<Limit> $limits
      */
     public static function fromArray(array $limits): self
     {
@@ -43,7 +43,7 @@ final class LimitCollection implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @return array<int, Limit>
+     * @return list<Limit>
      */
     public function asArray(): array
     {

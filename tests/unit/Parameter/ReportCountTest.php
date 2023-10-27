@@ -42,7 +42,7 @@ final class ReportCountTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array<int, int>>
+     * @return iterable<string, list<int>>
      */
     public static function provideReportCountThrowsExceptionOnInvalidCountCases(): iterable
     {

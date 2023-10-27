@@ -66,7 +66,7 @@ final class SlowTestCollection implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @return array<int, SlowTest>
+     * @return list<SlowTest>
      */
     public function asArray(): array
     {

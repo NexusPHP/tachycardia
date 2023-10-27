@@ -21,7 +21,7 @@ namespace Nexus\PHPUnit\Tachycardia\Metadata;
 final class LimitCollectionIterator implements \Iterator
 {
     /**
-     * @var array<int, Limit>
+     * @var list<Limit>
      */
     private readonly array $limits;
 

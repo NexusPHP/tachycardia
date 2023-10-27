@@ -44,7 +44,7 @@ final class PrecisionTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array<int, int>>
+     * @return iterable<string, list<int>>
      */
     public static function providePrecisionThrowsExceptionOnNonPositiveIntsCases(): iterable
     {
