@@ -4,7 +4,21 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v2.0.0](https://github.com/NexusPHP/tachycardia/compare/v1.4.0...v2.0.0) - TBA
+## [v2.1.0](https://github.com/NexusPHP/tachycardia/compare/v2.0.0...v2.1.0) - 2023-10-27
+
+### Added
+
+- Add support for outputting total slow test times
+- Use `crazy-max/ghaction-github-release` for release
+
+### Fixed
+
+- Fix format of summary in docs
+- Use list type for PHPDocs
+- Mark `Renderer` interface as internal and add `Info`
+- Fix badges
+
+## [v2.0.0](https://github.com/NexusPHP/tachycardia/compare/v1.4.0...v2.0.0) - 2023-10-24
 
 ### Added
 
