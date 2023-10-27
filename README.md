@@ -29,8 +29,7 @@ Random Seed:   1698146158
 Nexus\PHPUnit\Tachycardia\TachycardiaExtension identified this sole slow test:
 ⚠  Took 1.3374s from 1.0000s limit to run Nexus\\PHPUnit\\Tachycardia\\Tests\\Renderer\\GithubRendererTest::testRendererWorksProperly
 
-Slow tests' time: 1.71s (2.54% of 67.20s)
-
+Slow tests: Time: 00:00:01.710 (2.54%)
 
 Time: 00:58.737, Memory: 16.00 MB
 
