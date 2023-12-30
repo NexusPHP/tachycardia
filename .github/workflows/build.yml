@@ -25,6 +25,7 @@ jobs:
         php-version:
           - '8.1'
           - '8.2'
+          - '8.3'
 
     steps:
       - name: Checkout
@@ -45,10 +46,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.COMPOSER_CACHE_FILES_DIR }}
-          key: composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.*') }}
+          key: composer-${{ matrix.php-version }}-${{ hashFiles('**/composer.*') }}
           restore-keys: |
-            composer-${{ runner.os }}-${{ matrix.php-version }}-
-            composer-${{ runner.os }}-
+            composer-${{ matrix.php-version }}-
             composer-
 
       - name: Setup Composer's GitHub OAuth access
@@ -58,7 +58,7 @@ jobs:
         run: composer update --ansi
 
       - name: Run PHP-CS-Fixer
-        run: vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run --using-cache=no --diff
+        run: vendor/bin/php-cs-fixer check --ansi --verbose --diff
 
       - name: Run PHPStan Static Analysis Check
         run: vendor/bin/phpstan analyse --ansi
@@ -71,7 +71,7 @@ jobs:
       - name: Run Coveralls
         run: |
           composer global require --ansi php-coveralls/php-coveralls
-          php-coveralls --coverage_clover=build/logs/clover.xml -v
+          php-coveralls --coverage_clover=build/logs/clover.xml --verbose
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_PARALLEL: true
