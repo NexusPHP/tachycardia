@@ -23,21 +23,23 @@ final class RendererFactory
     /**
      * @var array<non-empty-string, class-string<Renderer>>
      */
-    private const SUPPORTED_RENDERERS = [
-        'github' => GithubRenderer::class,
+    public const SUPPORTED_RENDERERS = [
         'list' => ConsoleListRenderer::class,
         'table' => ConsoleTableRenderer::class,
+        ...self::SUPPORTED_CI_RENDERERS,
     ];
 
     /**
      * @var array<non-empty-string, class-string<CiRenderer>>
      */
-    private const SUPPORTED_CI_RENDERERS = [
+    public const SUPPORTED_CI_RENDERERS = [
         'github' => GithubRenderer::class,
+        'gitlab' => GitlabRenderer::class,
+        'teamcity' => TeamCityRenderer::class,
     ];
 
     /**
-     * @phpstan-return ($format is key-of<self::SUPPORTED_CI_RENDERERS> ? CiRenderer : Renderer)
+     * @return ($format is key-of<self::SUPPORTED_CI_RENDERERS> ? CiRenderer : Renderer)
      *
      * @throws \AssertionError
      * @throws \InvalidArgumentException

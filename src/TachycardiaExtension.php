@@ -34,6 +34,7 @@ final class TachycardiaExtension implements Extension
     private const DEFAULT_REPORT_COUNT = 10;
     private const DEFAULT_PRECISION = 4;
     private const DEFAULT_FORMAT = 'list';
+    private const DEFAULT_CI_FORMAT = 'github';
 
     public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void
     {
@@ -52,6 +53,7 @@ final class TachycardiaExtension implements Extension
         $count = ReportCount::from(self::DEFAULT_REPORT_COUNT);
         $precision = Precision::fromInt(self::DEFAULT_PRECISION);
         $format = self::DEFAULT_FORMAT;
+        $ciFormat = self::DEFAULT_CI_FORMAT;
 
         if ($parameters->has('time-limit')) {
             $limit = Limit::fromSeconds((float) $parameters->get('time-limit'));
@@ -69,6 +71,10 @@ final class TachycardiaExtension implements Extension
             $format = $parameters->get('format');
         }
 
+        if ($parameters->has('ci-format')) {
+            $ciFormat = $parameters->get('ci-format');
+        }
+
         $color = new Color($configuration->colors());
         $stopwatch = new Stopwatch();
         $durationFormatter = new DurationFormatter();
@@ -79,7 +85,7 @@ final class TachycardiaExtension implements Extension
             new PassedTestSubscriber($collection, $stopwatch, $limit),
             new RunnerExecutionFinishedSubscriber($collection, new RendererQueue(
                 RendererFactory::from($format, $precision, $count, $color, $durationFormatter),
-                RendererFactory::from('github', $precision, $count, $color, $durationFormatter),
+                RendererFactory::from($ciFormat, $precision, $count, $color, $durationFormatter),
                 $monitor,
                 $monitorForGa,
             )),

@@ -17,9 +17,9 @@ as to why these identified are slow. You should use a dedicated profiler for the
 
 ```console
 $ vendor/bin/phpunit
-PHPUnit 10.4.1 by Sebastian Bergmann and contributors.
+PHPUnit 10.5.5 by Sebastian Bergmann and contributors.
 
-Runtime:       PHP 8.2.10 with Xdebug 3.2.2
+Runtime:       PHP 8.3.1 with Xdebug 3.3.1
 Configuration: /home/runner/work/tachycardia/tachycardia/phpunit.xml.dist
 Random Seed:   1698146158
 
@@ -57,10 +57,18 @@ Tachycardia supports these parameters:
     on Github Actions report. ***Default: 10***
 - **precision** - Degree of precision of the decimals of the test's consumed time and allotted
     time limit. ***Default: 4***
-- **format** - The format of the renderer for the console. Could be any of:
-    - **list** - Displays the report in list format
-    - **table** - Displays the report in tabular format
-    - **github** - Displays the report in Github Actions format. This format is enabled by default when running in Github Actions.
+- **format** - The format of the renderer for the console.
+- **ci-format** - The format of the renderer for the CI.
+
+Renderer formats for both the console and CI could be any of:
+
+| Format       | For Console? | For CI? | Remarks            |
+|--------------|:------------:|:-------:|--------------------|
+| **list**     | ✅︎           | ❌      | Default for console |
+| **table**    | ✅︎           | ❌      |                     |
+| **github**   | ✅︎           | ✅︎      | Default for CI      |
+| **gitlab**   | ✅︎           | ✅︎      |                     |
+| **teamcity** | ✅︎           | ✅︎      |                     |
 
 To use the extension with its default configuration options, you can simply add the following
 into your `phpunit.xml.dist` or `phpunit.xml` file.
@@ -111,6 +119,7 @@ If you wish to customize one or more of the available options, you can just chan
             <parameter name="report-count" value="30" />
             <parameter name="precision" value="2" />
             <parameter name="format" value="table" />
+            <parameter name="ci-format" value="github" />
         </bootstrap>
     </extensions>
 </phpunit>

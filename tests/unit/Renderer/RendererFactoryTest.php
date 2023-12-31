@@ -31,8 +31,15 @@ final class RendererFactoryTest extends TestCase
 {
     public function testFactoryThrowsExceptionOnInvalidRenderer(): void
     {
+        $knownFormats = array_keys(RendererFactory::SUPPORTED_RENDERERS);
+        $lastFormat = array_pop($knownFormats);
+
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid format "listed" given. Expected one of "github", "list", and "table".');
+        $this->expectExceptionMessage(sprintf(
+            'Invalid format "listed" given. Expected one of "%s%s".',
+            implode('", "', $knownFormats),
+            '", and "'.$lastFormat,
+        ));
 
         RendererFactory::from('listed', Precision::fromInt(2), ReportCount::from(10), new Color(true), new DurationFormatter());
     }
