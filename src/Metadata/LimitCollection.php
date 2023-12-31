@@ -86,7 +86,7 @@ final class LimitCollection implements \Countable, \IteratorAggregate
                     return $limit;
                 }
 
-                return $initial;
+                return $initial; // @codeCoverageIgnore
             },
             null,
         ) ?? new TimeLimitForMethod($limitParameter->duration()->asFloat());

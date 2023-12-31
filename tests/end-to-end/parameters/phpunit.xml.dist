@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="../../../vendor/autoload.php"
+         colors="true"
+         executionOrder="random"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         cacheDirectory="../../../build/phpunit/cache"
+         columns="max"
+         requireCoverageMetadata="true"
+>
+  <testsuites>
+    <testsuite name="end-to-end">
+      <directory suffix=".phpt">tests/end-to-end/parameters</directory>
+    </testsuite>
+  </testsuites>
+
+  <extensions>
+    <bootstrap class="Nexus\PHPUnit\Tachycardia\TachycardiaExtension">
+      <parameter name="time-limit" value="0.5" />
+      <parameter name="report-count" value="5" />
+      <parameter name="precision" value="2" />
+      <parameter name="format" value="table" />
+      <parameter name="ci-format" value="github" />
+    </bootstrap>
+  </extensions>
+</phpunit>

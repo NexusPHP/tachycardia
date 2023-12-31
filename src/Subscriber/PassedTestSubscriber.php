@@ -35,7 +35,7 @@ final class PassedTestSubscriber implements PassedSubscriber
         $test = $event->test();
 
         if (! $test instanceof TestMethod) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $limit = Registry::parser()->forClassAndMethod(

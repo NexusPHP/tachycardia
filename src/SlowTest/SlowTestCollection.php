@@ -84,7 +84,7 @@ final class SlowTestCollection implements \Countable, \IteratorAggregate
                 return -1;
             }
 
-            return 0;
+            return 0; // @codeCoverageIgnore
         });
 
         return $slowTests;

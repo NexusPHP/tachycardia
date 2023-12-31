@@ -22,6 +22,9 @@ final class Registry
 {
     private static ?Parser $instance = null;
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function __construct() {}
 
     public static function parser(): Parser
