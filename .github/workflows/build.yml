@@ -16,22 +16,29 @@ on:
 
 jobs:
   main:
-    name: Build [PHP ${{ matrix.php-version }}]
+    name: Build [PHP ${{ matrix.php-version }}][PHPUnit ${{ matrix.phpunit-version }}]
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
+        phpunit-version:
+          - '10.0.0'
         php-version:
           - '8.1'
           - '8.2'
           - '8.3'
+        include:
+          - phpunit-version: '11.0.x-dev'
+            php-version: '8.2'
+          - phpunit-version: '11.0.x-dev'
+            php-version: '8.3'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP
+      - name: Setup PHP ${{ matrix.php-version}}
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version}}
@@ -55,7 +62,7 @@ jobs:
         run: composer config --global github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
-        run: composer update --ansi
+        run: composer update --ansi --with-all-dependencies
 
       - name: Run PHP-CS-Fixer
         run: vendor/bin/php-cs-fixer check --ansi --verbose --diff
@@ -63,8 +70,19 @@ jobs:
       - name: Run PHPStan Static Analysis Check
         run: vendor/bin/phpstan analyse --ansi
 
-      - name: Run Nexus Tachycardia Test Suite
+      - name: Tests on PHPUnit 10
+        if: matrix.phpunit-version == '10.0.0'
         run: vendor/bin/phpunit --color=always
+        env:
+          TACHYCARDIA_MONITOR_GA: enabled
+
+      - name: Tests on PHPUnit 11.x
+        if: matrix.phpunit-version == '11.0.x-dev'
+        run: |
+          composer remove friendsofphp/php-cs-fixer nexusphp/cs-config --dev --ansi --update-with-all-dependencies
+          composer require phpunit/phpunit:${{ matrix.phpunit-version }} --ansi --update-with-all-dependencies
+          composer update --ansi --with-all-dependencies
+          vendor/bin/phpunit --color=always
         env:
           TACHYCARDIA_MONITOR_GA: enabled
 
@@ -75,7 +93,7 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_PARALLEL: true
-          COVERALLS_FLAG_NAME: PHP ${{ matrix.php-version }}
+          COVERALLS_FLAG_NAME: PHP ${{ matrix.php-version }} - PHPUnit ${{ matrix.phpunit-version }}
 
   coveralls-finish:
     name: Coveralls Finished
