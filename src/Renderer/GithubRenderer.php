@@ -14,13 +14,14 @@ declare(strict_types=1);
 namespace Nexus\PHPUnit\Tachycardia\Renderer;
 
 use Nexus\PHPUnit\Tachycardia\Parameter\Precision;
-use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Telemetry\Info;
 
 final class GithubRenderer implements CiRenderer
 {
+    use CreatesMessage;
+
     /**
      * @var array<string, string>
      *
@@ -69,18 +70,6 @@ final class GithubRenderer implements CiRenderer
         }
 
         return $buffer;
-    }
-
-    private function createMessage(SlowTest $slowTest): string
-    {
-        $precision = $this->precision->asInt();
-
-        return sprintf(
-            "Took %.{$precision}fs from %.{$precision}fs limit to run %s",
-            $slowTest->testTime()->asFloat(),
-            $slowTest->limit()->asFloat(),
-            addslashes($slowTest->test()->id()),
-        );
     }
 
     /**
