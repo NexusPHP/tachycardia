@@ -11,28 +11,26 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Tachycardia\Subscriber;
+namespace Nexus\PHPUnit\Tachycardia\Subscriber\Test;
 
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use Nexus\PHPUnit\Tachycardia\Stopwatch;
-use PHPUnit\Event\Code\TestMethod;
-use PHPUnit\Event\Test\Prepared;
-use PHPUnit\Event\Test\PreparedSubscriber;
+use PHPUnit\Event;
 
 /**
  * @internal
  */
-final class PreparedTestSubscriber implements PreparedSubscriber
+final class PreparedSubscriber implements Event\Test\PreparedSubscriber
 {
     public function __construct(
         private readonly Stopwatch $stopwatch,
     ) {}
 
-    public function notify(Prepared $event): void
+    public function notify(Event\Test\Prepared $event): void
     {
         $test = $event->test();
 
-        if (! $test instanceof TestMethod) {
+        if (! $test instanceof Event\Code\TestMethod) {
             return; // @codeCoverageIgnore
         }
 

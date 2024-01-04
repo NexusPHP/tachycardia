@@ -20,9 +20,6 @@ use Nexus\PHPUnit\Tachycardia\Parameter\ReportCount;
 use Nexus\PHPUnit\Tachycardia\Renderer\RendererFactory;
 use Nexus\PHPUnit\Tachycardia\Renderer\RendererQueue;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
-use Nexus\PHPUnit\Tachycardia\Subscriber\PassedTestSubscriber;
-use Nexus\PHPUnit\Tachycardia\Subscriber\PreparedTestSubscriber;
-use Nexus\PHPUnit\Tachycardia\Subscriber\RunnerExecutionFinishedSubscriber;
 use PHPUnit\Runner\Extension\Extension;
 use PHPUnit\Runner\Extension\Facade;
 use PHPUnit\Runner\Extension\ParameterCollection;
@@ -81,14 +78,17 @@ final class TachycardiaExtension implements Extension
         $collection = new SlowTestCollection();
 
         $facade->registerSubscribers(
-            new PreparedTestSubscriber($stopwatch),
-            new PassedTestSubscriber($collection, $stopwatch, $limit),
-            new RunnerExecutionFinishedSubscriber($collection, new RendererQueue(
-                RendererFactory::from($format, $precision, $count, $color, $durationFormatter),
-                RendererFactory::from($ciFormat, $precision, $count, $color, $durationFormatter),
-                $monitor,
-                $monitorForGa,
-            )),
+            new Subscriber\Test\PreparedSubscriber($stopwatch),
+            new Subscriber\Test\PassedSubscriber($collection, $stopwatch, $limit),
+            new Subscriber\TestRunner\ExecutionFinishedSubscriber(
+                $collection,
+                new RendererQueue(
+                    RendererFactory::from($format, $precision, $count, $color, $durationFormatter),
+                    RendererFactory::from($ciFormat, $precision, $count, $color, $durationFormatter),
+                    $monitor,
+                    $monitorForGa,
+                ),
+            ),
         );
     }
 }

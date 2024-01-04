@@ -11,30 +11,28 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Tachycardia\Subscriber;
+namespace Nexus\PHPUnit\Tachycardia\Subscriber\Test;
 
 use Nexus\PHPUnit\Tachycardia\Metadata\Parser\Registry;
-use Nexus\PHPUnit\Tachycardia\Parameter\Limit as ParameterLimit;
+use Nexus\PHPUnit\Tachycardia\Parameter\Limit as LimitParameter;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use Nexus\PHPUnit\Tachycardia\Stopwatch;
-use PHPUnit\Event\Code\TestMethod;
-use PHPUnit\Event\Test\Passed;
-use PHPUnit\Event\Test\PassedSubscriber;
+use PHPUnit\Event;
 
-final class PassedTestSubscriber implements PassedSubscriber
+final class PassedSubscriber implements Event\Test\PassedSubscriber
 {
     public function __construct(
         private readonly SlowTestCollection $collection,
         private readonly Stopwatch $stopwatch,
-        private readonly ParameterLimit $defaultTimeLimit,
+        private readonly LimitParameter $defaultTimeLimit,
     ) {}
 
-    public function notify(Passed $event): void
+    public function notify(Event\Test\Passed $event): void
     {
         $test = $event->test();
-        \assert($test instanceof TestMethod);
+        \assert($test instanceof Event\Code\TestMethod);
 
         $limit = Registry::parser()->forClassAndMethod(
             $test->className(),

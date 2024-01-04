@@ -11,24 +11,23 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Nexus\PHPUnit\Tachycardia\Subscriber;
+namespace Nexus\PHPUnit\Tachycardia\Subscriber\TestRunner;
 
 use Nexus\PHPUnit\Tachycardia\Renderer\Renderer;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
-use PHPUnit\Event\TestRunner\ExecutionFinished;
-use PHPUnit\Event\TestRunner\ExecutionFinishedSubscriber;
+use PHPUnit\Event;
 
 /**
  * @internal
  */
-final class RunnerExecutionFinishedSubscriber implements ExecutionFinishedSubscriber
+final class ExecutionFinishedSubscriber implements Event\TestRunner\ExecutionFinishedSubscriber
 {
     public function __construct(
         private readonly SlowTestCollection $collection,
         private readonly Renderer $renderer,
     ) {}
 
-    public function notify(ExecutionFinished $event): void
+    public function notify(Event\TestRunner\ExecutionFinished $event): void
     {
         $render = $this->renderer->render($this->collection, $event->telemetryInfo());
 
