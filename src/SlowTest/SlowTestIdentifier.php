@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Tachycardia\SlowTest;
 
+use PHPUnit\Event\Code\Phpt;
 use PHPUnit\Event\Code\Test;
+use PHPUnit\Event\Code\TestMethod;
 
 /**
  * Identifier for a slow test.
@@ -36,6 +38,28 @@ final class SlowTestIdentifier
         private readonly string $file,
         private readonly int $line,
     ) {}
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    public static function fromTest(Test $test): self
+    {
+        if ($test instanceof TestMethod) {
+            return self::from($test->id(), $test->file(), $test->line());
+        }
+
+        // @codeCoverageIgnoreStart
+        if ($test instanceof Phpt) {
+            return self::from($test->id(), $test->file());
+        }
+
+        throw new \InvalidArgumentException(sprintf(
+            'Unsupported instance of %s given: %s.',
+            Test::class,
+            $test::class,
+        ));
+        // @codeCoverageIgnoreEnd
+    }
 
     /**
      * @throws \InvalidArgumentException

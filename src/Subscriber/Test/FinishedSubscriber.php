@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Tachycardia\Subscriber\Test;
 
+use Nexus\PHPUnit\Tachycardia\Metadata\Limit;
+use Nexus\PHPUnit\Tachycardia\Metadata\NoTimeLimitForMethod;
 use Nexus\PHPUnit\Tachycardia\Metadata\Parser\Registry;
+use Nexus\PHPUnit\Tachycardia\Metadata\TimeLimitForMethod;
 use Nexus\PHPUnit\Tachycardia\Parameter\Limit as LimitParameter;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
@@ -32,21 +35,13 @@ final class FinishedSubscriber implements Event\Test\FinishedSubscriber
     public function notify(Event\Test\Finished $event): void
     {
         $test = $event->test();
-
-        if (! $test instanceof Event\Code\TestMethod) {
-            return; // @codeCoverageIgnore
-        }
-
-        $limit = Registry::parser()->forClassAndMethod(
-            $test->className(),
-            $test->methodName(),
-        )->reduce($this->defaultTimeLimit);
+        $limit = $this->determineTimeLimit($test);
 
         if (! $limit->hasTimeLimit()) {
             return;
         }
 
-        $identifier = SlowTestIdentifier::from($test->id(), $test->file(), $test->line());
+        $identifier = SlowTestIdentifier::fromTest($test);
         $duration = $this->stopwatch->stop($identifier, $event->telemetryInfo()->time());
 
         if ($duration->isLessThan($limit->getTimeLimit())) {
@@ -58,5 +53,23 @@ final class FinishedSubscriber implements Event\Test\FinishedSubscriber
             $duration,
             $limit->getTimeLimit(),
         ));
+    }
+
+    private function determineTimeLimit(Event\Code\Test $test): Limit
+    {
+        if ($test instanceof Event\Code\TestMethod) {
+            return Registry::parser()->forClassAndMethod(
+                $test->className(),
+                $test->methodName(),
+            )->reduce($this->defaultTimeLimit);
+        }
+
+        // @codeCoverageIgnoreStart
+        if ($test instanceof Event\Code\Phpt) {
+            return new TimeLimitForMethod($this->defaultTimeLimit->duration()->asFloat());
+        }
+
+        return new NoTimeLimitForMethod();
+        // @codeCoverageIgnoreEnd
     }
 }

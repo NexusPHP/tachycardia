@@ -28,14 +28,8 @@ final class PreparedSubscriber implements Event\Test\PreparedSubscriber
 
     public function notify(Event\Test\Prepared $event): void
     {
-        $test = $event->test();
-
-        if (! $test instanceof Event\Code\TestMethod) {
-            return; // @codeCoverageIgnore
-        }
-
         $this->stopwatch->start(
-            SlowTestIdentifier::from($test->id(), $test->file(), $test->line()),
+            SlowTestIdentifier::fromTest($event->test()),
             $event->telemetryInfo()->time(),
         );
     }
