@@ -17,10 +17,9 @@ use Nexus\PHPUnit\Tachycardia\Parameter\Precision;
 use Nexus\PHPUnit\Tachycardia\Renderer\GitlabRenderer;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
-use PHPUnit\Event\Code\Test;
+use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use PHPUnit\Event\Telemetry\Duration;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -77,14 +76,10 @@ final class GitlabRendererTest extends TestCase
 
     private function createMockSlowTest(string $id): SlowTest
     {
-        /** @var Stub&Test $test */
-        $test = self::createStub(Test::class);
-        $test->method('id')->willReturn($id);
-        $test->method('file')->willReturn(__FILE__);
-
+        $identifier = SlowTestIdentifier::from($id, __FILE__);
         $testTime = Duration::fromSecondsAndNanoseconds(2, 500);
         $limit = Duration::fromSecondsAndNanoseconds(1, 0);
 
-        return new SlowTest($test, $testTime, $limit);
+        return new SlowTest($identifier, $testTime, $limit);
     }
 }

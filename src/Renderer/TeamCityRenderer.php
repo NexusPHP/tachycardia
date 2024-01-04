@@ -15,7 +15,6 @@ namespace Nexus\PHPUnit\Tachycardia\Renderer;
 
 use Nexus\PHPUnit\Tachycardia\Parameter\Precision;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
-use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Telemetry\Info;
 
 /**
@@ -62,13 +61,13 @@ final class TeamCityRenderer implements CiRenderer
         ]);
 
         foreach ($collection as $slowTest) {
-            $test = $slowTest->test();
+            $test = $slowTest->identifier();
 
             $buffer .= $this->createTeamcityLine('inspection', [
                 'typeId' => 'tachycardia',
                 'message' => $this->createMessage($slowTest),
-                'file' => str_replace((string) getcwd(), '', $test->file()),
-                'line' => $test instanceof TestMethod ? $test->line() : 1,
+                'file' => $test->file(),
+                'line' => $test->line(),
                 'SEVERITY' => 'WARNING',
             ]);
         }

@@ -26,14 +26,14 @@ use PHPUnit\Event\Telemetry\Duration;
 final class SlowTest
 {
     public function __construct(
-        private readonly Test $test,
+        private readonly SlowTestIdentifier $identifier,
         private readonly Duration $testTime,
         private readonly Duration $limit,
     ) {}
 
-    public function test(): Test
+    public function identifier(): SlowTestIdentifier
     {
-        return $this->test;
+        return $this->identifier;
     }
 
     public function testTime(): Duration

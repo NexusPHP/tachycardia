@@ -17,6 +17,7 @@ use Nexus\PHPUnit\Tachycardia\Metadata\Parser\Registry;
 use Nexus\PHPUnit\Tachycardia\Parameter\Limit as ParameterLimit;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
+use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use Nexus\PHPUnit\Tachycardia\Stopwatch;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Test\Passed;
@@ -33,10 +34,7 @@ final class PassedTestSubscriber implements PassedSubscriber
     public function notify(Passed $event): void
     {
         $test = $event->test();
-
-        if (! $test instanceof TestMethod) {
-            return; // @codeCoverageIgnore
-        }
+        \assert($test instanceof TestMethod);
 
         $limit = Registry::parser()->forClassAndMethod(
             $test->className(),
@@ -47,16 +45,17 @@ final class PassedTestSubscriber implements PassedSubscriber
             return;
         }
 
-        $duration = $this->stopwatch->stop($test, $event->telemetryInfo()->time());
+        $identifier = SlowTestIdentifier::from($test->id(), $test->file(), $test->line());
+        $duration = $this->stopwatch->stop($identifier, $event->telemetryInfo()->time());
 
         if ($duration->isLessThan($limit->getTimeLimit())) {
             return;
         }
 
         $this->collection->push(new SlowTest(
-            test: $test,
-            testTime: $duration,
-            limit: $limit->getTimeLimit(),
+            $identifier,
+            $duration,
+            $limit->getTimeLimit(),
         ));
     }
 }

@@ -29,7 +29,7 @@ final class ConsoleTableRenderer extends AbstractConsoleRenderer
         $max = ['id' => \strlen('Test Case'), 'time' => \strlen('Time Consumed'), 'limit' => \strlen('Time Limit')];
 
         foreach ($slowTests as $slowTest) {
-            $id = addslashes($slowTest->test()->id());
+            $id = addslashes($slowTest->identifier()->id());
             $time = $this->durationFormatter()->format($slowTest->testTime(), $precision);
             $limit = $this->durationFormatter()->format($slowTest->limit(), $precision);
 

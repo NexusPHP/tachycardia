@@ -13,11 +13,10 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Tachycardia\Tests;
 
+use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use Nexus\PHPUnit\Tachycardia\Stopwatch;
-use PHPUnit\Event\Code\Test;
 use PHPUnit\Event\Telemetry\HRTime;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,13 +30,8 @@ final class StopwatchTest extends TestCase
         $start = HRTime::fromSecondsAndNanoseconds(1, 99_805_612);
         $end = HRTime::fromSecondsAndNanoseconds(2, 100_000_000);
 
-        /** @var MockObject&Test $test */
-        $test = $this->createMock(Test::class);
-        $test->method('id')->willReturn('Test::bar');
-
-        /** @var MockObject&Test $otherTest */
-        $otherTest = $this->createMock(Test::class);
-        $otherTest->method('id')->willReturn('Test::baz');
+        $test = SlowTestIdentifier::from('Test::bar', __FILE__);
+        $otherTest = SlowTestIdentifier::from('Test::baz', __FILE__);
 
         $stopwatch = new Stopwatch();
         $stopwatch->start($test, $start);

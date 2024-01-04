@@ -16,14 +16,13 @@ namespace Nexus\PHPUnit\Tachycardia\Tests\Renderer;
 use Nexus\PHPUnit\Tachycardia\Renderer\AbstractConsoleRenderer;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
-use PHPUnit\Event\Code\Test;
+use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use PHPUnit\Event\Telemetry\Duration;
 use PHPUnit\Event\Telemetry\Info;
 use PHPUnit\Event\Telemetry\Php81GarbageCollectorStatusProvider;
 use PHPUnit\Event\Telemetry\System;
 use PHPUnit\Event\Telemetry\SystemMemoryMeter;
 use PHPUnit\Event\Telemetry\SystemStopWatch;
-use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractConsoleRendererTestCase extends TestCase
@@ -51,14 +50,11 @@ abstract class AbstractConsoleRendererTestCase extends TestCase
 
     protected function createMockSlowTest(string $id, int $seconds): SlowTest
     {
-        /** @var Stub&Test $test */
-        $test = self::createStub(Test::class);
-        $test->method('id')->willReturn($id);
-
+        $identifier = SlowTestIdentifier::from($id, __FILE__);
         $testTime = Duration::fromSecondsAndNanoseconds($seconds, 0);
         $limit = Duration::fromSecondsAndNanoseconds(1, 0);
 
-        return new SlowTest($test, $testTime, $limit);
+        return new SlowTest($identifier, $testTime, $limit);
     }
 
     protected function createTelemetryInfo(): Info

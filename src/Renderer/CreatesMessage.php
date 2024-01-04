@@ -29,7 +29,7 @@ trait CreatesMessage
             "Took %.{$precision}fs from %.{$precision}fs limit to run %s",
             $slowTest->testTime()->asFloat(),
             $slowTest->limit()->asFloat(),
-            addslashes($slowTest->test()->id()),
+            addslashes($slowTest->identifier()->id()),
         );
     }
 }

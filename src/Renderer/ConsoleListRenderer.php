@@ -34,7 +34,7 @@ final class ConsoleListRenderer extends AbstractConsoleRenderer
                 $this->color()->colorize("\xE2\x9A\xA0", 'fg-yellow'),
                 $this->color()->colorize(sprintf("%.{$precision}fs", $slowTest->testTime()->asFloat()), 'fg-yellow'),
                 $this->color()->colorize(sprintf("%.{$precision}fs", $slowTest->limit()->asFloat()), 'fg-yellow'),
-                $this->color()->colorize(addslashes($slowTest->test()->id()), 'fg-green'),
+                $this->color()->colorize(addslashes($slowTest->identifier()->id()), 'fg-green'),
             );
         }
 

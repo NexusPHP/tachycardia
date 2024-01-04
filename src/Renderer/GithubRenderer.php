@@ -15,7 +15,6 @@ namespace Nexus\PHPUnit\Tachycardia\Renderer;
 
 use Nexus\PHPUnit\Tachycardia\Parameter\Precision;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
-use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Telemetry\Info;
 
 final class GithubRenderer implements CiRenderer
@@ -60,12 +59,12 @@ final class GithubRenderer implements CiRenderer
         $buffer = '';
 
         foreach ($collection as $slowTest) {
-            $test = $slowTest->test();
+            $test = $slowTest->identifier();
 
             $buffer .= $this->warning(
                 $this->createMessage($slowTest),
-                str_replace((string) getcwd(), '', $test->file()),
-                $test instanceof TestMethod ? $test->line() : 1,
+                $test->file(),
+                $test->line(),
             );
         }
 

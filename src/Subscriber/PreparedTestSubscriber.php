@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Tachycardia\Subscriber;
 
+use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use Nexus\PHPUnit\Tachycardia\Stopwatch;
+use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Test\Prepared;
 use PHPUnit\Event\Test\PreparedSubscriber;
 
@@ -28,6 +30,15 @@ final class PreparedTestSubscriber implements PreparedSubscriber
 
     public function notify(Prepared $event): void
     {
-        $this->stopwatch->start($event->test(), $event->telemetryInfo()->time());
+        $test = $event->test();
+
+        if (! $test instanceof TestMethod) {
+            return; // @codeCoverageIgnore
+        }
+
+        $this->stopwatch->start(
+            SlowTestIdentifier::from($test->id(), $test->file(), $test->line()),
+            $event->telemetryInfo()->time(),
+        );
     }
 }

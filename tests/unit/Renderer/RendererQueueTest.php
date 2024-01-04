@@ -18,7 +18,7 @@ use Nexus\PHPUnit\Tachycardia\Renderer\Renderer;
 use Nexus\PHPUnit\Tachycardia\Renderer\RendererQueue;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
-use PHPUnit\Event\Code\Test;
+use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use PHPUnit\Event\Telemetry\Duration;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -90,13 +90,10 @@ final class RendererQueueTest extends TestCase
 
     private function createMockSlowTest(): SlowTest
     {
-        /** @var Stub&Test $test */
-        $test = self::createStub(Test::class);
-        $test->method('id')->willReturn(uniqid());
-
+        $identifier = SlowTestIdentifier::from('Foo::bar', __FILE__);
         $testTime = Duration::fromSecondsAndNanoseconds(mt_rand(1, 10), mt_rand(500, 1_000));
         $limit = Duration::fromSecondsAndNanoseconds(1, 0);
 
-        return new SlowTest($test, $testTime, $limit);
+        return new SlowTest($identifier, $testTime, $limit);
     }
 }

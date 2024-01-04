@@ -15,7 +15,6 @@ namespace Nexus\PHPUnit\Tachycardia\Renderer;
 
 use Nexus\PHPUnit\Tachycardia\Parameter\Precision;
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestCollection;
-use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Telemetry\Info;
 
 /**
@@ -39,7 +38,7 @@ final class GitlabRenderer implements CiRenderer
         $buffer = [];
 
         foreach ($collection as $slowTest) {
-            $test = $slowTest->test();
+            $test = $slowTest->identifier();
             $message = $this->createMessage($slowTest);
 
             $buffer[] = [
@@ -47,9 +46,9 @@ final class GitlabRenderer implements CiRenderer
                 'fingerprint' => hash('sha256', $message),
                 'severity' => 'minor',
                 'location' => [
-                    'path' => str_replace((string) getcwd(), '', $test->file()),
+                    'path' => $test->file(),
                     'lines' => [
-                        'begin' => $test instanceof TestMethod ? $test->line() : 1,
+                        'begin' => $test->line(),
                     ],
                 ],
             ];

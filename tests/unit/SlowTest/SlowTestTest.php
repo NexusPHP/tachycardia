@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Nexus\PHPUnit\Tachycardia\Tests\SlowTest;
 
 use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTest;
-use PHPUnit\Event\Code\Test;
+use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use PHPUnit\Event\Telemetry\Duration;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -27,12 +27,12 @@ final class SlowTestTest extends TestCase
 {
     public function testSlowTestAsValueObject(): void
     {
-        $test = $this->createMock(Test::class);
+        $identifier = SlowTestIdentifier::from('Foo::bar', __FILE__);
         $testTime = Duration::fromSecondsAndNanoseconds(2, 350);
         $limit = Duration::fromSecondsAndNanoseconds(1, 0);
 
-        $slowTest = new SlowTest($test, $testTime, $limit);
-        self::assertSame($test, $slowTest->test());
+        $slowTest = new SlowTest($identifier, $testTime, $limit);
+        self::assertSame($identifier, $slowTest->identifier());
         self::assertSame($testTime, $slowTest->testTime());
         self::assertSame($limit, $slowTest->limit());
     }

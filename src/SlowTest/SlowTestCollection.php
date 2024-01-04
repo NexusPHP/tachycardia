@@ -30,7 +30,7 @@ final class SlowTestCollection implements \Countable, \IteratorAggregate
      */
     public function push(SlowTest $slowTest): void
     {
-        $id = $slowTest->test()->id();
+        $id = $slowTest->identifier()->id();
 
         if (isset($this->slowTests[$id])) {
             $prev = $this->slowTests[$id];

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Nexus\PHPUnit\Tachycardia;
 
-use PHPUnit\Event\Code\Test;
+use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use PHPUnit\Event\Telemetry\Duration;
 use PHPUnit\Event\Telemetry\HRTime;
 
@@ -27,14 +27,14 @@ final class Stopwatch
      */
     private array $testTimes = [];
 
-    public function start(Test $test, HRTime $startTime): void
+    public function start(SlowTestIdentifier $identifier, HRTime $startTime): void
     {
-        $this->testTimes[$test->id()] = $startTime;
+        $this->testTimes[$identifier->id()] = $startTime;
     }
 
-    public function stop(Test $test, HRTime $stopTime): Duration
+    public function stop(SlowTestIdentifier $identifier, HRTime $stopTime): Duration
     {
-        $testId = $test->id();
+        $testId = $identifier->id();
 
         if (\array_key_exists($testId, $this->testTimes)) {
             return $stopTime->duration($this->testTimes[$testId]);
