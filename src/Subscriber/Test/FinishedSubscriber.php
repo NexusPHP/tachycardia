@@ -21,7 +21,7 @@ use Nexus\PHPUnit\Tachycardia\SlowTest\SlowTestIdentifier;
 use Nexus\PHPUnit\Tachycardia\Stopwatch;
 use PHPUnit\Event;
 
-final class PassedSubscriber implements Event\Test\PassedSubscriber
+final class FinishedSubscriber implements Event\Test\FinishedSubscriber
 {
     public function __construct(
         private readonly SlowTestCollection $collection,
@@ -29,10 +29,13 @@ final class PassedSubscriber implements Event\Test\PassedSubscriber
         private readonly LimitParameter $defaultTimeLimit,
     ) {}
 
-    public function notify(Event\Test\Passed $event): void
+    public function notify(Event\Test\Finished $event): void
     {
         $test = $event->test();
-        \assert($test instanceof Event\Code\TestMethod);
+
+        if (! $test instanceof Event\Code\TestMethod) {
+            return; // @codeCoverageIgnore
+        }
 
         $limit = Registry::parser()->forClassAndMethod(
             $test->className(),

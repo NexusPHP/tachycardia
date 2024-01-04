@@ -79,7 +79,7 @@ final class TachycardiaExtension implements Extension
 
         $facade->registerSubscribers(
             new Subscriber\Test\PreparedSubscriber($stopwatch),
-            new Subscriber\Test\PassedSubscriber($collection, $stopwatch, $limit),
+            new Subscriber\Test\FinishedSubscriber($collection, $stopwatch, $limit),
             new Subscriber\TestRunner\ExecutionFinishedSubscriber(
                 $collection,
                 new RendererQueue(
