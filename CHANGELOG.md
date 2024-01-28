@@ -4,6 +4,27 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.2.0](https://github.com/NexusPHP/tachycardia/compare/v2.1.0...v2.2.0) - 2024-01-28
+
+### Added
+
+- Bump version constraints of dependencies
+- Run on PHP 8.3 for tests
+- Extract `CreatesMessage` trait
+- Add gitlab and teamcity renderers
+- Test on PHPUnit 11.0.x-dev
+- Bump actions/cache from 3 to 4 (#14)
+
+### Changed
+
+- Use github.ref_name for name
+- Increase coverage
+- Extract SlowTestIdentifier
+- Rename subscribers to align with PHPUnit
+- Collect all slow tests from all tests
+- Include PHPT in slow test profiling
+- Remove unneeded conditional returns
+
 ## [v2.1.0](https://github.com/NexusPHP/tachycardia/compare/v2.0.0...v2.1.0) - 2023-10-27
 
 ### Added
