@@ -23,8 +23,6 @@ final class DurationFormatter
     private const PHPUNIT_DURATION_PRECISION = 9;
 
     /**
-     * @phpstan-return ($precision is int<1, max> ? string : never)
-     *
      * @throws \InvalidArgumentException
      */
     public function format(Duration $duration, int $precision): string

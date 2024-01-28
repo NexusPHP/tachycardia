@@ -28,8 +28,6 @@ final class Precision
     ) {}
 
     /**
-     * @phpstan-return ($precision is int<1, max> ? self : never)
-     *
      * @throws \InvalidArgumentException
      */
     public static function fromInt(int $precision): self

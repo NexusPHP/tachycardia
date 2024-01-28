@@ -28,8 +28,6 @@ final class ReportCount
     ) {}
 
     /**
-     * @phpstan-return ($count is int<1, max> ? self : never)
-     *
      * @throws \InvalidArgumentException
      */
     public static function from(int $count): self
