@@ -27,16 +27,16 @@ final class RendererQueue implements Renderer
 
     public function render(SlowTestCollection $collection, ?Info $telemetryInfo = null): string
     {
-        $buffer = '';
+        $buffer = [];
 
         if ($this->monitor) {
-            $buffer = $this->configuredRender->render($collection, $telemetryInfo);
+            $buffer[] = $this->configuredRender->render($collection, $telemetryInfo);
         }
 
         if ($this->monitorForGa && $this->ciRenderer->runningInCi()) {
-            $buffer .= $this->ciRenderer->render($collection, $telemetryInfo);
+            $buffer[] = $this->ciRenderer->render($collection, $telemetryInfo);
         }
 
-        return $buffer;
+        return implode("\n", $buffer);
     }
 }

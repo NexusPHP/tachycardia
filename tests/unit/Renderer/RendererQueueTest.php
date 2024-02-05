@@ -33,7 +33,7 @@ final class RendererQueueTest extends TestCase
 {
     private const CONFIGURED_RENDERER_OUTPUT = "<configured-renderer-output>\n";
     private const CI_RENDERER_OUTPUT = "<ci-renderer-output>\n";
-    private const COMBINED_RENDERER_OUTPUT = self::CONFIGURED_RENDERER_OUTPUT.self::CI_RENDERER_OUTPUT;
+    private const COMBINED_RENDERER_OUTPUT = self::CONFIGURED_RENDERER_OUTPUT."\n".self::CI_RENDERER_OUTPUT;
 
     /**
      * @return iterable<string, array{0: bool, 1: bool, 2: bool, 3: string}>
