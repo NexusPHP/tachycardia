@@ -23,15 +23,15 @@ jobs:
       fail-fast: false
       matrix:
         phpunit-version:
-          - '10.0.0'
+          - '^10.5'
         php-version:
           - '8.1'
           - '8.2'
           - '8.3'
         include:
-          - phpunit-version: '11.0.x-dev'
+          - phpunit-version: '^11.0'
             php-version: '8.2'
-          - phpunit-version: '11.0.x-dev'
+          - phpunit-version: '^11.0'
             php-version: '8.3'
 
     steps:
@@ -70,17 +70,17 @@ jobs:
       - name: Run PHPStan Static Analysis Check
         run: vendor/bin/phpstan analyse --ansi
 
-      - name: Tests on PHPUnit 10
-        if: matrix.phpunit-version == '10.0.0'
-        run: vendor/bin/phpunit --color=always
+      - name: Tests on PHPUnit ^10.5
+        if: matrix.phpunit-version == '^10.5'
+        run: |
+          vendor/bin/phpunit --color=always
         env:
           TACHYCARDIA_MONITOR_GA: enabled
 
-      - name: Tests on PHPUnit 11.x
-        if: matrix.phpunit-version == '11.0.x-dev'
+      - name: Tests on PHPUnit ^11.0
+        if: matrix.phpunit-version == '^11.0'
         run: |
           composer remove friendsofphp/php-cs-fixer nexusphp/cs-config --dev --ansi --update-with-all-dependencies
-          composer require phpunit/phpunit:${{ matrix.phpunit-version }} --ansi --update-with-all-dependencies
           composer update --ansi --with-all-dependencies
           vendor/bin/phpunit --color=always
         env:
