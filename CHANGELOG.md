@@ -4,6 +4,17 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.3.0](https://github.com/NexusPHP/tachycardia/compare/v2.2.0...v2.3.0) - 2024-02-05
+
+### Added
+
+- Add support for PHPUnit v11
+
+### Fixed
+
+- Fix new line on CI output
+- Try `coverallsapp/github-action@v2` to fix Node 16 deprecation notice
+
 ## [v2.2.0](https://github.com/NexusPHP/tachycardia/compare/v2.1.0...v2.2.0) - 2024-01-28
 
 ### Added
