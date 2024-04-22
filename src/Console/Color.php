@@ -74,7 +74,10 @@ final class Color
             return $message;
         }
 
-        $colors = array_filter(array_map(trim(...), explode(',', $color)));
+        $colors = array_filter(
+            array_map(trim(...), explode(',', $color)),
+            static fn(string $color): bool => '' !== $color,
+        );
 
         $setCodes = [];
         $unsetCodes = [];
