@@ -20,8 +20,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-#[TimeLimit(2.0)]
 #[CoversNothing]
+#[TimeLimit(2.0)]
 final class AttributesTest extends TestCase
 {
     /**

@@ -24,10 +24,10 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-#[TimeLimit(1.0)]
 #[CoversClass(Registry::class)]
 #[CoversClass(LimitCollection::class)]
 #[CoversClass(LimitCollectionIterator::class)]
+#[TimeLimit(1.0)]
 final class RegistryTest extends TestCase
 {
     protected function setUp(): void

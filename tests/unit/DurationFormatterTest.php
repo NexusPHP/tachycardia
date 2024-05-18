@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-#[NoTimeLimit]
 #[CoversClass(DurationFormatter::class)]
+#[NoTimeLimit]
 final class DurationFormatterTest extends TestCase
 {
-    #[NoTimeLimit]
     #[DataProvider('provideFormattingOfDurationCases')]
+    #[NoTimeLimit]
     public function testFormattingOfDuration(Duration $duration, int $precision, string $expectedFormat): void
     {
         self::assertSame($expectedFormat, (new DurationFormatter())->format($duration, $precision));

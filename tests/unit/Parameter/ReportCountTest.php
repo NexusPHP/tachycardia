@@ -22,8 +22,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-#[TimeLimit(1.50)]
 #[CoversClass(ReportCount::class)]
+#[TimeLimit(1.50)]
 final class ReportCountTest extends TestCase
 {
     #[TimeLimit(0.75)]
