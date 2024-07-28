@@ -107,11 +107,11 @@ final class Color
             return $message;
         }
 
-        return $this->optimizeColor(sprintf(
+        return $this->optimizeColor(\sprintf(
             '%s%s%s',
-            sprintf("\033[%sm", implode(';', $setCodes)),
+            \sprintf("\033[%sm", implode(';', $setCodes)),
             $message,
-            sprintf("\033[%sm", implode(';', $unsetCodes)),
+            \sprintf("\033[%sm", implode(';', $unsetCodes)),
         ));
     }
 

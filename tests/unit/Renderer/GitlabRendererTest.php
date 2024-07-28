@@ -39,10 +39,10 @@ final class GitlabRendererTest extends TestCase
     {
         $renderer = new GitlabRenderer(Precision::fromInt(4));
         $id = uniqid();
-        $message = sprintf('Took 2.0000s from 1.0000s limit to run %s', $id);
+        $message = \sprintf('Took 2.0000s from 1.0000s limit to run %s', $id);
 
         self::assertSame(
-            sprintf(
+            \sprintf(
                 <<<'GITLAB'
                     [
                         {

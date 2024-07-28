@@ -25,7 +25,7 @@ trait CreatesMessage
     {
         $precision = $this->precision->asInt();
 
-        return sprintf(
+        return \sprintf(
             "Took %.{$precision}fs from %.{$precision}fs limit to run %s",
             $slowTest->testTime()->asFloat(),
             $slowTest->limit()->asFloat(),

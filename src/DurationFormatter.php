@@ -41,7 +41,7 @@ final class DurationFormatter
 
         return preg_replace_callback(
             '/^(\d{2}\:\d{2}\:)(\d{2}\.\d{9})$/',
-            static fn(array $matches): string => $matches[1].sprintf("%0{$chars}.{$precision}f", $matches[2]),
+            static fn(array $matches): string => $matches[1].\sprintf("%0{$chars}.{$precision}f", $matches[2]),
             $durationAsString,
         ) ?? $durationAsString;
     }

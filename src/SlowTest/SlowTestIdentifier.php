@@ -53,7 +53,7 @@ final class SlowTestIdentifier
             return self::from($test->id(), $test->file());
         }
 
-        throw new \InvalidArgumentException(sprintf(
+        throw new \InvalidArgumentException(\sprintf(
             'Unsupported instance of %s given: %s.',
             Test::class,
             $test::class,

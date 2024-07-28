@@ -41,7 +41,7 @@ final class GithubRendererTest extends TestCase
         $id = uniqid();
 
         self::assertSame(
-            sprintf(
+            \sprintf(
                 "::warning file=%s,line=1,col=0::Took 2.0000s from 1.0000s limit to run %s\n",
                 str_replace((string) getcwd(), '', __FILE__),
                 $id,

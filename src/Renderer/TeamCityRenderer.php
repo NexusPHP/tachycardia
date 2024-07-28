@@ -85,7 +85,7 @@ final class TeamCityRenderer implements CiRenderer
         $string = '##teamcity['.$messageName;
 
         foreach ($keyValuePairs as $key => $value) {
-            $string .= sprintf(' %s=\'%s\'', $key, $this->escape((string) $value));
+            $string .= \sprintf(' %s=\'%s\'', $key, $this->escape((string) $value));
         }
 
         return $string."]\n";

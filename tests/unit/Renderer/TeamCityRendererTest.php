@@ -46,7 +46,7 @@ final class TeamCityRendererTest extends TestCase
         $id = uniqid();
 
         self::assertSame(
-            sprintf(
+            \sprintf(
                 <<<'TEAMCITY'
                     ##teamcity[inspectionType id='tachycardia' name='tachycardia' category='tachycardia' description='tachycardia Inspection']
                     ##teamcity[inspection typeId='tachycardia' message='Took 2.0000s from 1.0000s limit to run %s' file='%s' line='1' SEVERITY='WARNING']

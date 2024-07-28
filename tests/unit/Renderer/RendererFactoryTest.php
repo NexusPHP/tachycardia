@@ -35,7 +35,7 @@ final class RendererFactoryTest extends TestCase
         $lastFormat = array_pop($knownFormats);
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(\sprintf(
             'Invalid format "listed" given. Expected one of "%s%s".',
             implode('", "', $knownFormats),
             '", and "'.$lastFormat,

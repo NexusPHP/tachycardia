@@ -55,7 +55,7 @@ final class RendererFactory
             $knownFormats = array_keys(self::SUPPORTED_RENDERERS);
             $lastFormat = array_pop($knownFormats);
 
-            throw new \InvalidArgumentException(sprintf(
+            throw new \InvalidArgumentException(\sprintf(
                 'Invalid format "%s" given. Expected one of "%s%s".',
                 $format,
                 implode('", "', $knownFormats),

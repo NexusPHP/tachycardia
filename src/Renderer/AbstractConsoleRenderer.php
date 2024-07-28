@@ -101,11 +101,11 @@ abstract class AbstractConsoleRenderer implements ColorAwareRenderer, DurationFo
             return '';
         }
 
-        return sprintf(
+        return \sprintf(
             "\n\n%s identified %s %s:\n",
             $this->color()->colorize(TachycardiaExtension::class, 'fg-green'),
             1 === $slowCount ? 'this' : 'these',
-            $this->color()->colorize(sprintf(
+            $this->color()->colorize(\sprintf(
                 '%s slow %s',
                 1 === $slowCount ? 'sole' : $slowCount,
                 1 === $slowCount ? 'test' : 'tests',
@@ -124,7 +124,7 @@ abstract class AbstractConsoleRenderer implements ColorAwareRenderer, DurationFo
             $collection->asArray(),
         ));
 
-        $summary = sprintf(
+        $summary = \sprintf(
             "\nSlow tests: Time: %s (%.2f%%)",
             $this->formatDurationFromFloat($slowTestsTime),
             $slowTestsTime * 100 / $telemetryInfo->durationSinceStart()->asFloat(),
@@ -135,9 +135,9 @@ abstract class AbstractConsoleRenderer implements ColorAwareRenderer, DurationFo
             return $summary;
         }
 
-        return sprintf(
+        return \sprintf(
             "...and %s hidden from view.\n%s",
-            $this->color()->colorize(sprintf('%s more %s', $hiddenTests, 1 === $hiddenTests ? 'test' : 'tests'), 'fg-yellow'),
+            $this->color()->colorize(\sprintf('%s more %s', $hiddenTests, 1 === $hiddenTests ? 'test' : 'tests'), 'fg-yellow'),
             $summary,
         );
     }

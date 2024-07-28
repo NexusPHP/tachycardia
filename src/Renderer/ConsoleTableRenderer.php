@@ -55,7 +55,7 @@ final class ConsoleTableRenderer extends AbstractConsoleRenderer
         $table .= "\n";
         $body = $footer = $table;
 
-        $table .= sprintf(
+        $table .= \sprintf(
             "| %s | %s | %s |\n",
             $this->color()->colorize('Test Case', 'fg-green').str_repeat(' ', $max['id'] - \strlen('Test Case')),
             $this->color()->colorize('Time Consumed', 'fg-green').str_repeat(' ', $max['time'] - \strlen('Time Consumed')),
@@ -64,7 +64,7 @@ final class ConsoleTableRenderer extends AbstractConsoleRenderer
         $table .= $body;
 
         foreach ($slows as ['id' => $id, 'time' => $time, 'limit' => $limit]) {
-            $table .= sprintf("| %s | %s | %s |\n", $id, $time, $limit);
+            $table .= \sprintf("| %s | %s | %s |\n", $id, $time, $limit);
         }
 
         $table .= $footer;

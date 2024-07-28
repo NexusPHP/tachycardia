@@ -29,11 +29,11 @@ final class ConsoleListRenderer extends AbstractConsoleRenderer
         $precision = $this->precision->asInt();
 
         foreach ($slowTests as $slowTest) {
-            $buffer .= sprintf(
+            $buffer .= \sprintf(
                 "%s  Took %s from %s limit to run %s\n",
                 $this->color()->colorize("\xE2\x9A\xA0", 'fg-yellow'),
-                $this->color()->colorize(sprintf("%.{$precision}fs", $slowTest->testTime()->asFloat()), 'fg-yellow'),
-                $this->color()->colorize(sprintf("%.{$precision}fs", $slowTest->limit()->asFloat()), 'fg-yellow'),
+                $this->color()->colorize(\sprintf("%.{$precision}fs", $slowTest->testTime()->asFloat()), 'fg-yellow'),
+                $this->color()->colorize(\sprintf("%.{$precision}fs", $slowTest->limit()->asFloat()), 'fg-yellow'),
                 $this->color()->colorize(addslashes($slowTest->identifier()->id()), 'fg-green'),
             );
         }

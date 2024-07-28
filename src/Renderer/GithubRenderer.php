@@ -80,7 +80,7 @@ final class GithubRenderer implements CiRenderer
     {
         $message = strtr($message, self::ESCAPED_DATA);
 
-        return sprintf(
+        return \sprintf(
             "::warning file=%s,line=%d,col=%d::%s\n",
             strtr($file, self::ESCAPED_PROPERTIES),
             $line,
