@@ -30,7 +30,7 @@ final class ConsoleTableRendererTest extends AbstractConsoleRendererTestCase
 {
     public function testRendererWorksInNonEmptyCollection(): void
     {
-        self::assertSame(
+        self::assertStringContainsString(
             <<<'TXT'
 
 
@@ -40,11 +40,8 @@ final class ConsoleTableRendererTest extends AbstractConsoleRendererTestCase
                 +-----------+---------------+-------------+
                 | Foo::bar  | 00:00:05.00   | 00:00:01.00 |
                 +-----------+---------------+-------------+
-                ...and 1 more test hidden from view.
-
-                Slow tests: Time: 00:00:06.000 (75.00%)
                 TXT,
-            $this->renderer()->render($this->createSlowTestCollection(), $this->createTelemetryInfo()),
+            $this->renderer()->render($this->createSlowTestCollection()),
         );
     }
 

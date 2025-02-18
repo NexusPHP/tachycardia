@@ -18,20 +18,27 @@ use Nexus\PHPUnit\Tachycardia\Metadata\NoTimeLimitForClass;
 use Nexus\PHPUnit\Tachycardia\Metadata\NoTimeLimitForMethod;
 use Nexus\PHPUnit\Tachycardia\Metadata\TimeLimitForClass;
 use Nexus\PHPUnit\Tachycardia\Metadata\TimeLimitForMethod;
-use PHPUnit\Metadata\Annotation\Parser\Registry as AnnotationRegistry;
 
 /**
- * Inspired from https://github.com/sebastianbergmann/phpunit/blob/main/src/Metadata/Parser/AnnotationParser.php.
- *
  * @internal
  */
 final class AnnotationParser implements Parser
 {
+    /**
+     * @var array<class-string, array<non-empty-string, non-empty-list<string>>>
+     */
+    private array $classDocblocks = [];
+
+    /**
+     * @var array<class-string, array<non-empty-string, array<non-empty-string, non-empty-list<string>>>>
+     */
+    private array $methodDocblocks = [];
+
     public function forClass(string $className): LimitCollection
     {
         $limits = [];
 
-        foreach (AnnotationRegistry::getInstance()->forClassName($className)->symbolAnnotations() as $annotation => $values) {
+        foreach ($this->parseClassName($className) as $annotation => $values) {
             switch ($annotation) {
                 case 'noTimeLimit':
                     $limits[] = new NoTimeLimitForClass();
@@ -50,7 +57,7 @@ final class AnnotationParser implements Parser
     {
         $limits = [];
 
-        foreach (AnnotationRegistry::getInstance()->forMethod($className, $methodName)->symbolAnnotations() as $annotation => $values) {
+        foreach ($this->parseMethodName($className, $methodName) as $annotation => $values) {
             switch ($annotation) {
                 case 'noTimeLimit':
                     $limits[] = new NoTimeLimitForMethod();
@@ -68,5 +75,69 @@ final class AnnotationParser implements Parser
     public function forClassAndMethod(string $className, string $methodName): LimitCollection
     {
         return $this->forClass($className)->mergeWith($this->forMethod($className, $methodName));
+    }
+
+    /**
+     * @param class-string $class
+     *
+     * @return array<non-empty-string, non-empty-list<string>>
+     */
+    private function parseClassName(string $class): array
+    {
+        if (\array_key_exists($class, $this->classDocblocks)) {
+            return $this->classDocblocks[$class];
+        }
+
+        $reflection = new \ReflectionClass($class);
+        $annotations = array_merge(
+            $this->parseDocComment((string) $reflection->getDocComment()),
+            ...array_map(
+                fn(\ReflectionClass $trait): array => $this->parseDocComment((string) $trait->getDocComment()),
+                $reflection->getTraits(),
+            ),
+        );
+
+        $this->classDocblocks[$class] = $annotations;
+
+        return $annotations;
+    }
+
+    /**
+     * @param class-string     $class
+     * @param non-empty-string $method
+     *
+     * @return array<non-empty-string, non-empty-list<string>>
+     */
+    private function parseMethodName(string $class, string $method): array
+    {
+        if (isset($this->methodDocblocks[$class][$method])) {
+            return $this->methodDocblocks[$class][$method];
+        }
+
+        $reflection = new \ReflectionMethod($class, $method);
+        $annotations = $this->parseDocComment((string) $reflection->getDocComment());
+
+        $this->methodDocblocks[$class][$method] = $annotations;
+
+        return $annotations;
+    }
+
+    /**
+     * @return array<non-empty-string, non-empty-list<string>>
+     */
+    private function parseDocComment(string $docComment): array
+    {
+        $docComment = substr($docComment, 3, -2);
+        $annotations = [];
+
+        if (preg_match_all('/@(?P<name>[A-Za-z_-]+)(?:[ \t]+(?P<value>.*?))?[ \t]*\r?$/m', $docComment, $matches) > 0) {
+            $numMatches = \count($matches[0]);
+
+            for ($i = 0; $i < $numMatches; ++$i) {
+                $annotations[$matches['name'][$i]][] = $matches['value'][$i];
+            }
+        }
+
+        return $annotations;
     }
 }
