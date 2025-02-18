@@ -4,6 +4,12 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.4.1](https://github.com/NexusPHP/tachycardia/compare/v2.4.0...v2.4.1) - 2025-02-18
+
+### Fixed
+
+- Call array_values on reflection class' traits
+
 ## [v2.4.0](https://github.com/NexusPHP/tachycardia/compare/v2.3.0...v2.4.0) - 2025-02-18
 
 ### Added
