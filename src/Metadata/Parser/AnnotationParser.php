@@ -93,7 +93,7 @@ final class AnnotationParser implements Parser
             $this->parseDocComment((string) $reflection->getDocComment()),
             ...array_map(
                 fn(\ReflectionClass $trait): array => $this->parseDocComment((string) $trait->getDocComment()),
-                $reflection->getTraits(),
+                array_values($reflection->getTraits()),
             ),
         );
 
