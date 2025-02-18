@@ -4,6 +4,20 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.4.0](https://github.com/NexusPHP/tachycardia/compare/v2.3.0...v2.4.0) - 2025-02-18
+
+### Added
+
+- Allow phpunit ^12
+- Use 2 spaces for YML indentation
+- Bump to phpstan 2.0
+
+### Fixed
+
+- Fix CS
+- Fix order of attributes
+- Fix phpstan `array_filter` issue
+
 ## [v2.3.0](https://github.com/NexusPHP/tachycardia/compare/v2.2.0...v2.3.0) - 2024-02-05
 
 ### Added
