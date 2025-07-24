@@ -4,6 +4,15 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.4.2](https://github.com/NexusPHP/tachycardia/compare/v2.4.1...v2.4.2) - 2025-07-25
+
+### Fixed
+
+- Fix code style issues
+- Fix phpstan
+- Bump to phpstan level 10
+- Fix workflows
+
 ## [v2.4.1](https://github.com/NexusPHP/tachycardia/compare/v2.4.0...v2.4.1) - 2025-02-18
 
 ### Fixed
