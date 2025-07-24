@@ -5,10 +5,13 @@ on:
     tags:
       - '**'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Create a release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
