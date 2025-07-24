@@ -38,7 +38,7 @@ final class SlowTestCollectionTest extends TestCase
     public function testCollectionIsNotEmptyWhenPushed(): void
     {
         $collection = new SlowTestCollection();
-        $slowTest = $this->createMockSlowTest();
+        $slowTest = self::createMockSlowTest();
 
         $collection->push($slowTest);
         self::assertFalse($collection->isEmpty());
@@ -48,11 +48,11 @@ final class SlowTestCollectionTest extends TestCase
     {
         $collection = new SlowTestCollection();
 
-        $slowTest1 = $this->createMockSlowTest();
+        $slowTest1 = self::createMockSlowTest();
         $collection->push($slowTest1);
         self::assertCount(1, $collection);
 
-        $slowTest2 = $this->createMockSlowTest();
+        $slowTest2 = self::createMockSlowTest();
         $collection->push($slowTest2);
         self::assertCount(2, $collection);
 
@@ -88,10 +88,10 @@ final class SlowTestCollectionTest extends TestCase
     public function testCollectionAsArraySortsSlowTestsFromHighestToLowest(): void
     {
         $collection = new SlowTestCollection();
-        $slowTest1 = $this->createMockSlowTest();
-        $slowTest2 = $this->createMockSlowTest();
-        $slowTest3 = $this->createMockSlowTest();
-        $slowTest4 = $this->createMockSlowTest();
+        $slowTest1 = self::createMockSlowTest();
+        $slowTest2 = self::createMockSlowTest();
+        $slowTest3 = self::createMockSlowTest();
+        $slowTest4 = self::createMockSlowTest();
 
         $collection->push($slowTest1);
         $collection->push($slowTest2);
@@ -113,7 +113,7 @@ final class SlowTestCollectionTest extends TestCase
     public function testIteratingOfCollection(): void
     {
         $collection = new SlowTestCollection();
-        $slowTest1 = $this->createMockSlowTest();
+        $slowTest1 = self::createMockSlowTest();
 
         $collection->push($slowTest1);
 
@@ -123,7 +123,7 @@ final class SlowTestCollectionTest extends TestCase
         }
     }
 
-    private function createMockSlowTest(): SlowTest
+    private static function createMockSlowTest(): SlowTest
     {
         $identifier = SlowTestIdentifier::from(uniqid(), __FILE__);
         $testTime = Duration::fromSecondsAndNanoseconds(mt_rand(1, 10), mt_rand(500, 1_000));

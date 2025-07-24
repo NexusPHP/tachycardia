@@ -31,10 +31,16 @@ final class ColorTest extends TestCase
         self::assertSame('message', $color->colorize('message', 'fg-green'));
     }
 
+    #[DataProvider('provideColorizeCases')]
+    public function testColorize(string $message, string $color, string $expected): void
+    {
+        self::assertSame($expected, (new Color(true))->colorize($message, $color));
+    }
+
     /**
      * @return iterable<string, list<string>>
      */
-    public static function provideColoredMessageCases(): iterable
+    public static function provideColorizeCases(): iterable
     {
         yield 'no message' => ['', 'fg-green', ''];
 
@@ -51,11 +57,5 @@ final class ColorTest extends TestCase
         yield 'invalid color' => ['message', 'fg-foo', 'message'];
 
         yield 'invalid and valid colors' => ['message', 'fg-foo,bg-blue', "\033[44mmessage\033[49m"];
-    }
-
-    #[DataProvider('provideColoredMessageCases')]
-    public function testColorize(string $message, string $color, string $expected): void
-    {
-        self::assertSame($expected, (new Color(true))->colorize($message, $color));
     }
 }

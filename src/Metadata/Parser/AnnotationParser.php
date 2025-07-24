@@ -90,9 +90,9 @@ final class AnnotationParser implements Parser
 
         $reflection = new \ReflectionClass($class);
         $annotations = array_merge(
-            $this->parseDocComment((string) $reflection->getDocComment()),
+            self::parseDocComment((string) $reflection->getDocComment()),
             ...array_map(
-                fn(\ReflectionClass $trait): array => $this->parseDocComment((string) $trait->getDocComment()),
+                static fn(\ReflectionClass $trait): array => self::parseDocComment((string) $trait->getDocComment()),
                 array_values($reflection->getTraits()),
             ),
         );
@@ -115,7 +115,7 @@ final class AnnotationParser implements Parser
         }
 
         $reflection = new \ReflectionMethod($class, $method);
-        $annotations = $this->parseDocComment((string) $reflection->getDocComment());
+        $annotations = self::parseDocComment((string) $reflection->getDocComment());
 
         $this->methodDocblocks[$class][$method] = $annotations;
 
@@ -125,7 +125,7 @@ final class AnnotationParser implements Parser
     /**
      * @return array<non-empty-string, non-empty-list<string>>
      */
-    private function parseDocComment(string $docComment): array
+    private static function parseDocComment(string $docComment): array
     {
         $docComment = substr($docComment, 3, -2);
         $annotations = [];

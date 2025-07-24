@@ -46,19 +46,19 @@ final class GithubRendererTest extends TestCase
                 str_replace((string) getcwd(), '', __FILE__),
                 $id,
             ),
-            $renderer->render($this->createSlowTestCollection($id)),
+            $renderer->render(self::createSlowTestCollection($id)),
         );
     }
 
-    private function createSlowTestCollection(string $id): SlowTestCollection
+    private static function createSlowTestCollection(string $id): SlowTestCollection
     {
         $collection = new SlowTestCollection();
-        $collection->push($this->createMockSlowTest($id));
+        $collection->push(self::createMockSlowTest($id));
 
         return $collection;
     }
 
-    private function createMockSlowTest(string $id): SlowTest
+    private static function createMockSlowTest(string $id): SlowTest
     {
         $identifier = SlowTestIdentifier::from($id, __FILE__);
         $testTime = Duration::fromSecondsAndNanoseconds(2, 500);

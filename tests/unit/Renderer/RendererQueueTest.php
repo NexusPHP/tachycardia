@@ -35,10 +35,18 @@ final class RendererQueueTest extends TestCase
     private const CI_RENDERER_OUTPUT = "<ci-renderer-output>\n";
     private const COMBINED_RENDERER_OUTPUT = self::CONFIGURED_RENDERER_OUTPUT."\n".self::CI_RENDERER_OUTPUT;
 
+    #[DataProvider('provideQueueInDifferentSituationsCases')]
+    public function testQueueInDifferentSituations(bool $runningInCi, bool $monitor, bool $monitorForGa, string $expected): void
+    {
+        $queue = new RendererQueue(self::createConfiguredRenderer(), self::createCiRenderer($runningInCi), $monitor, $monitorForGa);
+
+        self::assertSame($expected, $queue->render(self::createSlowTestCollection()));
+    }
+
     /**
      * @return iterable<string, array{0: bool, 1: bool, 2: bool, 3: string}>
      */
-    public static function provideQueueInDifferentSituationCases(): iterable
+    public static function provideQueueInDifferentSituationsCases(): iterable
     {
         yield 'not monitor and ci' => [false, false, false, ''];
 
@@ -51,15 +59,7 @@ final class RendererQueueTest extends TestCase
         yield 'normal env' => [true, true, true, self::COMBINED_RENDERER_OUTPUT];
     }
 
-    #[DataProvider('provideQueueInDifferentSituationCases')]
-    public function testQueueInDifferentSituations(bool $runningInCi, bool $monitor, bool $monitorForGa, string $expected): void
-    {
-        $queue = new RendererQueue($this->createConfiguredRenderer(), $this->createCiRenderer($runningInCi), $monitor, $monitorForGa);
-
-        self::assertSame($expected, $queue->render($this->createSlowTestCollection()));
-    }
-
-    private function createConfiguredRenderer(): Renderer&Stub
+    private static function createConfiguredRenderer(): Renderer&Stub
     {
         /** @var Renderer&Stub $configuredRenderer */
         $configuredRenderer = self::createStub(Renderer::class);
@@ -68,7 +68,7 @@ final class RendererQueueTest extends TestCase
         return $configuredRenderer;
     }
 
-    private function createCiRenderer(bool $runningInCi): CiRenderer&Stub
+    private static function createCiRenderer(bool $runningInCi): CiRenderer&Stub
     {
         /** @var CiRenderer&Stub $ciRenderer */
         $ciRenderer = self::createStub(CiRenderer::class);
@@ -78,17 +78,17 @@ final class RendererQueueTest extends TestCase
         return $ciRenderer;
     }
 
-    private function createSlowTestCollection(): SlowTestCollection
+    private static function createSlowTestCollection(): SlowTestCollection
     {
         $collection = new SlowTestCollection();
-        $collection->push($this->createMockSlowTest());
-        $collection->push($this->createMockSlowTest());
-        $collection->push($this->createMockSlowTest());
+        $collection->push(self::createMockSlowTest());
+        $collection->push(self::createMockSlowTest());
+        $collection->push(self::createMockSlowTest());
 
         return $collection;
     }
 
-    private function createMockSlowTest(): SlowTest
+    private static function createMockSlowTest(): SlowTest
     {
         $identifier = SlowTestIdentifier::from('Foo::bar', __FILE__);
         $testTime = Duration::fromSecondsAndNanoseconds(mt_rand(1, 10), mt_rand(500, 1_000));

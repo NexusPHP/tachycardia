@@ -53,7 +53,7 @@ final class TeamCityRenderer implements CiRenderer
             return '';
         }
 
-        $buffer = $this->createTeamcityLine('inspectionType', [
+        $buffer = self::createTeamcityLine('inspectionType', [
             'id' => 'tachycardia',
             'name' => 'tachycardia',
             'category' => 'tachycardia',
@@ -63,7 +63,7 @@ final class TeamCityRenderer implements CiRenderer
         foreach ($collection as $slowTest) {
             $test = $slowTest->identifier();
 
-            $buffer .= $this->createTeamcityLine('inspection', [
+            $buffer .= self::createTeamcityLine('inspection', [
                 'typeId' => 'tachycardia',
                 'message' => $this->createMessage($slowTest),
                 'file' => $test->file(),
@@ -80,18 +80,18 @@ final class TeamCityRenderer implements CiRenderer
      *
      * @param array<string, int|string> $keyValuePairs The key=>value pairs
      */
-    private function createTeamcityLine(string $messageName, array $keyValuePairs): string
+    private static function createTeamcityLine(string $messageName, array $keyValuePairs): string
     {
         $string = '##teamcity['.$messageName;
 
         foreach ($keyValuePairs as $key => $value) {
-            $string .= \sprintf(' %s=\'%s\'', $key, $this->escape((string) $value));
+            $string .= \sprintf(' %s=\'%s\'', $key, self::escape((string) $value));
         }
 
         return $string."]\n";
     }
 
-    private function escape(string $string): string
+    private static function escape(string $string): string
     {
         return strtr($string, self::ESCAPED_VALUES);
     }

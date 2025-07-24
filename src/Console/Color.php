@@ -107,7 +107,7 @@ final class Color
             return $message;
         }
 
-        return $this->optimizeColor(\sprintf(
+        return self::optimizeColor(\sprintf(
             '%s%s%s',
             \sprintf("\033[%sm", implode(';', $setCodes)),
             $message,
@@ -115,7 +115,7 @@ final class Color
         ));
     }
 
-    private function optimizeColor(string $buffer): string
+    private static function optimizeColor(string $buffer): string
     {
         return preg_replace(
             [

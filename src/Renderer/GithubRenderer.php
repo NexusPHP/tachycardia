@@ -61,7 +61,7 @@ final class GithubRenderer implements CiRenderer
         foreach ($collection as $slowTest) {
             $test = $slowTest->identifier();
 
-            $buffer .= $this->warning(
+            $buffer .= self::warning(
                 $this->createMessage($slowTest),
                 $test->file(),
                 $test->line(),
@@ -76,7 +76,7 @@ final class GithubRenderer implements CiRenderer
      *
      * @see https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-a-warning-message
      */
-    private function warning(string $message, string $file, int $line = 1, int $col = 0): string
+    private static function warning(string $message, string $file, int $line = 1, int $col = 0): string
     {
         $message = strtr($message, self::ESCAPED_DATA);
 
