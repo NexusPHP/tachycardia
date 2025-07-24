@@ -77,6 +77,8 @@ final class TachycardiaExtension implements Extension
         $durationFormatter = new DurationFormatter();
         $collection = new SlowTestCollection();
 
+        \assert(\array_key_exists($ciFormat, RendererFactory::SUPPORTED_CI_RENDERERS));
+
         $facade->registerSubscribers(
             new Subscriber\Test\PreparedSubscriber($stopwatch),
             new Subscriber\Test\FinishedSubscriber($collection, $stopwatch, $limit),

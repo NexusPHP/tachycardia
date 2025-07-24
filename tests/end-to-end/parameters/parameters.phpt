@@ -36,4 +36,4 @@ Slow tests: Time: %s (%f%%)
 
 Time: %s, Memory: %f MB
 
-OK (1 test, 1 assertion)
+OK (1 test, 0 assertions)

@@ -27,7 +27,7 @@ final class AnnotationsTest extends TestCase
      */
     public function testSlowTestUsesClassTimeLimit(): void
     {
+        $this->expectNotToPerformAssertions();
         usleep(1000000); // 1.0 second
-        $this->addToAssertionCount(1);
     }
 }

@@ -29,8 +29,8 @@ final class AttributesTest extends TestCase
      */
     public function testSlowTestUsesClassTimeLimit(): void
     {
+        $this->expectNotToPerformAssertions();
         usleep(2500000); // 2.5 seconds
-        $this->addToAssertionCount(1);
     }
 
     /**
@@ -39,7 +39,7 @@ final class AttributesTest extends TestCase
     #[TimeLimit(3.0)]
     public function testSlowTestUsesMethodTimeLimit(): void
     {
+        $this->expectNotToPerformAssertions();
         usleep(2500000); // 2.5 seconds
-        $this->addToAssertionCount(1);
     }
 }
