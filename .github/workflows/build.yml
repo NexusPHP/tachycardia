@@ -23,27 +23,27 @@ jobs:
       fail-fast: false
       matrix:
         phpunit-version:
-          - '^10.5'
+          - '^11.5'
         php-version:
-          - '8.1'
           - '8.2'
           - '8.3'
           - '8.4'
+          - '8.5'
         include:
-          - phpunit-version: '^11.0'
-            php-version: '8.2'
-          - phpunit-version: '^11.0'
+          - phpunit-version: '^12.5'
             php-version: '8.3'
-          - phpunit-version: '^11.0'
+          - phpunit-version: '^12.5'
             php-version: '8.4'
-          - phpunit-version: '^12.0'
-            php-version: '8.3'
-          - phpunit-version: '^12.2'
+          - phpunit-version: '^12.5'
+            php-version: '8.5'
+          - phpunit-version: '^13.0'
             php-version: '8.4'
+          - phpunit-version: '^13.0'
+            php-version: '8.5'
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup PHP ${{ matrix.php-version}}
         uses: shivammathur/setup-php@v2
@@ -57,7 +57,7 @@ jobs:
         run: echo "COMPOSER_CACHE_FILES_DIR=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.COMPOSER_CACHE_FILES_DIR }}
           key: composer-php_${{ matrix.php-version }}-phpunit_${{ matrix.phpunit-version }}-${{ hashFiles('**/composer.*') }}

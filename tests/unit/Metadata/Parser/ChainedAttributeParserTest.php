@@ -29,7 +29,7 @@ final class ChainedAttributeParserTest extends AbstractAttributeParserTestCase
     protected function parser(): Parser
     {
         /** @var MockObject&Parser $annotationParser */
-        $annotationParser = $this->createMock(Parser::class);
+        $annotationParser = self::createStub(Parser::class);
 
         $annotationParser->method('forClass')->willReturn(LimitCollection::fromArray([]));
         $annotationParser->method('forMethod')->willReturn(LimitCollection::fromArray([]));

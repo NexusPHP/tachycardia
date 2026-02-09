@@ -12,7 +12,7 @@ declare(strict_types=1);
  */
 
 use Nexus\CsConfig\Factory;
-use Nexus\CsConfig\Ruleset\Nexus81;
+use Nexus\CsConfig\Ruleset\Nexus82;
 use PhpCsFixer\Finder;
 
 $finder = Finder::create()
@@ -30,7 +30,7 @@ $options = [
     'cacheFile' => 'build/.php-cs-fixer.cache',
 ];
 
-return Factory::create(new Nexus81(), $overrides, $options)->forLibrary(
+return Factory::create(new Nexus82(), $overrides, $options)->forLibrary(
     'Nexus Tachycardia',
     'John Paul E. Balandan, CPA',
     'paulbalandan@gmail.com',
