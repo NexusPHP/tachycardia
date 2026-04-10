@@ -4,6 +4,15 @@ All notable changes to this library will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.4.3](https://github.com/NexusPHP/tachycardia/compare/v2.4.2...v2.4.3) - 2026-04-10
+
+### Changed
+
+- Bump actions/checkout from 4 to 5 (#15)
+- Update to PHP 8.2
+- Fix phpunit tests
+- Security harden the workflows
+
 ## [v2.4.2](https://github.com/NexusPHP/tachycardia/compare/v2.4.1...v2.4.2) - 2025-07-25
 
 ### Fixed
