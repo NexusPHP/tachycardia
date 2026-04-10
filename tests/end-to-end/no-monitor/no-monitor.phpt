@@ -10,6 +10,7 @@ putenv('TACHYCARDIA_MONITOR_GA=disabled');
 
 $_SERVER['argv'][] = 'tests/end-to-end/using-annotations/AnnotationsTest.php';
 $_SERVER['argv'][] = '--no-coverage';
+$_SERVER['argv'][] = '--colors=never';
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 (new PHPUnit\TextUI\Application)->run($_SERVER['argv']);

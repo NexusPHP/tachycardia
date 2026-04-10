@@ -10,6 +10,7 @@ putenv('GITHUB_ACTIONS');
 
 $_SERVER['argv'][] = 'tests/end-to-end/using-attributes/AttributesTest.php';
 $_SERVER['argv'][] = '--no-coverage';
+$_SERVER['argv'][] = '--colors=never';
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 (new PHPUnit\TextUI\Application)->run($_SERVER['argv']);

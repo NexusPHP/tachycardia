@@ -9,6 +9,7 @@ $old = getenv('GITHUB_ACTIONS');
 putenv('GITHUB_ACTIONS');
 
 $_SERVER['argv'][] = 'tests/end-to-end/parameters/AnnotationsTest.php';
+$_SERVER['argv'][] = '--colors=never';
 $_SERVER['argv'][] = '--configuration';
 $_SERVER['argv'][] = 'tests/end-to-end/parameters/phpunit.xml.dist';
 
