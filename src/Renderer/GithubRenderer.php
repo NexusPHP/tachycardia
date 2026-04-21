@@ -45,9 +45,7 @@ final class GithubRenderer implements CiRenderer
         ',' => '%2C',
     ];
 
-    public function __construct(
-        private readonly Precision $precision,
-    ) {}
+    public function __construct(private readonly Precision $precision) {}
 
     public function runningInCi(): bool
     {

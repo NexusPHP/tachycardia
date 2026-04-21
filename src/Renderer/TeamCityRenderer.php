@@ -38,9 +38,7 @@ final class TeamCityRenderer implements CiRenderer
         ']' => '|]',
     ];
 
-    public function __construct(
-        private readonly Precision $precision,
-    ) {}
+    public function __construct(private readonly Precision $precision) {}
 
     public function runningInCi(): bool
     {

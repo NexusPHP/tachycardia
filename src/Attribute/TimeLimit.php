@@ -19,9 +19,7 @@ namespace Nexus\PHPUnit\Tachycardia\Attribute;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 final class TimeLimit
 {
-    public function __construct(
-        private readonly float $seconds,
-    ) {}
+    public function __construct(private readonly float $seconds) {}
 
     public function seconds(): float
     {

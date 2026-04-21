@@ -22,9 +22,7 @@ use PHPUnit\Event;
  */
 final class PreparedSubscriber implements Event\Test\PreparedSubscriber
 {
-    public function __construct(
-        private readonly Stopwatch $stopwatch,
-    ) {}
+    public function __construct(private readonly Stopwatch $stopwatch) {}
 
     public function notify(Event\Test\Prepared $event): void
     {

@@ -22,10 +22,7 @@ use Nexus\PHPUnit\Tachycardia\Metadata\LimitCollection;
  */
 final class ParserChain implements Parser
 {
-    public function __construct(
-        private readonly Parser $attributeParser,
-        private readonly Parser $annotationParser,
-    ) {}
+    public function __construct(private readonly Parser $attributeParser, private readonly Parser $annotationParser) {}
 
     public function forClass(string $className): LimitCollection
     {

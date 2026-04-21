@@ -22,9 +22,7 @@ use PHPUnit\Event\Telemetry\Duration;
  */
 final class Limit
 {
-    private function __construct(
-        private readonly Duration $duration,
-    ) {}
+    private function __construct(private readonly Duration $duration) {}
 
     /**
      * @throws \InvalidArgumentException when $seconds is <= 0

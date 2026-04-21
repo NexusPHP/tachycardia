@@ -23,9 +23,7 @@ final class Precision
     /**
      * @param int<1, max> $precision
      */
-    private function __construct(
-        private readonly int $precision,
-    ) {}
+    private function __construct(private readonly int $precision) {}
 
     /**
      * @throws \InvalidArgumentException

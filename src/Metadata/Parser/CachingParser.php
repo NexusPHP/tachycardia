@@ -37,9 +37,7 @@ final class CachingParser implements Parser
      */
     private array $classAndMethodCache = [];
 
-    public function __construct(
-        private readonly Parser $reader,
-    ) {}
+    public function __construct(private readonly Parser $reader) {}
 
     public function forClass(string $className): LimitCollection
     {

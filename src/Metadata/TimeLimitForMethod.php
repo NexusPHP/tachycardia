@@ -21,9 +21,7 @@ use PHPUnit\Event\Telemetry\Duration;
  */
 final class TimeLimitForMethod implements Limit
 {
-    public function __construct(
-        private readonly float $seconds,
-    ) {}
+    public function __construct(private readonly float $seconds) {}
 
     public function hasTimeLimit(): bool
     {

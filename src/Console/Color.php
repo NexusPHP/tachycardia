@@ -64,9 +64,7 @@ final class Color
         'conceal' => ['set' => 8, 'unset' => 28],
     ];
 
-    public function __construct(
-        private readonly bool $decorated,
-    ) {}
+    public function __construct(private readonly bool $decorated) {}
 
     public function colorize(string $message, string $color): string
     {

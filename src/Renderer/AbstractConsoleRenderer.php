@@ -29,9 +29,7 @@ abstract class AbstractConsoleRenderer implements ColorAwareRenderer, DurationFo
     private ?DurationFormatter $durationFormatter = null;
     private ?ReportCount $reportCount = null;
 
-    final public function __construct(
-        protected readonly Precision $precision,
-    ) {}
+    final public function __construct(protected readonly Precision $precision) {}
 
     final public function setColor(Color $color): self
     {

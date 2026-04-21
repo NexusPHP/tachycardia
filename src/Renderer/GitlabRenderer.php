@@ -24,9 +24,7 @@ final class GitlabRenderer implements CiRenderer
 {
     use CreatesMessage;
 
-    public function __construct(
-        private readonly Precision $precision,
-    ) {}
+    public function __construct(private readonly Precision $precision) {}
 
     public function runningInCi(): bool
     {
@@ -54,6 +52,6 @@ final class GitlabRenderer implements CiRenderer
             ];
         }
 
-        return json_encode($buffer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
+        return json_encode($buffer, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR);
     }
 }

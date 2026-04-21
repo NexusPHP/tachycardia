@@ -23,9 +23,7 @@ final class ReportCount
     /**
      * @param int<1, max> $count
      */
-    private function __construct(
-        private readonly int $count,
-    ) {}
+    private function __construct(private readonly int $count) {}
 
     /**
      * @throws \InvalidArgumentException
