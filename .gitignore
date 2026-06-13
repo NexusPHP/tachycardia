@@ -3,6 +3,6 @@ build/
 vendor/
 composer.lock
 .php-cs-fixer.php
-*.neon
+phpstan.neon
 *.cache
 phpunit.xml
