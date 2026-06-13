@@ -19,3 +19,10 @@ parameters:
   checkMissingCallableSignature: true
   reportAlwaysTrueInLastCondition: true
   treatPhpDocTypesAsCertain: false
+  ignoreErrors:
+    -
+      identifier: method.deprecated
+      message: '#^Call to deprecated method expectExceptionMessage\(\) of class PHPUnit\\Framework\\TestCase#'
+      reportUnmatched: false
+      paths:
+        - tests
