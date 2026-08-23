@@ -22,7 +22,10 @@ use PHPUnit\Event;
  */
 final class ExecutionFinishedSubscriber implements Event\TestRunner\ExecutionFinishedSubscriber
 {
-    public function __construct(private readonly SlowTestCollection $collection, private readonly Renderer $renderer) {}
+    public function __construct(
+        private readonly SlowTestCollection $collection,
+        private readonly Renderer $renderer,
+    ) {}
 
     public function notify(Event\TestRunner\ExecutionFinished $event): void
     {
