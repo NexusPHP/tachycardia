@@ -91,7 +91,7 @@ jobs:
 
       - name: Upload code coverage to Coveralls
         if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2.3.7
+        uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         with:
           file: build/logs/clover.xml
           flag-name: PHP ${{ matrix.php-version }} - PHPUnit ${{ matrix.phpunit-version }}
@@ -107,7 +107,7 @@ jobs:
 
     steps:
       - name: Upload to Coveralls API
-        uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2.3.7
+        uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
